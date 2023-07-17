@@ -13,7 +13,7 @@ class Atividade(models.Model):
     dataInicio = models.DateField()
     dataFim = models.DateField()
     status = models.BooleanField()
-    prioridade = models.IntegerChoices(choices=CHOICES)
+    prioridade = models.IntegerField(choices=CHOICES) #Aqui é IntegerField
 
     def __str__(self):
         return self.nome
