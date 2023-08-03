@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "lista",
     "atividade",
-    "tarefa"
+    "tarefa",
     "usuarios"
 ]
 
