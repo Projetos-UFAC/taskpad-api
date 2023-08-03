@@ -1,10 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as loginDJ
+from django.contrib.auth.decorators import login_required
 # usando o modulo Auth do django 
 
-# Create your views here.
 
 def cadastro(request):
     if request.method == "GET":
@@ -39,8 +40,17 @@ def login(request):
         user = authenticate(username = username, password = senha)
 
         if user:
-            login(request, user) # logando no sistema
+            loginDJ(request, user) # logando no sistema
 
             return HttpResponse('Autenticado')
         else:
             return HttpResponse('Email ou senha invalidos')
+        
+
+# somente para testar ja que ainda não temos a aplicação, caso não esteja logado, ele redireciona para o login
+@login_required(login_url="/auth/login/")
+def aplicacao(request):
+    if request.user.is_authenticated:
+        return HttpResponse('Aplicação Web')
+    else:
+        return HttpResponse('Voce precisa estar logado')
