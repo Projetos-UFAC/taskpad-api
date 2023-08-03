@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "lista",
     "atividade",
     "tarefa"
+    "usuarios"
 ]
 
 MIDDLEWARE = [
