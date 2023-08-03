@@ -8,10 +8,12 @@
     <title>Cadastrar</title>
 </head>
 <body>
-    <div class="purple-footer col md 12">
-        <h1>CADASTRAR</h1>
-    </div>
-    <div><form action="{% url 'cadastro' %}" method="POST">{% csrf_token %}
+    <header class="bg-purple text-white text-center py-3">
+        <div class="col md 12">
+        <h1 class="text-danger">CADASTRAR</h1>
+        </div>
+    </header>
+    <div class="text-center"><form action="{% url 'cadastro' %}" method="POST">{% csrf_token %}
         <input type="text" placeholder="Username:" name="username">
         <br>
         <br>
