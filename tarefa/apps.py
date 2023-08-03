@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-class SubAtividadeConfig(AppConfig):
+class TarefaConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "subatividade"
+    name = "tarefa"
