@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as loginDJ
@@ -19,13 +20,14 @@ def cadastro(request):
         user = User.objects.filter(username = username).first()
 
         if user:
-            return HttpResponse('Já existe um usuário com esse username')
+            messages.info(request, 'Usuario ja cadastrado')
+            return redirect('cadastro')
         
         # criando usuario do database
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
 
-        return HttpResponse('Usuario cadastrado')
+        return redirect('login')
     
     
 
@@ -42,9 +44,10 @@ def login(request):
         if user:
             loginDJ(request, user) # logando no sistema
 
-            return HttpResponse('Autenticado')
+            return redirect('aplicacao')
         else:
-            return HttpResponse('Email ou senha invalidos')
+            messages.info(request, 'Usuario ou senha incorretos')
+            return redirect('login')
         
 
 # somente para testar ja que ainda não temos a aplicação, caso não esteja logado, ele redireciona para o login
