@@ -10,11 +10,11 @@
     
 </head>
 <body>
-    {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}">Logout</a>
-    {% endif %}
+    <div style="text-align: right;"> <a style=" margin: 10px;" href="{% url 'logout' %}" class="btn btn-primary">Logout</a> </div>
+    
+
     <div class="container d-flex justify-content-center align-items-center">
-        <h1 style="margin-top: 40px;">Eita!</h1>
+        <h1>Eita!</h1>
     </div>
     <div class="container d-flex justify-content-center align-items-center">
         <h1 style="display: block; font-size: 24px;">Ainda não construimos a aplicação meu mano.</h1>
@@ -22,7 +22,7 @@
     <div class="container d-flex justify-content-center align-items-center">
         <h1 style="display: block; font-size: 24px;">Mas você está autenticado!</h1>
     </div>
-    <div class="container d-flex justify-content-center align-items-center" style="height: 90vh;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 70vh;">
         <!-- Adicione a classe "container" para limitar o conteúdo e as classes de alinhamento do Bootstrap -->
         <img src="{% static 'usuarios/templates/em_construcao.png' %}" class="img-fluid" alt="Imagem" style='width: 80%; height: auto;'>
     </div>

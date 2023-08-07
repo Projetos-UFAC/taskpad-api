@@ -19,18 +19,23 @@
     <form class="text-center" action="{% url 'login' %}" method="POST">{% csrf_token %}
         <input class="form-login" type="text" placeholder="Username:" name="username">
         <input class="form-login" type="password" placeholder="Senha:" name="senha">
-        {% if messages %}
-        {% for m in messages %}
-            <div class="alert alert-danger" role="alert">
-              {{ m }}
-            </div>
-        {% endfor %}
-    {% endif %}
         <input class="botao-login" type="submit" value="Logar">
-        <a id="cadastro" href="http://127.0.0.1:8000/cadastro/">Cadastre-se</a>
+        <div class="text-center">
+            <p style="color: white;">Ou</p>
+            <a href="http://127.0.0.1:8000/cadastro/">Cadastre-se</a>
+        </div>
     </form>
     
 </div>
 </div>
+
+{% if messages %}
+        {% for m in messages %}
+            <div class="alert alert-danger popup-message" style="text-align: center;" role="alert">
+              {{ m }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
 </body>
 </html>

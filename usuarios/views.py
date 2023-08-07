@@ -5,8 +5,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as loginDJ
 from django.contrib.auth.decorators import login_required
-# usando o modulo Auth do django 
+import re
 
+
+def checkEmail(s): # validando email
+    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    if(re.search(regex, s)):  
+        return True
+    else:  
+        return False
 
 def cadastro(request):
     if request.method == "GET":
@@ -16,6 +23,14 @@ def cadastro(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
+        if len(senha) < 8 or len(senha) > 16:
+            messages.info(request, 'A senha deve conter de 8 a 16 caracteres')
+            return redirect('cadastro')
+        
+        if checkEmail(email) == False:
+            messages.info(request, 'E-mail inválido')
+            return redirect('cadastro')
+        
         # checando caso nome seja repetido
         user = User.objects.filter(username = username).first()
 
