@@ -1,7 +1,88 @@
 /*  */
 .purple-footer {
-    background-color: purple;
-    color: red;
+    background-color: #363636;
+    color: #BB86FC;
     text-align: center;
     padding: 10px;
+}
+
+.espaco {
+   
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(21, 21, 21);
+}
+
+.div-login {
+    max-width: 30%;
+    padding: 5px;
+    background-color: #363636;
+}
+
+.div-alinha {
+    align-content: center;
+}
+
+.container {
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    }
+
+.texto-login {
+    margin-top: 40px;
+    text-align: center;
+    color: white;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 700;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    width: 100%;
+}
+
+.box {
+    width: 300px;
+    height: 300px;
+    background-color: #363636;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+a#cadastro {
+    margin-top: 40px;
+}
+
+
+
+
+.form-login {
+    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: 0 0 0 30px #363636 inset;
+    background-color: #363636;
+    width: 80%;
+    border: white 1px solid;
+    margin-bottom: 20px;
+    border-radius: 2px;
+
+}
+.botao-login {
+    margin-bottom: 30px;
+    background-color: #BB86FC;
+    width: 80%;
 }
