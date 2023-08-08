@@ -1,73 +1,106 @@
-/*  */
-.purple-footer {
-    background-color: #363636;
-    color: #BB86FC;
-    text-align: center;
-    padding: 10px;
-}
-
-.espaco {
-   
-}
-
-body {
+/* Reset de Estilos */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+}
+
+/* Estilos da Página */
+body {
     background-color: rgb(21, 21, 21);
+    font-family: Arial, sans-serif;
+    color: white;
 }
 
-.div-login {
-    max-width: 30%;
+h1 {
+    font-size: 30px;
+}
+
+h2  {
+    font-size: 24px;
+    text-align: center;
+}
+
+a {
+    color: white;
+}
+
+.purple-footer {
+    background-color: #2F2F2F;
+    color: #BB86FC;
+    text-align: center;
     padding: 5px;
-    background-color: #363636;
 }
 
-.div-alinha {
-    align-content: center;
+.texto-login {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    font-size: 24px;
 }
 
 .container {
     width: 100vw;
-    height: 60vh;
+    height: 80vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    }
+}
 
-.texto-login {
-    margin-top: 40px;
-    text-align: center;
-    color: white;
-    justify-content: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: 700;
-    font-size: 24px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.div-login {
+    width: 400px;
+    height: fit-content;
+    padding: 20px;
+    background-color: #2F2F2F;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 form {
     width: 100%;
 }
 
-.box {
-    width: 300px;
-    height: 300px;
-    background-color: #363636;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    
+.form-login {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #363636;
+    background-color: transparent;
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
-a#cadastro {
-    margin-top: 40px;
+.botao-login {
+    margin-top: 10px;
+    background-color: #BB86FC;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
+.botao-login:hover {
+    background-color: #585858;
+    color: white;
+}
+
+.voltar {
+    padding-top: 10px;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    width: 100%;
+}
+
+.voltar:hover {
+    color: #BB86FC;
+}
 
 .popup-message {
     display: none;
@@ -80,22 +113,4 @@ a#cadastro {
     border: 1px solid red;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-}
-
-
-
-.form-login {
-    -webkit-text-fill-color: white !important;
-    -webkit-box-shadow: 0 0 0 30px #363636 inset;
-    background-color: #363636;
-    width: 80%;
-    border: white 1px solid;
-    margin-bottom: 20px;
-    border-radius: 2px;
-
-}
-.botao-login {
-    margin-bottom: 30px;
-    background-color: #BB86FC;
-    width: 80%;
 }
