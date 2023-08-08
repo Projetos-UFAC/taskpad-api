@@ -1,39 +1,49 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Cadastro</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'usuarios/templates/style.css' %}">
 </head>
-<body>
-    <div class="container mt-5">
-        <h2>Cadastro</h2>
-        <form action="{% url 'cadastro' %}" method="POST">{% csrf_token %}
-            {% if messages %}
-        {% for m in messages %}
-            <div class="alert alert-warning" role="alert">
-              {{ m }}
-            </div>
-        {% endfor %}
-    {% endif %}
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input name="username" type="text" class="form-control" id="nome" placeholder="Digite seu nome" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input name="email" type="email" class="form-control" id="email" placeholder="Digite seu email" required>
-            </div>
-            <div class="form-group">
-                <label for="senha">Senha:</label>
-                <input name="senha" type="password" class="form-control" id="senha" placeholder="Digite sua senha" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
-            
-        </form>
+
+<body class="body-bg">
+    <div class="purple-footer">
+        <h1>Taskpad</h1>
     </div>
 
-    
+    <div class="container">
+        <div class="div-login box text-center">
+            <h2>Cadastro</h2>
+            <form action="{% url 'cadastro' %}" method="POST" class="form-custom">
+                {% csrf_token %}
+                {% if messages %}
+                {% for m in messages %}
+                <div class="alert-custom alert-warning" role="alert">
+                    {{ m }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="form-group-custom">
+                    <input name="username" type="text" class="form-login" id="nome" placeholder="Digite seu nome"
+                        required>
+                </div>
+                <div class="form-group-custom">
+                    <input name="email" type="email" class="form-login" id="email" placeholder="Digite seu email"
+                        required>
+                </div>
+                <div class="form-group-custom">
+                    <input name="senha" type="password" class="form-login" id="senha" placeholder="Digite sua senha"
+                        required>
+                </div>
+                <button type="submit" class="botao-login">Cadastrar</button>
+            </form>
+            <a href="{% url 'login' %}" class="voltar">Voltar</a>
+        </div>
+    </div>
 </body>
+
 </html>
