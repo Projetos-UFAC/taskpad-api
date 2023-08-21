@@ -7,7 +7,6 @@ from django.contrib.auth import login as loginDJ
 from django.contrib.auth.decorators import login_required
 import re
 
-
 def checkEmail(s): # validando email
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if(re.search(regex, s)):  
@@ -73,3 +72,5 @@ def aplicacao(request):
         
     else:
         return HttpResponse('Voce precisa estar logado')
+    
+

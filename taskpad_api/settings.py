@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "lista",
     "atividade",
     "tarefa",
-    "usuarios"
+    "usuarios",
+    "home"
 ]
 
 MIDDLEWARE = [

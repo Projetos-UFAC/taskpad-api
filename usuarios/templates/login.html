@@ -29,6 +29,15 @@
         <p>Crie relatórios profissionais de forma rápida e fácil.</p>
     </div>
     <div class="container">
+
+    {% if messages %}
+    {% for m in messages %}
+    <div class="alert alert-danger popup-message" style="text-align: center;" role="alert">
+        {{ m }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
         <div class="div-login box">
             <form class="text-center" action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
@@ -40,13 +49,7 @@
             </form>
         </div>
     </div>
-    {% if messages %}
-    {% for m in messages %}
-    <div class="alert alert-danger popup-message" style="text-align: center;" role="alert">
-        {{ m }}
-    </div>
-    {% endfor %}
-    {% endif %}
+    
 </body>
 
 </html>

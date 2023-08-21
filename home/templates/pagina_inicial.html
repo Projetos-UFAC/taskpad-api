@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- cabeçalho e metadados -->
+</head>
+<body>
+    <div class="coluna-atividades">
+        <h2>Lista de Atividades</h2>
+        <ul>
+            {% for atividade in atividades %}
+                <li>{{ atividade.nome }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="editor-de-texto">
+        <!-- Editor de texto aqui -->
+    </div>
+    <!-- outros conteúdos da página -->
+</body>
+</html>
