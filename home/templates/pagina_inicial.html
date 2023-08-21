@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Adicione o link para o CSS do Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- cabeçalho e metadados -->
 </head>
 <body>
-    <div class="coluna-atividades">
-        <h2>Lista de Atividades</h2>
-        <ul>
-            {% for atividade in atividades %}
-                <li>{{ atividade.nome }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="editor-de-texto">
-        <!-- Editor de texto aqui -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Lista de Atividades</h2>
+                <div class="list-group">
+                    {% for atividade in atividades %}
+                        <a href="#" class="list-group-item list-group-item-action">{{ atividade.nome }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="editor-de-texto">
+                    <!-- Editor de texto aqui -->
+                </div>
+            </div>
+        </div>
     </div>
     <!-- outros conteúdos da página -->
 </body>

@@ -3,4 +3,4 @@ from atividade.models import Atividade
 
 def pagina_inicial(request):
     atividades = Atividade.objects.all()  # Buscar todas as atividades
-    return render(request, 'core/pagina_inicial.html', {'atividades': atividades})
+    return render(request, 'pagina_inicial.html', {'atividades': atividades})
