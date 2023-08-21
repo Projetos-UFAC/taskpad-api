@@ -14,6 +14,7 @@ class Lista(models.Model):
     dataFim = models.DateField()
     status = models.BooleanField()
     prioridade = models.IntegerField(choices=CHOICES) 
+    texto = models.TextField(default=' ')
     
     def __str__(self):
         return self.nome
