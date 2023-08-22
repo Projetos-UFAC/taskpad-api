@@ -58,19 +58,19 @@ def login(request):
         if user:
             loginDJ(request, user) # logando no sistema
 
-            return redirect('aplicacao')
+            return redirect('pagina_inicial') # Mandando pra pagina inicial
         else:
             messages.info(request, 'Usuario ou senha incorretos')
             return redirect('login')
         
 
 # somente para testar ja que ainda não temos a aplicação, caso não esteja logado, ele redireciona para o login
-@login_required(login_url="/auth/login/")
-def aplicacao(request):
-    if request.user.is_authenticated:
-        return render(request, 'aplicacaotemporaria.html')
+# @login_required(login_url="/auth/login/")
+# def aplicacao(request):
+#     if request.user.is_authenticated:
+#         return render(request, 'aplicacaotemporaria.html')
         
-    else:
-        return HttpResponse('Voce precisa estar logado')
+#     else:
+#         return HttpResponse('Voce precisa estar logado')
     
 

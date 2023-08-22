@@ -7,5 +7,5 @@ urlpatterns = [
     path('cadastro/', views.cadastro, name ='cadastro'),
     path('login/', views.login, name='login'),
     path('logout/', views_auth.LogoutView.as_view(), name='logout'), # para fazer logout
-    path('aplicacao/', views.aplicacao, name='aplicacao' )
+    #path('aplicacao/', views.aplicacao, name='aplicacao' )
     ]
