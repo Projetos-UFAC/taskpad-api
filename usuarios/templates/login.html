@@ -30,22 +30,23 @@
     </div>
     <div class="container">
 
-    {% if messages %}
-    {% for m in messages %}
-    <div class="alert alert-danger popup-message" style="text-align: center;" role="alert">
-        {{ m }}
-    </div>
-    {% endfor %}
-    {% endif %}
+    
 
         <div class="div-login box">
             <form class="text-center" action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
+                {% if messages %}
+                {% for m in messages %}
+                <div class="alert-custom alert-warning" role="alert">
+                    {{ m }}
+                </div>
+                {% endfor %}
+                {% endif %}
                 <input class="form-login" type="text" name="username" placeholder="Usuário">
                 <input class="form-login" type="password" name="senha" placeholder="Senha">
                 <input class="botao-login" type="submit" value="ENTRAR">
                 <hr>
-                <p class="text-center">OU <a href="http://127.0.0.1:8000/cadastro/">CADASTRE-SE</a></p>
+                <p class="text-center">OU <a href="http://127.0.0.1:8000/auth/cadastro/">CADASTRE-SE</a></p>
             </form>
         </div>
     </div>

@@ -9,9 +9,9 @@ from django.contrib import messages
 @login_required(login_url="/auth/login/")
 def pagina_inicial(request):
     if request.user.is_authenticated:
-        listas = Lista.objects.all()
-        atividades = Atividade.objects.all()
-        tarefas = Tarefa.objects.all()
+        listas = Lista.objects.filter(user=request.user) # pegando apenas do usuario logado
+        atividades = Atividade.objects.filter(user=request.user)
+        tarefas = Tarefa.objects.filter(user=request.user)
         
         return render(request, 'pagina_inicial.html', {'listas': listas, 'atividades': atividades, 'tarefas': tarefas})
     else:
