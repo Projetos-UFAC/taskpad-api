@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <!-- Modal para criar lista -->
+                <!-- Modal POP UP para criar lista -->
 <div class="modal fade" id="criarListaModal" tabindex="-1" aria-labelledby="criarListaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -40,7 +40,7 @@
                     <label for="nome">Nome da Lista:</label>
                     <input type="text" id="nome" name="nome" class="form-control" required>
                     <label for="descricao">Descrição:</label>
-                    <textarea id="descricao" name="descricao" class="form-control" required></textarea>
+                    <textarea id="descricao" name="descricao" class="form-control"></textarea>
                     <label for="dataInicio">Data de Início:</label>
                     <input type="date" id="dataInicio" name="dataInicio" class="form-control">
                     <label for="dataFim">Data de Término:</label>
@@ -57,8 +57,30 @@
         </div>
     </div>
 </div>
-<!-- -->
+<!-- fim do criar lista -->
                 
+
+<!-- Modal para criar atividade -->
+<div class="modal fade" id="criarAtividadeModal" tabindex="-1" aria-labelledby="criarAtividadeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="criarAtividadeModalLabel">Criar Nova Atividade</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário para criar atividade -->
+                <form method="POST" action="{% url 'criar_atividade' %}">
+                    {% csrf_token %}
+                    <!-- campos do formulário para criar atividade -->
+                    <button type="submit" class="btn btn-primary mt-3">Criar Atividade</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fim do criar atividade -->
+
                 <div class="list-group">
                     {% for lista in listas %}
                         <button class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
@@ -78,6 +100,9 @@
                                         </div>
                                     </div>
                                 {% endfor %}
+                                <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#criarAtividadeModal">
+                                    Criar Atividade
+                                </button>
                             </div>
                         </div>
                     {% endfor %}

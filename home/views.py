@@ -59,3 +59,32 @@ def criar_lista(request):
         return redirect('pagina_inicial')  # Redirecionar de volta à página inicial
 
     return render(request, 'criar_lista.html')  # Caso GET, renderizar o formulário
+
+
+
+def criar_atividade(request):
+    if request.method == "POST":
+        user = request.user
+        lista_id = request.POST.get('lista_id')  # Passe o ID da lista através do formulário
+        nome = request.POST.get('nome')
+        descricao = request.POST.get('descricao')
+        dataInicio = request.POST.get('dataInicio')
+        dataFim = request.POST.get('dataFim')
+        status = False  # Defina um valor padrão para o status
+        prioridade = request.POST.get('prioridade')
+
+        nova_atividade = Atividade(
+            user=user,
+            lista_id=lista_id,
+            nome=nome,
+            descricao=descricao,
+            dataInicio=dataInicio,
+            dataFim=dataFim,
+            status=status,
+            prioridade=prioridade
+        )
+        nova_atividade.save()
+
+        return redirect('pagina_inicial')  # Redirecionar para a página inicial após a criação da atividade
+
+    return render(request, 'criar_atividade.html')  # Caso GET, renderizar o formulário
