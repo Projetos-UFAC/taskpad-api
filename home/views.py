@@ -66,17 +66,31 @@ def criar_atividade(request):
     if request.method == "POST":
         user = request.user
         lista_id = request.POST.get('lista_id')  # Passe o ID da lista através do formulário
-        nome = request.POST.get('nome')
+        nome_atividade = request.POST.get('nome_atividade')
         descricao = request.POST.get('descricao')
         dataInicio = request.POST.get('dataInicio')
         dataFim = request.POST.get('dataFim')
         status = False  # Defina um valor padrão para o status
         prioridade = request.POST.get('prioridade')
 
+
+        # Converte status em um valor booleano
+        status = True if status == 'on' else False
+        
+        if dataInicio:
+            dataInicio = parse_date(dataInicio)
+        else:
+            dataInicio = None
+        
+        if dataFim:
+            dataFim = parse_date(dataFim)
+        else:
+            dataFim = None
+
         nova_atividade = Atividade(
             user=user,
             lista_id=lista_id,
-            nome=nome,
+            nome=nome_atividade,
             descricao=descricao,
             dataInicio=dataInicio,
             dataFim=dataFim,
@@ -88,3 +102,44 @@ def criar_atividade(request):
         return redirect('pagina_inicial')  # Redirecionar para a página inicial após a criação da atividade
 
     return render(request, 'criar_atividade.html')  # Caso GET, renderizar o formulário
+
+
+def criar_tarefa(request):
+    if request.method == "POST":
+        user = request.user
+        atividade_id = request.POST.get('atividade_id')  # Passe o ID da atividade através do formulário
+        nome_tarefa = request.POST.get('nome_tarefa')
+        descricao = request.POST.get('descricao')
+        dataInicio = request.POST.get('dataInicio')
+        dataFim = request.POST.get('dataFim')
+        status = False  # Defina um valor padrão para o status
+        prioridade = request.POST.get('prioridade')
+
+        # Converte status em um valor booleano
+        status = True if status == 'on' else False
+        
+        if dataInicio:
+            dataInicio = parse_date(dataInicio)
+        else:
+            dataInicio = None
+        
+        if dataFim:
+            dataFim = parse_date(dataFim)
+        else:
+            dataFim = None
+            
+        nova_tarefa = Tarefa(
+            user=user,
+            atividade_id=atividade_id,
+            nome=nome_tarefa,
+            descricao=descricao,
+            dataInicio=dataInicio,
+            dataFim=dataFim,
+            status=status,
+            prioridade=prioridade
+        )
+        nova_tarefa.save()
+
+        return redirect('pagina_inicial')  # Redirecionar para a página inicial após a criação da tarefa
+
+    return render(request, 'criar_tarefa.html')  # Caso GET, renderizar o formulário

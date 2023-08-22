@@ -17,7 +17,7 @@
             <div class="col-md-4">
                 <h2>Lista de Atividades</h2>
 
-                <div class="row"> <!-- bota criar lista -->
+                <div class="row"> <!-- botão criar lista -->
                     <div class="col-md-4">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#criarListaModal">
                         Criar Lista
@@ -72,14 +72,89 @@
                 <!-- Formulário para criar atividade -->
                 <form method="POST" action="{% url 'criar_atividade' %}">
                     {% csrf_token %}
-                    <!-- campos do formulário para criar atividade -->
+                    <input type="hidden" name="lista_id" id="lista_id" value="">
+                    <input type="hidden" name="user_id" value="{{ request.user.id }}">
+                    <div class="mb-3">
+                        <label for="nome_atividade" class="form-label">Nome da Atividade:</label>
+                        <input type="text" class="form-control" id="nome_atividade" name="nome_atividade" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataInicio" class="form-label">Data de Início:</label>
+                        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataFim" class="form-label">Data de Término:</label>
+                        <input type="date" class="form-control" id="dataFim" name="dataFim">
+                    </div>
+                    <div class="mb-3">
+                        <label for="prioridade" class="form-label">Prioridade:</label>
+                        <select class="form-select" id="prioridade" name="prioridade" required>
+                            <option value="1">Baixa</option>
+                            <option value="2">Média</option>
+                            <option value="3">Alta</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary mt-3">Criar Atividade</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!-- fim do criar atividade -->
+<!-- Fim do modal para criar atividade -->
+
+
+<!-- Modal para criar tarefa -->
+<div class="modal fade" id="criarTarefaModal" tabindex="-1" aria-labelledby="criarTarefaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="criarTarefaModalLabel">Criar Nova Tarefa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário para criar tarefa -->
+                <form method="POST" action="{% url 'criar_tarefa' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="atividade_id" id="atividade_id" value="">
+                    <input type="hidden" name="user_id" value="{{ request.user.id }}">
+                    <div class="mb-3">
+                        <label for="nome_tarefa" class="form-label">Nome da Tarefa:</label>
+                        <input type="text" class="form-control" id="nome_tarefa" name="nome_tarefa" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataInicio" class="form-label">Data de Início:</label>
+                        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataFim" class="form-label">Data de Término:</label>
+                        <input type="date" class="form-control" id="dataFim" name="dataFim">
+                    </div>
+                    <div class="mb-3">
+                        <label for="prioridade" class="form-label">Prioridade:</label>
+                        <select class="form-select" id="prioridade" name="prioridade" required>
+                            <option value="1">Baixa</option>
+                            <option value="2">Média</option>
+                            <option value="3">Alta</option>
+                        </select>
+                    </div>
+                    <!-- Adicione mais campos de acordo com o modelo de tarefa, se precisar :v -->
+                    <button type="submit" class="btn btn-primary mt-3">Criar Tarefa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fim do modal para criar tarefa -->
+
+
 
                 <div class="list-group">
                     {% for lista in listas %}
@@ -95,12 +170,17 @@
                                     <div id="atividade{{ atividade.id }}" class="collapse">
                                         <div class="list-group">
                                             {% for tarefa in atividade.tarefa_set.all %}
-                                                <button class="list-group-item list-group-item-action">{{ tarefa.nome }}</button>
+                                                <button class="list-group-item list-group-item-action">
+                                                    {{ tarefa.nome }}
+                                                </button>
                                             {% endfor %}
+                                            <button class="btn btn-primary btn-criar-tarefa" data-atividade-id="{{ atividade.id }}" data-bs-toggle="modal" data-bs-target="#criarTarefaModal">
+                                                Criar Tarefa
+                                            </button>
                                         </div>
                                     </div>
                                 {% endfor %}
-                                <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#criarAtividadeModal">
+                                <button class="btn btn-primary btn-criar-atividade" data-lista-id="{{ lista.id }}" data-bs-toggle="modal" data-bs-target="#criarAtividadeModal">
                                     Criar Atividade
                                 </button>
                             </div>
@@ -109,6 +189,35 @@
                 </div>
             </div>
             
+            <!-- script para capturar o ID da lista quando for criar atividade... foda -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const botoesCriarAtividade = document.querySelectorAll('.btn-criar-atividade');
+                    
+                    botoesCriarAtividade.forEach(function(botao) {
+                        botao.addEventListener('click', function() {
+                            const listaID = botao.getAttribute('data-lista-id');
+                            document.getElementById('lista_id').value = listaID;
+                        });
+                    });
+                });
+            </script>
+
+
+            <script>
+                // Captura o evento de clique no botão "Criar Tarefa"
+                document.querySelectorAll('.btn-criar-tarefa').forEach(function(button) {
+                    button.addEventListener('click', function(event) {
+                        // Obtém o ID da atividade associado ao botão clicado
+                        var atividadeId = button.getAttribute('data-atividade-id');
+                        
+                        // Preenche o campo oculto "atividade_id" no formulário do modal
+                        document.getElementById('atividade_id').value = atividadeId;
+                    });
+                });
+            </script>
+
+
             <div class="col-md-8">
                 <div class="editor-de-texto">
                     <!-- Editor de texto aqui -->
