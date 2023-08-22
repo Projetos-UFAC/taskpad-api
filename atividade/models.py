@@ -1,5 +1,6 @@
 from django.db import models
 from lista.models import Lista
+from django.contrib.auth.models import User
 
 class Atividade(models.Model):
 
@@ -9,6 +10,7 @@ class Atividade(models.Model):
         (3, 'Alta'),
     )
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     lista = models.ForeignKey(Lista, on_delete=models.CASCADE, default=1)  # Chave estrangeira para Lista
     nome = models.CharField(max_length=100)
     descricao = models.TextField()

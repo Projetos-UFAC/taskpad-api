@@ -11,8 +11,8 @@ from atividade.models import Atividade
 
 def criar_exemplos():
     # Criar uma lista de exemplo
-    lista_exemplo = Lista.objects.create(
-        nome='Minha Lista de Exemplo',
+    lista_exemplo2 = Lista.objects.create(
+        nome='Minha Lista de Exemplo 2',
         descricao='Esta é uma lista de exemplo',
         dataInicio='2023-08-21',
         dataFim='2023-08-31',
@@ -22,8 +22,8 @@ def criar_exemplos():
 
     # Criar atividades de exemplo associadas à lista
     atividade1 = Atividade.objects.create(
-        lista=lista_exemplo,
-        nome='Atividade 1',
+        lista=lista_exemplo2,
+        nome='Atividade 3',
         descricao='Esta é a atividade 1 de exemplo',
         dataInicio='2023-08-21',
         dataFim='2023-08-25',
@@ -33,8 +33,8 @@ def criar_exemplos():
     )
 
     atividade2 = Atividade.objects.create(
-        lista=lista_exemplo,
-        nome='Atividade 2',
+        lista=lista_exemplo2,
+        nome='Atividade 4',
         descricao='Esta é a atividade 2 de exemplo',
         dataInicio='2023-08-26',
         dataFim='2023-08-31',

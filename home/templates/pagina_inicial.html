@@ -9,54 +9,47 @@
     <!-- cabeçalho e metadados -->
 </head>
 <body>
-    <div class="coluna-atividades">
-        <h2>Lista de Atividades</h2>
-        <!-- Loop para listar as listas -->
-        {% for lista in listas %}
-            <button class="btn btn-primary" data-toggle="collapse" data-target="#lista{{ lista.id }}">
-                {{ lista.nome }}
-            </button>
-            <div id="lista{{ lista.id }}" class="collapse">
-                <!-- Loop para listar as atividades da lista -->
-                {% for atividade in atividades %}
-                    {% if atividade.lista == lista %}
-                        <button class="btn btn-secondary" data-toggle="collapse" data-target="#atividade{{ atividade.id }}">
-                            {{ atividade.nome }}
+    <!-- Div com um Logout -->
+    <div style="text-align: right;"> <a style=" margin: 10px;" href="{% url 'logout' %}" class="btn btn-primary">Logout</a> </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Lista de Atividades</h2>
+                <div class="list-group">
+                    {% for lista in listas %}
+                        <button class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
+                            {{ lista.nome }}
                         </button>
-                        <div id="atividade{{ atividade.id }}" class="collapse">
-                            <!-- Loop para listar as tarefas da atividade -->
-                            {% for tarefa in tarefas %}
-                                {% if tarefa.atividade == atividade %}
-                                    <button class="btn btn-info">{{ tarefa.nome }}</button>
-                                {% endif %}
-                            {% endfor %}
+                        <div id="lista{{ lista.id }}" class="collapse">
+                            <div class="list-group">
+                                {% for atividade in lista.atividade_set.all %}
+                                    <button class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
+                                        {{ atividade.nome }}
+                                    </button>
+                                    <div id="atividade{{ atividade.id }}" class="collapse">
+                                        <div class="list-group">
+                                            {% for tarefa in atividade.tarefa_set.all %}
+                                                <button class="list-group-item list-group-item-action">{{ tarefa.nome }}</button>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        {% endfor %}
-        <!-- Loop para listar todas as atividades sem considerar a lista -->
-        {% for atividade in atividades %}
-            <button class="btn btn-secondary" data-toggle="collapse" data-target="#atividade{{ atividade.id }}">
-                {{ atividade.nome }}
-            </button>
-            <div id="atividade{{ atividade.id }}" class="collapse">
-                <!-- Loop para listar as tarefas da atividade -->
-                {% for tarefa in tarefas %}
-                    {% if tarefa.atividade == atividade %}
-                        <button class="btn btn-info">{{ tarefa.nome }}</button>
-                    {% endif %}
-                {% endfor %}
+            
+            <div class="col-md-8">
+                <div class="editor-de-texto">
+                    <!-- Editor de texto aqui -->
+                </div>
             </div>
-        {% endfor %}
-        <!-- Loop para listar todas as tarefas sem considerar a atividade -->
-        {% for tarefa in tarefas %}
-            <button class="btn btn-info">{{ tarefa.nome }}</button>
-        {% endfor %}
+        </div>
     </div>
-    <div class="editor-de-texto">
-        <!-- Editor de texto aqui -->
-    </div>
+    
     <!-- outros conteúdos da página -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
