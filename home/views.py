@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from lista.models import Lista
 from atividade.models import Atividade
 from tarefa.models import Tarefa
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
+from django.utils.dateparse import parse_date
 
 @login_required(login_url="/auth/login/")
 def pagina_inicial(request):
@@ -16,3 +17,45 @@ def pagina_inicial(request):
         return render(request, 'pagina_inicial.html', {'listas': listas, 'atividades': atividades, 'tarefas': tarefas})
     else:
         return HttpResponse('Voce precisa estar logado')
+    
+# pop up p criar lista
+def criar_lista(request):
+    if request.method == "POST":
+        nome_lista = request.POST.get('nome')
+        descricao = request.POST.get('descricao')
+        dataInicio = request.POST.get('dataInicio')
+        dataFim = request.POST.get('dataFim')
+        prioridade = request.POST.get('prioridade')
+        status = request.POST.get('status')
+        
+        # Converte status em um valor booleano
+        status = True if status == 'on' else False
+        
+        user = request.user
+
+        # Convertendo as datas para o formato YYYY-MM-DD ou deixando-as como None se estiverem em branco
+        # caso o user queira deixar sem
+        if dataInicio:
+            dataInicio = parse_date(dataInicio)
+        else:
+            dataInicio = None
+        
+        if dataFim:
+            dataFim = parse_date(dataFim)
+        else:
+            dataFim = None
+
+        nova_lista = Lista(
+            user=user,
+            nome=nome_lista,
+            descricao=descricao,
+            dataInicio=dataInicio,
+            dataFim=dataFim,
+            prioridade=prioridade,
+            status=status
+        )
+        nova_lista.save()
+
+        return redirect('pagina_inicial')  # Redirecionar de volta à página inicial
+
+    return render(request, 'criar_lista.html')  # Caso GET, renderizar o formulário

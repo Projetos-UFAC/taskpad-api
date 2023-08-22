@@ -11,9 +11,9 @@ class Lista(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     nome = models.CharField(max_length=100)
-    descricao = models.TextField()
-    dataInicio = models.DateField()
-    dataFim = models.DateField()
+    descricao = models.TextField(null=True, blank=True)
+    dataInicio = models.DateField(null=True, blank=True)
+    dataFim = models.DateField(null=True, blank=True)
     status = models.BooleanField()
     prioridade = models.IntegerField(choices=CHOICES) 
     texto = models.TextField(default=' ')
