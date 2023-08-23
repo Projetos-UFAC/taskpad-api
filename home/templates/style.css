@@ -1,0 +1,47 @@
+
+
+body {
+    background-color: rgb(21, 21, 21) !important;
+    font-family: Arial, sans-serif !important;
+    color: white !important;
+}
+
+/* para pegar até embaixo da tela */
+.full-height-row {
+    height: 1000px;
+}
+
+/* Classe para alinhar conteúdo NÃO TEXTO*/
+.align-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+/* para a caixinha onde fica as listas*/
+.bg-claro_style { 
+    background-color: #222222 !important;
+}
+
+/* para os botões de criar */
+.pastel-button {
+    background-color: #3d3d3d !important; /* Cor pastel desejada */
+    color: #fff !important; /* Cor do texto */
+}
+
+.pastel-button2 {
+    background-color: #89b6e0 !important; /* Cor pastel desejada */
+    color: #fff !important; /* Cor do texto */
+}
+.pastel-button3 {
+    background-color: #be92e2 !important; /* Cor pastel desejada */
+    color: #fff !important; /* Cor do texto */
+}
+
+.pastel-button4 {
+    background-color: #e0d089 !important; /* Cor pastel desejada */
+    color: #000000 !important; /* Cor do texto */
+}
