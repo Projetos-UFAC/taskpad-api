@@ -172,20 +172,20 @@
                 <div class="list-group col-md-12 ">
                     {% for lista in listas %}
                     
-                        <button class="list-group-item list-group-item-action pastel-button2" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}" data-conteudo="{{ lista.texto }}">
+                        <button class="list-group-item list-group-item-action pastel-button2" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}" data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}" data-object-type="lista">
                             {{ lista.nome }}
                         </button>
                   
                         <div id="lista{{ lista.id }}" class="collapse">
                             <div class="list-group">
                                 {% for atividade in lista.atividade_set.all %}
-                                    <button class="list-group-item list-group-item-action pastel-button3" data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}" data-conteudo="{{ atividade.texto }}">
+                                    <button class="list-group-item list-group-item-action pastel-button3" data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}" data-conteudo="{{ atividade.texto }}"  data-item-id="{{ atividade.id }}" data-object-type="atividade">
                                         {{ atividade.nome }}
                                     </button>
                                     <div id="atividade{{ atividade.id }}" class="collapse">
                                         <div class="list-group">
                                             {% for tarefa in atividade.tarefa_set.all %}
-                                                <button class="list-group-item list-group-item-action pastel-button4" data-conteudo="{{ tarefa.texto }}">
+                                                <button class="list-group-item list-group-item-action pastel-button4" data-conteudo="{{ tarefa.texto }}"  data-item-id="{{ tarefa.id }}" data-object-type="tarefa">
                                                     {{ tarefa.nome }}
                                                 </button>
                                             {% endfor %}
@@ -280,7 +280,7 @@
             
             const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
             document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
-    
+            document.getElementById('object_type').value = 'atividade'; 
         });
     });
 
@@ -293,6 +293,7 @@
         
             const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
             document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
+            document.getElementById('object_type').value = 'lista'; 
         });
     });
 
@@ -305,6 +306,7 @@
         
             const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
             document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
+            document.getElementById('object_type').value = 'tarefa'; 
         });
     });
 });

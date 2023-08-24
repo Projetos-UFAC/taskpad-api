@@ -13,44 +13,37 @@ from django.shortcuts import get_object_or_404
 
 @login_required(login_url="/auth/login/")
 def pagina_inicial(request):
+
+
     if request.user.is_authenticated:
         listas = Lista.objects.filter(user=request.user)
         atividades = Atividade.objects.filter(user=request.user)
         tarefas = Tarefa.objects.filter(user=request.user)
+        texto_form = RichTextFormField()
 
         if request.method == "POST":
             lista_form = ListaForm(request.POST)
             atividade_form = AtividadeForm(request.POST)
             tarefa_form = TarefaForm(request.POST)
-
-            if lista_form.is_valid():
-                lista = lista_form.save(commit=False)
-                lista.user = request.user
-                lista.save()
-            elif atividade_form.is_valid():
-                atividade = atividade_form.save(commit=False)
-                atividade.user = request.user
-                atividade.save()
-            elif tarefa_form.is_valid():
-                tarefa = tarefa_form.save(commit=False)
-                tarefa.user = request.user
-                tarefa.save()
-
-            # Obter o ID do item a partir do campo oculto
+            
+            object_type = request.POST.get('object_type')
             item_id = request.POST.get('object_id')
-            if item_id:
-                # Obter o tipo do objeto a partir do campo oculto
-                object_type = request.POST.get('object_type')
-                # Obter o objeto correto a partir do ID e do tipo
+
+            # programando puto essa função aqui, mermão... não altere nada se n tiver certeza de que irá funcionar!
+            
+            if object_type and item_id:  # Verifique se há um tipo de objeto e um ID válido
                 if object_type == 'lista':
                     obj = get_object_or_404(Lista, id=item_id)
+                    obj.texto = request.POST.get('conteudo_atividade')
+                    obj.save()
                 elif object_type == 'atividade':
                     obj = get_object_or_404(Atividade, id=item_id)
+                    obj.texto = request.POST.get('conteudo_atividade')
+                    obj.save()
                 elif object_type == 'tarefa':
                     obj = get_object_or_404(Tarefa, id=item_id)
-                # Atualizar o campo 'texto' do objeto com o conteúdo do formulário
-                obj.texto = request.POST.get('conteudo_atividade')
-                obj.save()
+                    obj.texto = request.POST.get('conteudo_atividade')
+                    obj.save()
 
         else:
             lista_form = ListaForm()
@@ -64,6 +57,7 @@ def pagina_inicial(request):
             'lista_form': lista_form,
             'atividade_form': atividade_form,
             'tarefa_form': tarefa_form,
+            'texto_form': texto_form, 
         })
     else:
         return HttpResponse('Você precisa estar logado')
