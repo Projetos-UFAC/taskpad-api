@@ -35,17 +35,22 @@ body {
 }
 
 .pastel-button2 { /* Lista */
-    background-color: #8883DE !important; 
+    background-color:#646464 !important; 
     color: #fff !important; 
 }
 
 
 .pastel-button3 { /* PRA Atividade */
-    background-color: #B07FC7 !important; 
+    background-color: #444444 !important; 
     color: #fff !important; 
 }
 
 .pastel-button4 { /* TAREFA */
-    background-color: #D48F7D !important; 
-    color: #000000 !important; 
+    background-color: #262626 !important; 
+    color: #ffffff !important; 
+}
+
+.lista-aberta {
+    background-color: #b586fc !important; /* Defina a cor que deseja */
+    color: #ffff !important; /* Cor do texto */
 }
