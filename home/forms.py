@@ -20,7 +20,7 @@ class AtividadeForm(forms.ModelForm):
 
     class Meta:
         model = Atividade
-        fields = '__all__'
+        fields = ['texto']
         widgets = {
             'texto': RichTextFormField(),
         }
@@ -30,7 +30,7 @@ class TarefaForm(forms.ModelForm):
 
     class Meta:
         model = Tarefa
-        fields = '__all__'
+        fields = ['texto']
         widgets = {
             'texto': RichTextFormField(),
         }

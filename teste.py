@@ -45,5 +45,20 @@ def criar_exemplos():
 
     print('Exemplos de listas e atividades criados com sucesso!')
 
+def criar_exemplos2():
+    # Criar uma lista de exemplo
+    lista_exemplo = Lista.objects.update(
+        nome='Minha Lista de Exemplo 1',
+        descricao='Esta é uma lista de exemplo',
+        dataInicio='2023-08-21',
+        dataFim='2023-08-31',
+        status=True,
+        prioridade=2,
+        texto='Texto de texte da lista 1',
+    )
+
+
+    print('Exemplos de listas e atividades atualizad com sucesso!')
+
 if __name__ == '__main__':
-    criar_exemplos()
+    criar_exemplos2()
