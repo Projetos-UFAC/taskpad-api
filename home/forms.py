@@ -10,7 +10,7 @@ class ListaForm(forms.ModelForm):
 
     class Meta:
         model = Lista
-        fields = '__all__'
+        fields = ['texto']
         widgets = {
             'texto': RichTextFormField(),
         }

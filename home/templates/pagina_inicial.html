@@ -238,26 +238,26 @@
 
 
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const botoesAtividade = document.querySelectorAll('.pastel-button3'); // Botões de atividade
-            
-                    // Inicializar o CKEditor no campo 'conteudo_atividade'
-                    CKEDITOR.replace('conteudo_atividade');
-            
-                    botoesAtividade.forEach(function(botao) {
-                        botao.addEventListener('click', function() {
-                            const conteudoAtividade = botao.getAttribute('data-conteudo'); // Obtém o conteúdo da atividade
-                            CKEDITOR.instances.conteudo_atividade.setData(conteudoAtividade); // Define o conteúdo no CKEditor
-                        });
-                    });
-                });
-            </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const botoesAtividade = document.querySelectorAll('.pastel-button3'); // Botões de atividade
+
+        // Inicializar o CKEditor no campo 'conteudo_atividade'
+        CKEDITOR.replace('conteudo_atividade');
+
+        botoesAtividade.forEach(function(botao) {
+            botao.addEventListener('click', function() {
+                const conteudoAtividade = botao.getAttribute('data-conteudo'); // Obtém o conteúdo da atividade
+                CKEDITOR.instances.conteudo_atividade.setData(conteudoAtividade); // Define o conteúdo no CKEditor
+            });
+        });
+    });
+</script>
+
             
 
 
         </div>
-
 
 
 <div class="col-md-8" style="padding-top: 2%;">
@@ -265,14 +265,34 @@
         {% csrf_token %}
         
         <!-- Formulário para criar uma nova lista -->
-        {{ lista_form.media }}
-        {{ lista_form }}
-        {{ lista_form.texto }}
+        <!-- {{ lista_form.media }} -->
+        <!-- {{ lista_form }} -->
+        
+        <!-- Campo de texto para o CKEditor -->
+        <textarea id="conteudo_atividade" name="conteudo_atividade" style="display: none;"></textarea>
         
         <!-- Botão de envio do formulário -->
         <button type="submit">Salvar Lista</button>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar o CKEditor no campo 'conteudo_atividade'
+        CKEDITOR.replace('conteudo_atividade');
+
+        // Capturar o evento de clique nos botões de atividade
+        const botoesAtividade = document.querySelectorAll('.pastel-button3');
+        
+        botoesAtividade.forEach(function(botao) {
+            botao.addEventListener('click', function() {
+                const conteudoAtividade = botao.getAttribute('data-conteudo'); // Conteúdo da atividade
+                CKEDITOR.instances.conteudo_atividade.setData(conteudoAtividade); // Atualizar o CKEditor
+            });
+        });
+    });
+</script>
+
 
 
         
