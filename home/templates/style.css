@@ -3,7 +3,7 @@
 body {
     background-color: rgb(21, 21, 21) !important;
     font-family: Arial, sans-serif !important;
-    color: white !important;
+    /*color: white !important;*/
 }
 
 /* para pegar até embaixo da tela */
@@ -28,20 +28,21 @@ body {
 
 /* para os botões de criar */
 .pastel-button {
-    background-color: #3d3d3d !important; /* Cor pastel desejada */
-    color: #fff !important; /* Cor do texto */
+    background-color: #3d3d3d !important; 
+    color: #fff !important; 
 }
 
-.pastel-button2 {
-    background-color: #89b6e0 !important; /* Cor pastel desejada */
-    color: #fff !important; /* Cor do texto */
-}
-.pastel-button3 {
-    background-color: #be92e2 !important; /* Cor pastel desejada */
-    color: #fff !important; /* Cor do texto */
+.pastel-button2 { /* ATIVIDADE */
+    background-color: #8883DE !important; 
+    color: #fff !important; 
 }
 
-.pastel-button4 {
-    background-color: #e0d089 !important; /* Cor pastel desejada */
-    color: #000000 !important; /* Cor do texto */
+.pastel-button3 { /* PRA LISTA */
+    background-color: #B07FC7 !important; 
+    color: #fff !important; 
+}
+
+.pastel-button4 { /* TAREFA */
+    background-color: #D48F7D !important; 
+    color: #000000 !important; 
 }

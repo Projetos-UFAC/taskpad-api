@@ -1,6 +1,7 @@
 from django.db import models
 from lista.models import Lista
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 class Atividade(models.Model):
 
@@ -18,7 +19,7 @@ class Atividade(models.Model):
     dataFim = models.DateField(null=True, blank=True)
     status = models.BooleanField()
     prioridade = models.IntegerField(choices=CHOICES) #Aqui é IntegerField
-    texto = models.TextField(default=' ') #Pelo jeito o django precisa de um valor padrão aq
+    texto = RichTextField(null=True, blank=True)
 
     def __str__(self):
         return self.nome

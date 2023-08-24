@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "ckeditor",
     "rest_framework",
     "lista",
     "atividade",
@@ -135,3 +136,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGOUT_REDIRECT_URL = '/auth/login/' 
 
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+MEDIA_URL = '/media/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',  # Use a configuração de toolbar personalizada
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Link', 'Unlink', 'Image'],
+            ['NumberedList', 'BulletedList', 'Blockquote'],
+            ['RemoveFormat', 'Source']
+        ],
+    },
+}

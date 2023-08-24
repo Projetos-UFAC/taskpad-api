@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 # Agora Lista, Atividade e Tarefa tem comportamentos quase iguais pois os mesmos podem ser editados como arquivos de texto
 class Lista(models.Model):
@@ -16,7 +17,7 @@ class Lista(models.Model):
     dataFim = models.DateField(null=True, blank=True)
     status = models.BooleanField()
     prioridade = models.IntegerField(choices=CHOICES) 
-    texto = models.TextField(default=' ')
+    texto = RichTextField(null=True, blank=True)
     
     def __str__(self):
         return self.nome

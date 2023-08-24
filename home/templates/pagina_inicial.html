@@ -2,9 +2,11 @@
 {% load static %}
 <html lang="en">
 <head>
+    <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Taskpad</title>
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'home/templates/style.css' %}">
     <!-- link para o CSS do Bootstrap -->
@@ -13,10 +15,11 @@
 </head>
 <body>
     <!-- Div com um Logout -->
-    <div class="bg-claro_style" style="text-align: right;"> 
-
-        <a style=" margin: 10px;" href="{% url 'logout' %}" class="btn btn-primary">Logout</a> 
+    <div class="bg-claro_style d-flex justify-content-between align-items-center p-3 rounded">
+        <h3 style="color: aqua;">Taskpad</h3>
+        <a href="{% url 'logout' %}" class="btn pastel-button2">Logout</a>
     </div>
+    
     <div>
         <div class="row">
             <div class="col-md-3 bg-claro_style full-height-row" style="margin: 2%;">
@@ -36,28 +39,28 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="criarListaModalLabel">Criar Nova Lista</h5>
+                <h5 class="modal-title" id="criarListaModalLabel" style="color: black;">Criar Nova Lista</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
                 <!-- Formulário para criar lista -->
                 <form method="POST" action="{% url 'criar_lista' %}">
                     {% csrf_token %}
-                    <label for="nome">Nome da Lista:</label>
+                    <label for="nome" style="color: black;">Nome da Lista:</label>
                     <input type="text" id="nome" name="nome" class="form-control" required>
-                    <label for="descricao">Descrição:</label>
+                    <label for="descricao" style="color: black;">Descrição:</label>
                     <textarea id="descricao" name="descricao" class="form-control"></textarea>
-                    <label for="dataInicio">Data de Início:</label>
+                    <label for="dataInicio" style="color: black;">Data de Início:</label>
                     <input type="date" id="dataInicio" name="dataInicio" class="form-control">
                     <label for="dataFim">Data de Término:</label>
                     <input type="date" id="dataFim" name="dataFim" class="form-control">
-                    <label for="prioridade">Prioridade:</label>
+                    <label for="prioridade" style="color: black;">Prioridade:</label>
                     <select id="prioridade" name="prioridade" class="form-control" required>
                         <option value="1">Baixa</option>
                         <option value="2">Média</option>
                         <option value="3">Alta</option>
                     </select>
-                    <button type="submit" class="btn btn-primary mt-3">Criar Lista</button>
+                    <button type="submit" class="btn pastel-button mt-3">Criar Lista</button>
                 </form>
             </div>
         </div>
@@ -71,7 +74,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="criarAtividadeModalLabel">Criar Nova Atividade</h5>
+                <h5 class="modal-title" id="criarAtividadeModalLabel" style="color: black;">Criar Nova Atividade</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
@@ -81,30 +84,30 @@
                     <input type="hidden" name="lista_id" id="lista_id" value="">
                     <input type="hidden" name="user_id" value="{{ request.user.id }}">
                     <div class="mb-3">
-                        <label for="nome_atividade" class="form-label">Nome da Atividade:</label>
+                        <label for="nome_atividade" class="form-label" style="color: black;">Nome da Atividade:</label>
                         <input type="text" class="form-control" id="nome_atividade" name="nome_atividade" required>
                     </div>
                     <div class="mb-3">
-                        <label for="descricao" class="form-label">Descrição:</label>
+                        <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
                         <textarea class="form-control" id="descricao" name="descricao"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="dataInicio" class="form-label">Data de Início:</label>
+                        <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
                         <input type="date" class="form-control" id="dataInicio" name="dataInicio">
                     </div>
                     <div class="mb-3">
-                        <label for="dataFim" class="form-label">Data de Término:</label>
+                        <label for="dataFim" class="form-label" style="color: black;">Data de Término:</label>
                         <input type="date" class="form-control" id="dataFim" name="dataFim">
                     </div>
                     <div class="mb-3">
-                        <label for="prioridade" class="form-label">Prioridade:</label>
+                        <label for="prioridade" class="form-label" style="color: black;">Prioridade:</label>
                         <select class="form-select" id="prioridade" name="prioridade" required>
                             <option value="1">Baixa</option>
                             <option value="2">Média</option>
                             <option value="3">Alta</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Criar Atividade</button>
+                    <button type="submit" class="btn pastel-button mt-3">Criar Atividade</button>
                 </form>
             </div>
         </div>
@@ -118,7 +121,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="criarTarefaModalLabel">Criar Nova Tarefa</h5>
+                <h5 class="modal-title" id="criarTarefaModalLabel" style="color: black;">Criar Nova Tarefa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
@@ -128,23 +131,23 @@
                     <input type="hidden" name="atividade_id" id="atividade_id" value="">
                     <input type="hidden" name="user_id" value="{{ request.user.id }}">
                     <div class="mb-3">
-                        <label for="nome_tarefa" class="form-label">Nome da Tarefa:</label>
+                        <label for="nome_tarefa" class="form-label" style="color: black;">Nome da Tarefa:</label>
                         <input type="text" class="form-control" id="nome_tarefa" name="nome_tarefa" required>
                     </div>
                     <div class="mb-3">
-                        <label for="descricao" class="form-label">Descrição:</label>
+                        <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
                         <textarea class="form-control" id="descricao" name="descricao"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="dataInicio" class="form-label">Data de Início:</label>
+                        <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
                         <input type="date" class="form-control" id="dataInicio" name="dataInicio">
                     </div>
                     <div class="mb-3">
-                        <label for="dataFim" class="form-label">Data de Término:</label>
+                        <label for="dataFim" class="form-label" style="color: black;">Data de Término:</label>
                         <input type="date" class="form-control" id="dataFim" name="dataFim">
                     </div>
                     <div class="mb-3">
-                        <label for="prioridade" class="form-label">Prioridade:</label>
+                        <label for="prioridade" class="form-label" style="color: black;">Prioridade:</label>
                         <select class="form-select" id="prioridade" name="prioridade" required>
                             <option value="1">Baixa</option>
                             <option value="2">Média</option>
@@ -152,7 +155,7 @@
                         </select>
                     </div>
                     <!-- Adicione mais campos de acordo com o modelo de tarefa, se precisar :v -->
-                    <button type="submit" class="btn btn-primary mt-3">Criar Tarefa</button>
+                    <button type="submit" class="btn pastel-button mt-3">Criar Tarefa</button>
                 </form>
             </div>
         </div>
@@ -169,20 +172,20 @@
                 <div class="list-group col-md-12 ">
                     {% for lista in listas %}
                     
-                        <button class="list-group-item list-group-item-action pastel-button3" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
+                        <button class="list-group-item list-group-item-action pastel-button2" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}" data-conteudo="{{ lista.texto }}">
                             {{ lista.nome }}
                         </button>
                   
                         <div id="lista{{ lista.id }}" class="collapse">
                             <div class="list-group">
                                 {% for atividade in lista.atividade_set.all %}
-                                    <button class="list-group-item list-group-item-action pastel-button2" data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
+                                    <button class="list-group-item list-group-item-action pastel-button3" data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}" data-conteudo="{{ atividade.texto }}">
                                         {{ atividade.nome }}
                                     </button>
                                     <div id="atividade{{ atividade.id }}" class="collapse">
                                         <div class="list-group">
                                             {% for tarefa in atividade.tarefa_set.all %}
-                                                <button class="list-group-item list-group-item-action pastel-button4">
+                                                <button class="list-group-item list-group-item-action pastel-button4" data-conteudo="{{ tarefa.texto }}">
                                                     {{ tarefa.nome }}
                                                 </button>
                                             {% endfor %}
@@ -199,6 +202,9 @@
                         </div>
                     {% endfor %}
                 </div>
+
+                
+
             </div>
             </div>
             
@@ -231,12 +237,46 @@
             </script>
 
 
-            <div class="col-md-8">
-                <div class="editor-de-texto">
-                    <!-- Editor de texto aqui -->
-                </div>
-            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const botoesAtividade = document.querySelectorAll('.pastel-button3'); // Botões de atividade
+            
+                    // Inicializar o CKEditor no campo 'conteudo_atividade'
+                    CKEDITOR.replace('conteudo_atividade');
+            
+                    botoesAtividade.forEach(function(botao) {
+                        botao.addEventListener('click', function() {
+                            const conteudoAtividade = botao.getAttribute('data-conteudo'); // Obtém o conteúdo da atividade
+                            CKEDITOR.instances.conteudo_atividade.setData(conteudoAtividade); // Define o conteúdo no CKEditor
+                        });
+                    });
+                });
+            </script>
+            
+
+
         </div>
+
+
+
+<div class="col-md-8" style="padding-top: 2%;">
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Formulário para criar uma nova lista -->
+        {{ lista_form.media }}
+        {{ lista_form }}
+        {{ lista_form.texto }}
+        
+        <!-- Botão de envio do formulário -->
+        <button type="submit">Salvar Lista</button>
+    </form>
+</div>
+
+
+        
+
     </div>
     
     <!-- outros conteúdos da página -->

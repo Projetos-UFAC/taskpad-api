@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
 from django.utils.dateparse import parse_date
+from .forms import ListaForm, AtividadeForm, TarefaForm
+
 
 @login_required(login_url="/auth/login/")
 def pagina_inicial(request):
@@ -143,3 +145,37 @@ def criar_tarefa(request):
         return redirect('pagina_inicial')  # Redirecionar para a página inicial após a criação da tarefa
 
     return render(request, 'criar_tarefa.html')  # Caso GET, renderizar o formulário
+
+
+
+def view(request):
+    if request.method == "POST":
+        lista_form = ListaForm(request.POST)
+        atividade_form = AtividadeForm(request.POST)
+        tarefa_form = TarefaForm(request.POST)
+        
+        if lista_form.is_valid():
+            lista = lista_form.save(commit=False)
+            lista.user = request.user
+            lista.save()
+            
+        elif atividade_form.is_valid():
+            atividade = atividade_form.save(commit=False)
+            atividade.user = request.user
+            atividade.save()
+            
+        elif tarefa_form.is_valid():
+            tarefa = tarefa_form.save(commit=False)
+            tarefa.user = request.user
+            tarefa.save()
+            
+    else:
+        lista_form = ListaForm()
+        atividade_form = AtividadeForm()
+        tarefa_form = TarefaForm()
+
+    return render(request, 'pagina_inicial.html', {
+        'lista_form': lista_form,
+        'atividade_form': atividade_form,
+        'tarefa_form': tarefa_form,
+    })

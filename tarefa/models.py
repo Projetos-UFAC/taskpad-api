@@ -1,7 +1,7 @@
 from django.db import models
 from atividade.models import Atividade
 from django.contrib.auth.models import User
-
+from ckeditor.fields import RichTextField
 
 class Tarefa(models.Model):
     CHOICES = (
@@ -18,7 +18,7 @@ class Tarefa(models.Model):
     dataFim = models.DateField(null=True, blank=True)
     status = models.BooleanField()
     prioridade = models.IntegerField(choices=CHOICES) 
-    texto = models.TextField(default=' ')
+    texto = RichTextField(null=True, blank=True)
 
     def __str__(self):
         return self.nome
