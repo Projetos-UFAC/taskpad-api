@@ -32,12 +32,13 @@ body {
     color: #fff !important; 
 }
 
-.pastel-button2 { /* ATIVIDADE */
+.pastel-button2 { /* Lista */
     background-color: #8883DE !important; 
     color: #fff !important; 
 }
 
-.pastel-button3 { /* PRA LISTA */
+
+.pastel-button3 { /* PRA Atividade */
     background-color: #B07FC7 !important; 
     color: #fff !important; 
 }

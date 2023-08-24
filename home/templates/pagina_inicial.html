@@ -22,7 +22,7 @@
     
     <div>
         <div class="row">
-            <div class="col-md-3 bg-claro_style full-height-row" style="margin: 2%;">
+            <div class="col-md-3 bg-claro_style" style="margin: 2%;"> <!--full-height-row-->
                 <div class="bg-claro_style p-3 rounded " style="text-align: left;">
                     <h4 style="text-align: center;">Lista de Atividades</h4>
     
@@ -171,11 +171,19 @@
                 <div class="align-content">
                 <div class="list-group col-md-12 ">
                     {% for lista in listas %}
-                    
-                        <button class="list-group-item list-group-item-action pastel-button2" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}" data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}" data-object-type="lista">
-                            {{ lista.nome }}
-                        </button>
-                  
+                        <!-- Butoes de listas -->
+                        <div class="row">
+                            <div class="col-md-9" style="padding-right: 0%;">
+                                <button class="list-group-item list-group-item-action pastel-button2" data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}" data-object-type="lista">
+                                    {{ lista.nome }}
+                                </button>
+                            </div>
+                            <div class="col-md-3" style="padding-left: 0%;">
+                                <button class="list-group-item list-group-item-action pastel-button2" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}" >
+                                    Abrir
+                                </button>
+                            </div>
+                        </div>
                         <div id="lista{{ lista.id }}" class="collapse">
                             <div class="list-group">
                                 {% for atividade in lista.atividade_set.all %}
@@ -248,7 +256,7 @@
                 <textarea id="conteudo_atividade" name="conteudo_atividade" style="display: none;"></textarea>     
                 
                 <!-- Botão de envio do formulário -->
-                <button type="submit">Salvar Lista</button>
+                <button type="submit" class="btn pastel-button" style="margin: 1%;">Salvar</button>
             </form>
         </div>
         
