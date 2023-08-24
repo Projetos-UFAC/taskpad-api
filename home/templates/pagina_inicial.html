@@ -14,15 +14,19 @@
     <!-- cabeçalho e metadados -->
 </head>
 <body>
-    <!-- Div com um Logout -->
+    <!-- Div com um Logout e logo -->
     <div class="bg-claro_style d-flex justify-content-between align-items-center p-3 rounded">
-        <h3 style="color: aqua;">Taskpad</h3>
-        <a href="{% url 'logout' %}" class="btn pastel-button2">Logout</a>
+        <h3 style="color: rgb(150, 90, 206);">Taskpad</h3>
+        <div class="d-flex align-items-center">
+            <span style="margin-right: 10px;">Bem-vindo, {{ request.user.username }}</span>
+            <a href="{% url 'logout' %}" class="btn pastel-button2">Logout</a>
+        </div>
     </div>
+    
     
     <div>
         <div class="row">
-            <div class="col-md-3 bg-claro_style" style="margin: 2%;"> <!--full-height-row-->
+            <div class="col-md-3 bg-claro_style" style="margin: 2%; flex-direction: column; min-height: 100vh;"> <!--full-height-row-->
                 <div class="bg-claro_style p-3 rounded " style="text-align: left;">
                     <h4 style="text-align: center;">Lista de Atividades</h4>
     
@@ -184,12 +188,24 @@
                                 </button>
                             </div>
                         </div>
+
                         <div id="lista{{ lista.id }}" class="collapse">
                             <div class="list-group">
                                 {% for atividade in lista.atividade_set.all %}
-                                    <button class="list-group-item list-group-item-action pastel-button3" data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}" data-conteudo="{{ atividade.texto }}"  data-item-id="{{ atividade.id }}" data-object-type="atividade">
+
+                                <div class="row">
+                                    <div class="col-md-9" style="padding-right: 0%;">
+                                    <button class="list-group-item list-group-item-action pastel-button3"  data-conteudo="{{ atividade.texto }}"  data-item-id="{{ atividade.id }}" data-object-type="atividade">
                                         {{ atividade.nome }}
                                     </button>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0%;">
+                                <button class="list-group-item list-group-item-action pastel-button3" data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}" >
+                                    Abrir
+                                </button>
+                                    </div>
+                                </div>
+
                                     <div id="atividade{{ atividade.id }}" class="collapse">
                                         <div class="list-group">
                                             {% for tarefa in atividade.tarefa_set.all %}
