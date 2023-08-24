@@ -36,22 +36,22 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="criarListaModalLabel">Criar Nova Lista</h5>
+                <h5 class="modal-title text-dark" id="criarListaModalLabel">Criar Nova Lista</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
                 <!-- Formulário para criar lista -->
                 <form method="POST" action="{% url 'criar_lista' %}">
                     {% csrf_token %}
-                    <label for="nome">Nome da Lista:</label>
+                    <label for="nome" class="text-dark mb-2">Nome da Lista:</label>
                     <input type="text" id="nome" name="nome" class="form-control" required>
-                    <label for="descricao">Descrição:</label>
+                    <label for="descricao" class="text-dark mt-2 mb-2">Descrição:</label>
                     <textarea id="descricao" name="descricao" class="form-control"></textarea>
-                    <label for="dataInicio">Data de Início:</label>
+                    <label for="dataInicio" class="text-dark mt-2 mb-2">Data de Início:</label>
                     <input type="date" id="dataInicio" name="dataInicio" class="form-control">
-                    <label for="dataFim">Data de Término:</label>
+                    <label for="dataFim" class="text-dark mt-2 mb-2">Data de Término:</label>
                     <input type="date" id="dataFim" name="dataFim" class="form-control">
-                    <label for="prioridade">Prioridade:</label>
+                    <label for="prioridade" class="text-dark mt-2 mb-2">Prioridade:</label>
                     <select id="prioridade" name="prioridade" class="form-control" required>
                         <option value="1">Baixa</option>
                         <option value="2">Média</option>
@@ -71,7 +71,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="criarAtividadeModalLabel">Criar Nova Atividade</h5>
+                <h5 class="modal-title text-dark" id="criarAtividadeModalLabel">Criar Nova Atividade</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
@@ -81,23 +81,23 @@
                     <input type="hidden" name="lista_id" id="lista_id" value="">
                     <input type="hidden" name="user_id" value="{{ request.user.id }}">
                     <div class="mb-3">
-                        <label for="nome_atividade" class="form-label">Nome da Atividade:</label>
+                        <label for="nome_atividade" class="form-label text-dark">Nome da Atividade:</label>
                         <input type="text" class="form-control" id="nome_atividade" name="nome_atividade" required>
                     </div>
                     <div class="mb-3">
-                        <label for="descricao" class="form-label">Descrição:</label>
+                        <label for="descricao" class="form-label text-dark">Descrição:</label>
                         <textarea class="form-control" id="descricao" name="descricao"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="dataInicio" class="form-label">Data de Início:</label>
+                        <label for="dataInicio" class="form-label text-dark">Data de Início:</label>
                         <input type="date" class="form-control" id="dataInicio" name="dataInicio">
                     </div>
                     <div class="mb-3">
-                        <label for="dataFim" class="form-label">Data de Término:</label>
+                        <label for="dataFim" class="form-label text-dark">Data de Término:</label>
                         <input type="date" class="form-control" id="dataFim" name="dataFim">
                     </div>
                     <div class="mb-3">
-                        <label for="prioridade" class="form-label">Prioridade:</label>
+                        <label for="prioridade" class="form-label text-dark">Prioridade:</label>
                         <select class="form-select" id="prioridade" name="prioridade" required>
                             <option value="1">Baixa</option>
                             <option value="2">Média</option>
@@ -128,23 +128,23 @@
                     <input type="hidden" name="atividade_id" id="atividade_id" value="">
                     <input type="hidden" name="user_id" value="{{ request.user.id }}">
                     <div class="mb-3">
-                        <label for="nome_tarefa" class="form-label">Nome da Tarefa:</label>
+                        <label for="nome_tarefa" class="form-label text-dark">Nome da Tarefa:</label>
                         <input type="text" class="form-control" id="nome_tarefa" name="nome_tarefa" required>
                     </div>
                     <div class="mb-3">
-                        <label for="descricao" class="form-label">Descrição:</label>
+                        <label for="descricao" class="form-label text-dark">Descrição:</label>
                         <textarea class="form-control" id="descricao" name="descricao"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="dataInicio" class="form-label">Data de Início:</label>
+                        <label for="dataInicio" class="form-label text-dark">Data de Início:</label>
                         <input type="date" class="form-control" id="dataInicio" name="dataInicio">
                     </div>
                     <div class="mb-3">
-                        <label for="dataFim" class="form-label">Data de Término:</label>
+                        <label for="dataFim" class="form-label text-dark">Data de Término:</label>
                         <input type="date" class="form-control" id="dataFim" name="dataFim">
                     </div>
                     <div class="mb-3">
-                        <label for="prioridade" class="form-label">Prioridade:</label>
+                        <label for="prioridade" class="form-label text-dark">Prioridade:</label>
                         <select class="form-select" id="prioridade" name="prioridade" required>
                             <option value="1">Baixa</option>
                             <option value="2">Média</option>
