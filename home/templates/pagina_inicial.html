@@ -289,14 +289,16 @@
                     <!-- Formulário para criar uma nova lista -->
                     <input type="hidden" id="item_id" name="object_id">
                     <input type="hidden" id="object_type" name="object_type"> <!-- Campo oculto para o tipo de objeto -->
+                    <div style="margin-left: 2cm; margin-right: 2cm;">
                     <textarea id="conteudo_atividade" name="conteudo_atividade" style="display: none;"></textarea>     
-                    
+                    </div>
+        
                     <!-- Botão de envio do formulário -->
                     <button type="submit" class="btn pastel-button" style="margin: 1%;">Salvar</button>
                 </form>
        
         </div>
-        
+
 <!-- Script JS -->
 <script>
     const editorTextarea = document.getElementById('conteudo_atividade');
