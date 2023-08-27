@@ -189,3 +189,42 @@ def criar_tarefa(request):
     return render(request, 'criar_tarefa.html')  # Caso GET, renderizar o formulário
 
 
+from django.http import JsonResponse
+
+def deletar_item(request):
+    if request.method == 'POST':
+        objectType = request.POST.get('objectType')
+        itemId = request.POST.get('itemId')
+
+        if objectType and itemId:
+            if objectType == 'lista':
+                    lista = get_object_or_404(Lista, id=itemId)
+                    
+                    # atividades e tarefas associadas à lista
+                    for atividade in lista.atividade_set.all():
+                        for tarefa in atividade.tarefa_set.all():
+                            tarefa.delete()
+                        atividade.delete()
+                    
+                    lista.delete()
+
+            elif objectType == 'atividade':
+                obj = get_object_or_404(Atividade, id=itemId)
+                
+                # Exclua as tarefas associadas à atividade
+                for tarefa in obj.tarefa_set.all():
+                    tarefa.delete()
+                
+                obj.delete()
+
+            elif objectType == 'tarefa':
+                obj = get_object_or_404(Tarefa, id=itemId)
+                obj.delete()
+
+        return redirect('pagina_inicial')  # 
+        # Para depurar...
+        #     return JsonResponse({'message': 'Item excluído com sucesso'})
+        # else:
+        #     return JsonResponse({'message': 'Dados inválidos'})
+    else:
+        return redirect('pagina_inicial')  # 

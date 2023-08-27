@@ -54,3 +54,26 @@ body {
     background-color: #b586fc !important; /* Defina a cor que deseja */
     color: #ffff !important; /* Cor do texto */
 }
+
+
+.context-menu {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    z-index: 9999;
+}
+
+.context-menu-item {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.context-menu-item:hover {
+    background-color: #f2f2f2;
+}
