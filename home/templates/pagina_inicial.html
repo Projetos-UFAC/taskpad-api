@@ -234,6 +234,87 @@
             </div>
             </div>
             
+
+
+            <!--- SCRIPT PARA O CLIQUE DIREITO-->
+            <script>
+                                // Seletor para os elementos que terão o menu de contexto (por exemplo, os botões de lista, atividade e tarefa)
+                const itemButton = document.querySelectorAll('.pastel-button2, .pastel-button3, .pastel-button4');
+
+                itemButton.forEach(button => {
+                    button.addEventListener('contextmenu', function(event) {
+                        event.preventDefault(); // Evitar o menu de contexto padrão do navegador
+                        
+                        // Mostrar o menu de contexto personalizado
+                        mostrarMenuContexto(event.clientX, event.clientY, button);
+                    });
+                });
+
+            </script>
+            <!-- FUNÇÃO QUE CRIA O BOTAO DE DELETAR -->
+            <script>
+                function mostrarMenuContexto(x, y, item) {
+                    const menu = document.createElement('div');
+                    menu.classList.add('context-menu');
+                    menu.style.position = 'absolute';
+                    menu.style.left = `${x}px`;
+                    menu.style.top = `${y}px`;
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.classList.add('context-menu-item');
+                    deleteButton.addEventListener('click', function() {
+                        // Chame a função de exclusão passando o item como parâmetro
+                        deletarItem(item);
+                        menu.remove(); // Remova o menu após o clique
+                    });
+
+                    menu.appendChild(deleteButton);
+                    document.body.appendChild(menu);
+
+                    // Adicionar event listener de clique ao documento para fechar o menu quando o usuário clicar fora dele
+                    document.addEventListener('click', function(event) {
+                        const clickedElement = event.target;
+                        if (!menu.contains(clickedElement) && !item.contains(clickedElement)) {
+                            menu.remove(); // Remova o menu se o clique não estiver dentro dele nem no botão
+                        }
+                    });
+                }
+
+            </script>
+
+
+                <!-- para enviar os dados para excluir os itens -->
+                <form id="deleteForm" method="post" action="{% url 'deletar_item' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="objectType" id="objectTypeInput">
+                    <input type="hidden" name="itemId" id="itemIdInput">
+                </form>
+                
+            <script>
+                function deletarItem(item) {
+                    const objectType = item.getAttribute('data-object-type');
+                    const itemId = item.getAttribute('data-item-id');
+
+                    const confirmation = confirm('Tem certeza que deseja realizar a exclusão?');
+                    
+                    if (confirmation) {
+                        const objectTypeInput = document.getElementById('objectTypeInput');
+                        const itemIdInput = document.getElementById('itemIdInput');
+
+                        objectTypeInput.value = objectType;
+                        itemIdInput.value = itemId;
+
+                        // Submit the form
+                        document.getElementById('deleteForm').submit();
+                    }
+                }
+
+
+            </script>
+
+
+
             <!-- script para capturar o ID da lista quando for criar atividade... foda -->
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
