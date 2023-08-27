@@ -9,6 +9,7 @@ urlpatterns = [
     path('criar_lista/', views.criar_lista, name='criar_lista'),
     path('criar_atividade/', views.criar_atividade, name='criar_atividade'),
     path('criar_tarefa/', views.criar_tarefa, name='criar_tarefa'), 
+    path('deletar_item/', views.deletar_item, name='deletar_item'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
