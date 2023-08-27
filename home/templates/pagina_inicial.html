@@ -296,15 +296,20 @@
                     const objectType = item.getAttribute('data-object-type');
                     const itemId = item.getAttribute('data-item-id');
 
-                    const objectTypeInput = document.getElementById('objectTypeInput');
-                    const itemIdInput = document.getElementById('itemIdInput');
+                    const confirmation = confirm('Tem certeza que deseja realizar a exclusão?');
+                    
+                    if (confirmation) {
+                        const objectTypeInput = document.getElementById('objectTypeInput');
+                        const itemIdInput = document.getElementById('itemIdInput');
 
-                    objectTypeInput.value = objectType;
-                    itemIdInput.value = itemId;
+                        objectTypeInput.value = objectType;
+                        itemIdInput.value = itemId;
 
-                    // Submit the form
-                    document.getElementById('deleteForm').submit();
+                        // Submit the form
+                        document.getElementById('deleteForm').submit();
+                    }
                 }
+
 
             </script>
 
