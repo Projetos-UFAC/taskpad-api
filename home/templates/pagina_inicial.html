@@ -388,7 +388,12 @@
     itemButtons.forEach(button => {
         button.addEventListener('click', () => {
             const conteudo = button.getAttribute('data-conteudo');
-            editorTextarea.value = conteudo;
+            if (conteudo == 'None'){
+                editorTextarea.value = '';
+            }else{
+                editorTextarea.value = conteudo;
+            }
+            
         });
     });
 </script>
