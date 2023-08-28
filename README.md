@@ -37,6 +37,7 @@ Configure o arquivo .env com suas variáveis de ambiente.
 5. Rode as migrações:
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 ```
 
