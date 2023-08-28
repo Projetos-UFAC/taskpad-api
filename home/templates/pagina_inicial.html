@@ -380,7 +380,7 @@
        
         </div>
 
-<!-- Script JS -->
+<!-- Script JS para manter o texto no editor...  -->
 <script>
     const editorTextarea = document.getElementById('conteudo_atividade');
     const itemButtons = document.querySelectorAll('[data-conteudo]');
@@ -403,7 +403,12 @@
     botoesAtividade.forEach(function(botao) {
         botao.addEventListener('click', function() {
             const conteudoAtividade = botao.getAttribute('data-conteudo'); // Conteúdo da atividade
-            CKEDITOR.instances.conteudo_atividade.setData(conteudoAtividade); // Atualizar o CKEditor
+            if (conteudoAtividade == 'None'){ // FUNCIONANDO!!!!!!!! Deixando o CKeditor vazio caso não tenha nada de texto, antes ele colocava um "None"
+                CKEDITOR.instances.conteudo_atividade.setData(''); 
+            }else{
+                CKEDITOR.instances.conteudo_atividade.setData(conteudoAtividade); // Atualizar o CKEditor
+            }
+            
             
             const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
             document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
@@ -416,7 +421,12 @@
     botoesLista.forEach(function(botao) {
         botao.addEventListener('click', function() {
             const conteudoLista = botao.getAttribute('data-conteudo'); // Conteúdo da lista
-            CKEDITOR.instances.conteudo_atividade.setData(conteudoLista); // Atualizar o CKEditor
+            if (conteudoLista == 'None'){
+                CKEDITOR.instances.conteudo_atividade.setData(''); 
+            }else{
+                CKEDITOR.instances.conteudo_atividade.setData(conteudoLista); // Atualizar o CKEditor
+            }
+            
         
             const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
             document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
@@ -429,7 +439,11 @@
     botoesTarefa.forEach(function(botao) {
         botao.addEventListener('click', function() {
             const conteudoTarefa = botao.getAttribute('data-conteudo'); // Conteúdo da tarefa
-            CKEDITOR.instances.conteudo_atividade.setData(conteudoTarefa); // Atualizar o CKEditor
+            if (conteudoTarefa == 'None'){ 
+                CKEDITOR.instances.conteudo_atividade.setData('');
+            }else{
+                CKEDITOR.instances.conteudo_atividade.setData(conteudoTarefa); // Atualizar o CKEditor
+            }
         
             const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
             document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
