@@ -1,0 +1,18 @@
+[run]
+source = .
+omit = 
+    venv/*
+    taskpad_api/*
+    manage.py
+    .vscode
+    .github
+    .gitignore
+    .git
+    usuarios/*
+    teste.py
+    schema.yaml
+    
+
+[report]
+show_missing = True
+skip_empty = True

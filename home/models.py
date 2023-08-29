@@ -1,3 +1,3 @@
-from django.db import models
-
-# Create your models here.
+from atividade.models import Atividade
+from lista.models import Lista
+from tarefa.models import Tarefa

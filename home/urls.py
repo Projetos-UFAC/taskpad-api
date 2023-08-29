@@ -1,15 +1,15 @@
 from django.urls import path
-from . import views
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import pagina_inicial, deletar_item, CriarListaView, CriarAtividadeView, CriarTarefaView
 
 urlpatterns = [
-    path('', views.pagina_inicial, name='pagina_inicial'),
-    path('criar_lista/', views.criar_lista, name='criar_lista'),
-    path('criar_atividade/', views.criar_atividade, name='criar_atividade'),
-    path('criar_tarefa/', views.criar_tarefa, name='criar_tarefa'), 
-    path('deletar_item/', views.deletar_item, name='deletar_item'),
+    path('', pagina_inicial, name='pagina_inicial'),
+    path('criar_lista/', CriarListaView.as_view(), name='criar_lista'),
+    path('criar_atividade/', CriarAtividadeView.as_view(), name='criar_atividade'),
+    path('criar_tarefa/' , CriarTarefaView.as_view(), name='criar_tarefa'), 
+    path('deletar_item/', deletar_item, name='deletar_item'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
