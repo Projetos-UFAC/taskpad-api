@@ -29,6 +29,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Taskpad API',
+    'DESCRIPTION': 'Uma API para gerenciamento de atividades.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 # Application definition
 
@@ -45,7 +55,8 @@ INSTALLED_APPS = [
     "atividade",
     "tarefa",
     "usuarios",
-    "home"
+    "home",
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
