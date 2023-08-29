@@ -8,7 +8,11 @@ omit =
     .github
     .gitignore
     .git
+    usuarios/*
+    teste.py
+    schema.yaml
     
 
 [report]
 show_missing = True
+skip_empty = True
