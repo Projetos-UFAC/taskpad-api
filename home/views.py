@@ -231,8 +231,8 @@ def atualizar_item(request):
     if request.method == "POST":
         object_type = request.POST.get('objectType')
         item_id = request.POST.get('itemId')
-        print(f'object_type: {object_type}')
-        print(f'item_id: {item_id}')
+        # print(f'object_type: {object_type}')
+        # print(f'item_id: {item_id}')
         if object_type and item_id:
             if object_type == 'lista':
                 obj = get_object_or_404(Lista, id=item_id)
@@ -242,6 +242,7 @@ def atualizar_item(request):
                 obj = get_object_or_404(Tarefa, id=item_id)
 
             dataInicio = request.POST.get('dataInicioatt')
+
             if dataInicio:
                 dataInicio = parse_date(dataInicio)
             else:
@@ -256,6 +257,7 @@ def atualizar_item(request):
             obj.nome = request.POST.get('nome_tarefaatt')
             obj.descricao = request.POST.get('descricaoatt')
             obj.dataInicio = dataInicio
+
             obj.dataFim = dataFim
             obj.prioridade = request.POST.get('prioridadeatt')
             obj.save()
