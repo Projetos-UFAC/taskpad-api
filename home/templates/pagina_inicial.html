@@ -180,7 +180,16 @@
                         <!-- Butoes de listas -->
                         <div class="row">
                             <div class="col-md-10" style="padding-right: 0%;">
-                                <button class="list-group-item list-group-item-action pastel-button2" data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}" data-object-type="lista"onclick="marcarListaAberta(this)">
+                                <button class="list-group-item list-group-item-action pastel-button2" 
+                                data-conteudo="{{ lista.texto }}"
+                                 data-item-id="{{ lista.id }}" 
+                                 data-object-type="lista"
+                                 onclick="marcarListaAberta(this)"
+                                    data-nome-tarefa="{{ lista.nome }}"
+                                    data-descricao="{{ lista.descricao }}"
+                                    data-data-inicio="{{ lista.data_inicio }}"
+                                    data-data-fim="{{ lista.data_fim }}"
+                                    data-prioridade="{{ lista.prioridade }}">
                                     {{ lista.nome }}
                                 </button>
                             </div>
@@ -197,7 +206,17 @@
 
                                 <div class="row">
                                     <div class="col-md-10" style="padding-right: 0%;">
-                                    <button class="list-group-item list-group-item-action pastel-button3"  data-conteudo="{{ atividade.texto }}"  data-item-id="{{ atividade.id }}" data-object-type="atividade" onclick="marcarListaAberta(this)">
+                                        <!-- BOTEI NOME TAREFA LA EMBAIXO AGORA VAI FICAR NOME TAREFA EM TODOS -->
+                                    <button class="list-group-item list-group-item-action pastel-button3"
+                                    data-conteudo="{{ atividade.texto }}"
+                                    data-item-id="{{ atividade.id }}"
+                                    data-object-type="atividade" 
+                                            data-nome-tarefa="{{ atividade.nome }}"
+                                            data-descricao="{{ atividade.descricao }}"
+                                            data-data-inicio="{{ atividade.data_inicio }}"
+                                            data-data-fim="{{ atividade.data_fim }}"
+                                            data-prioridade="{{ atividade.prioridade }}"
+                                    onclick="marcarListaAberta(this)">
                                         {{ atividade.nome }}
                                     </button>
                                 </div>
