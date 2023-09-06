@@ -269,6 +269,16 @@
                         menu.remove(); // Remova o menu após o clique
                     });
 
+                    const updateButton = document.createElement('button');
+                    updateButton.textContent = 'Atualizar';
+                    updateButton.classList.add('context-menu-item');
+                    updateButton.addEventListener('click', function() {
+                        // Chame a função de atualização passando o item como parâmetro
+                        atualizarItem(item);
+                        menu.remove(); // Remova o menu após o clique
+                    });
+
+                    menu.appendChild(updateButton);
                     menu.appendChild(deleteButton);
                     document.body.appendChild(menu);
 
@@ -282,6 +292,85 @@
                 }
 
             </script>
+
+                <!--- PARA O UPDATE  -->
+
+
+                <div class="modal fade" id="atualizarModal" tabindex="-1" aria-labelledby="atualizarModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="form-label" style="color: black;" id="atualizarModalLabel">Atualizar Item</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Formulário de atualização aqui -->
+                                <form id="updateForm" method="post" action="{% url 'atualizar_item' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="objectType" id="updateObjectTypeInput">
+                                    <input type="hidden" name="itemId" id="updateItemIdInput">
+                                    <!-- Campos de atualização aqui -->
+                                    <div class="mb-3">
+                                        <label for="nome_tarefa" class="form-label" style="color: black;">Novo nome:</label>
+                                        <input type="text" class="form-control" id="nome_tarefa" name="nome_tarefa" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
+                                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
+                                        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="dataFim" class="form-label" style="color: black;">Data de Término:</label>
+                                        <input type="date" class="form-control" id="dataFim" name="dataFim">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="prioridade" class="form-label" style="color: black;">Prioridade:</label>
+                                        <select class="form-select" id="prioridade" name="prioridade" required>
+                                            <option value="1">Baixa</option>
+                                            <option value="2">Média</option>
+                                            <option value="3">Alta</option>
+                                        </select>
+                                    </div>
+                                    <!-- Adicione mais campos de acordo com o modelo de tarefa, se precisar :v -->
+                                    <button type="submit" class="btn pastel-button mt-3">Atualizar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Formulário para enviar dados de atualização -->
+            <form id="updateForm" method="post" action="{% url 'atualizar_item' %}">
+                {% csrf_token %}
+                <input type="hidden" name="object_type" id="updateObjectTypeInput" value="">
+                <input type="hidden" name="item_id" id="updateItemIdInput" value="">
+                
+            </form>
+
+
+            <script>
+                function atualizarItem(item) {
+                    // Preencha os campos do formulário de atualização com os dados do item
+                    document.getElementById('updateObjectTypeInput').value = item.getAttribute('data-object-type');
+                    document.getElementById('updateItemIdInput').value = item.getAttribute('data-item-id');
+                    
+                    // Preencha os campos do modal com os dados do item
+                    document.getElementById('nome_tarefa').value = item.getAttribute('data-nome-tarefa');
+                    document.getElementById('descricao').value = item.getAttribute('data-descricao');
+                    document.getElementById('dataInicio').value = item.getAttribute('data-data-inicio');
+                    document.getElementById('dataFim').value = item.getAttribute('data-data-fim');
+                    document.getElementById('prioridade').value = item.getAttribute('data-prioridade');
+                    
+                    // Abra o modal de atualização
+                    const atualizarModal = new bootstrap.Modal(document.getElementById('atualizarModal'));
+                    atualizarModal.show();
+                }
+            </script>
+            
+
 
 
                 <!-- para enviar os dados para excluir os itens -->
@@ -309,11 +398,7 @@
                         document.getElementById('deleteForm').submit();
                     }
                 }
-
-
             </script>
-
-
 
             <!-- script para capturar o ID da lista quando for criar atividade... foda -->
             <script>
@@ -329,7 +414,6 @@
                 });
             </script>
 
-
             <script>
                 // Captura o evento de clique no botão "Criar Tarefa"
                 document.querySelectorAll('.btn-criar-tarefa').forEach(function(button) {
@@ -344,7 +428,6 @@
             </script>
             <!--           FIM DOS SCRIPTS PARA PEGAR O ID NA HORA DE CRIAR LISTAS, ATIVIDADES OU TAREFAS                 -->
         </div>
-
 
         <!-- Para mudar a cor do botao em aberto -->
         <script>
@@ -457,13 +540,7 @@
     });
 });
 </script>
-
-
-
-        
-
     </div>
-    
     <!-- outros conteúdos da página -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -221,3 +221,40 @@ def deletar_item(request):
         return redirect('pagina_inicial')
     else:
         return redirect('pagina_inicial')
+
+
+
+
+def atualizar_item(request):
+    obj = None 
+    if request.method == 'POST':
+        object_type = request.POST.get('objectType')
+        item_id = request.POST.get('itemId')
+    # Recupere o objeto com base no tipo (lista, atividade ou tarefa) e ID
+    if object_type and item_id:
+        if object_type == 'lista':
+            obj = get_object_or_404(Lista, id=item_id)
+        elif object_type == 'atividade':
+                obj = get_object_or_404(Atividade, id=item_id)
+        elif object_type == 'tarefa':
+            obj = get_object_or_404(Tarefa, id=item_id)
+
+    # Verifique se o objeto pertence ao usuário logado
+    if obj.user != request.user:
+        return HttpResponse('Você não tem permissão para atualizar este item')
+
+    # Crie formulários com base no tipo de objeto (lista, atividade ou tarefa)
+    if object_type == 'lista':
+        form = ListaForm(request.POST or None, instance=obj)
+    elif object_type == 'atividade':
+        form = AtividadeForm(request.POST or None, instance=obj)
+    elif object_type == 'tarefa':
+        form = TarefaForm(request.POST or None, instance=obj)
+
+    # Processar o envio do formulário
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('pagina_inicial')
+
+    return render(request, 'atualizar_item.html', {'form': form, 'object_type': object_type, 'obj': obj})
