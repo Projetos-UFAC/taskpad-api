@@ -211,9 +211,19 @@
                                     <div id="atividade{{ atividade.id }}" class="collapse">
                                         <div class="list-group">
                                             {% for tarefa in atividade.tarefa_set.all %}
-                                                <button class="list-group-item list-group-item-action pastel-button4" data-conteudo="{{ tarefa.texto }}"  data-item-id="{{ tarefa.id }}" data-object-type="tarefa" onclick="marcarListaAberta(this)">
-                                                    {{ tarefa.nome }}
-                                                </button>
+                                    <button class="list-group-item list-group-item-action pastel-button4"
+                                            data-conteudo="{{ tarefa.texto }}"
+                                            data-item-id="{{ tarefa.id }}"
+                                            data-object-type="tarefa"
+                                            data-nome-tarefa="{{ tarefa.nome }}"
+                                            data-descricao="{{ tarefa.descricao }}"
+                                            data-data-inicio="{{ tarefa.data_inicio }}"
+                                            data-data-fim="{{ tarefa.data_fim }}"
+                                            data-prioridade="{{ tarefa.prioridade }}"
+                                            onclick="marcarListaAberta(this)">
+                                        {{ tarefa.nome }}
+                                    </button>
+                                    
                                             {% endfor %}
                                             <button class="btn btn-primary btn-criar-tarefa pastel-button" data-atividade-id="{{ atividade.id }}" data-bs-toggle="modal" data-bs-target="#criarTarefaModal">
                                                 Criar Tarefa
@@ -312,23 +322,23 @@
                                     <!-- Campos de atualização aqui -->
                                     <div class="mb-3">
                                         <label for="nome_tarefa" class="form-label" style="color: black;">Novo nome:</label>
-                                        <input type="text" class="form-control" id="nome_tarefa" name="nome_tarefa" required>
+                                        <input type="text" class="form-control" id="nome_tarefaatt" name="nome_tarefa" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
-                                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                                        <textarea class="form-control" id="descricaoatt" name="descricao"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
-                                        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
+                                        <input type="date" class="form-control" id="dataInicioatt" name="dataInicio">
                                     </div>
                                     <div class="mb-3">
                                         <label for="dataFim" class="form-label" style="color: black;">Data de Término:</label>
-                                        <input type="date" class="form-control" id="dataFim" name="dataFim">
+                                        <input type="date" class="form-control" id="dataFimatt" name="dataFim">
                                     </div>
                                     <div class="mb-3">
                                         <label for="prioridade" class="form-label" style="color: black;">Prioridade:</label>
-                                        <select class="form-select" id="prioridade" name="prioridade" required>
+                                        <select class="form-select" id="prioridadeatt" name="prioridade" required>
                                             <option value="1">Baixa</option>
                                             <option value="2">Média</option>
                                             <option value="3">Alta</option>
@@ -351,25 +361,34 @@
             </form>
 
 
-            <script>
+
+            
+                        <script>
                 function atualizarItem(item) {
-                    // Preencha os campos do formulário de atualização com os dados do item
-                    document.getElementById('updateObjectTypeInput').value = item.getAttribute('data-object-type');
-                    document.getElementById('updateItemIdInput').value = item.getAttribute('data-item-id');
+                    // Obtenha os dados do item a partir dos atributos data-
+                    const objectType = item.getAttribute('data-object-type');
+                    const itemId = item.getAttribute('data-item-id');
+                    const nomeTarefa = item.getAttribute('data-nome-tarefa');
+                    const descricao = item.getAttribute('data-descricao');
+                    const dataInicio = item.getAttribute('data-data-inicio');
+                    const dataFim = item.getAttribute('data-data-fim');
+                    const prioridade = item.getAttribute('data-prioridade');
                     
-                    // Preencha os campos do modal com os dados do item
-                    document.getElementById('nome_tarefa').value = item.getAttribute('data-nome-tarefa');
-                    document.getElementById('descricao').value = item.getAttribute('data-descricao');
-                    document.getElementById('dataInicio').value = item.getAttribute('data-data-inicio');
-                    document.getElementById('dataFim').value = item.getAttribute('data-data-fim');
-                    document.getElementById('prioridade').value = item.getAttribute('data-prioridade');
-                    
-                    // Abra o modal de atualização
                     const atualizarModal = new bootstrap.Modal(document.getElementById('atualizarModal'));
+                    // Preencha os campos do formulário de atualização com os dados do item
+                    document.getElementById('updateObjectTypeInput').value = objectType;
+                    document.getElementById('updateItemIdInput').value = itemId;
+                    document.getElementById('nome_tarefaatt').value = nomeTarefa; // POHA VELHO, ERA SÓ MUDAR O NOME DO ELEMENTO P CODE NAO CONFUNDIR COM OUTRO MODAL
+                    document.getElementById('descricaoatt').value = descricao;
+                    document.getElementById('dataInicioatt').value = dataInicio;
+                    document.getElementById('dataFimatt').value = dataFim;
+                    document.getElementById('prioridadeatt').value = prioridade;
+            
+                    // Abra o modal de atualização
+                    
                     atualizarModal.show();
                 }
             </script>
-            
 
 
 
