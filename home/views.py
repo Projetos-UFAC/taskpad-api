@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from drf_spectacular.utils import extend_schema, OpenApiParameter
-
+import logging
 from lista.models import Lista
 from atividade.models import Atividade
 from tarefa.models import Tarefa
@@ -225,36 +225,39 @@ def deletar_item(request):
 
 
 
+
 def atualizar_item(request):
-    obj = None 
-    if request.method == 'POST':
+
+    if request.method == "POST":
         object_type = request.POST.get('objectType')
         item_id = request.POST.get('itemId')
-    # Recupere o objeto com base no tipo (lista, atividade ou tarefa) e ID
-    if object_type and item_id:
-        if object_type == 'lista':
-            obj = get_object_or_404(Lista, id=item_id)
-        elif object_type == 'atividade':
+        print(f'object_type: {object_type}')
+        print(f'item_id: {item_id}')
+        if object_type and item_id:
+            if object_type == 'lista':
+                obj = get_object_or_404(Lista, id=item_id)
+            elif object_type == 'atividade':
                 obj = get_object_or_404(Atividade, id=item_id)
-        elif object_type == 'tarefa':
-            obj = get_object_or_404(Tarefa, id=item_id)
+            elif object_type == 'tarefa':
+                obj = get_object_or_404(Tarefa, id=item_id)
 
-    # Verifique se o objeto pertence ao usuário logado
-    if obj.user != request.user:
-        return HttpResponse('Você não tem permissão para atualizar este item')
+            dataInicio = request.POST.get('dataInicioatt')
+            if dataInicio:
+                dataInicio = parse_date(dataInicio)
+            else:
+                dataInicio = None
 
-    # Crie formulários com base no tipo de objeto (lista, atividade ou tarefa)
-    if object_type == 'lista':
-        form = ListaForm(request.POST or None, instance=obj)
-    elif object_type == 'atividade':
-        form = AtividadeForm(request.POST or None, instance=obj)
-    elif object_type == 'tarefa':
-        form = TarefaForm(request.POST or None, instance=obj)
+            dataFim = request.POST.get('dataFimatt')
+            if dataFim:
+                dataFim = parse_date(dataFim)
+            else:
+                dataFim = None
 
-    # Processar o envio do formulário
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('pagina_inicial')
-
-    return render(request, 'atualizar_item.html', {'form': form, 'object_type': object_type, 'obj': obj})
+            obj.nome = request.POST.get('nome_tarefaatt')
+            obj.descricao = request.POST.get('descricaoatt')
+            obj.dataInicio = dataInicio
+            obj.dataFim = dataFim
+            obj.prioridade = request.POST.get('prioridadeatt')
+            obj.save()
+        
+    return redirect('pagina_inicial')
