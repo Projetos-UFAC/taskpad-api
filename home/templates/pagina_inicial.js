@@ -198,6 +198,11 @@ itemButton.forEach(button => {
 // FUNÇÃO QUE CRIA OS BUTÕES DE MENU CONTEXTO (CLIQUE DIREITO)
 
 function mostrarMenuContexto(x, y, item) {
+    const menuExistente = document.querySelector('.context-menu'); // caso ja tenha um menu, apaga ele
+    if (menuExistente) {
+        menuExistente.remove();
+    }
+
     const menu = document.createElement('div');
     menu.classList.add('context-menu');
     menu.style.position = 'absolute';
