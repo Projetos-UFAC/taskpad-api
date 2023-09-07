@@ -251,3 +251,18 @@ function mostrarMenuContexto(x, y, item) {
         }
     });
 }
+
+
+// --------------------------------------------------------------
+
+
+// Func pra checar se tem algum item aberto
+
+function Itemaberto() {
+    if (listaAbertarow !== null) {
+        listaAbertarow.classList.remove('lista-aberta-row'); // Remove a classe da lista aberta anterior
+    }
+
+    listaAbertarow = botao; // Atualiza o botão da lista aberta
+    botao.classList.add('lista-aberta-row'); // Adiciona a classe à lista aberta atual
+}

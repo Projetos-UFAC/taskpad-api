@@ -35,8 +35,9 @@
             <div class="col-md-2 bg-claro_style" style="margin: 2%; flex-direction: column; min-height: 85vh;">
                 <!--full-height-row-->
                 <div class="bg-claro_style p-3 rounded " style="text-align: left;">
-                    <h4 style="text-align: center;">Lista de Atividades</h4>
-
+                    <div class="lista-title">
+                        <h4 style="text-align: center; font-size:17px;">LISTAS DE ATIVIDADES</h4>
+                    </div>
                     <div class="row align-content">
                         <div class="col-md-12">
                             <button type="button" class="pastel-button btn col-md-12" data-bs-toggle="modal"
@@ -60,7 +61,7 @@
                                     <button class="list-group-item list-group-item-action pastel-button2 border-end-0"
                                         data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
                                         <img src="{% static 'home/templates/ico-open.png' %}" alt="Ícone de Abrir"
-                                            style="width: 20px; height: 20px; flex-direction: column; justify-content: center; align-items: center;">
+                                            style="max-width: 20px; max-height: 40px; flex-direction: column; justify-content: center; align-items: center;">
                                     </button>
                                 </div>
                                 <div class="col-md-10" style="padding-left: 0%;">
@@ -87,7 +88,7 @@
                                                 data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
                                                 <img src="{% static 'home/templates/ico-open.png' %}"
                                                     alt="Ícone de Abrir"
-                                                    style="width: 20px; height: 20px;flex-direction: column;justify-content:center;align-items:center;">
+                                                    style="max-width: 20px; max-height: 20px;flex-direction: column;justify-content:center;align-items:center;">
                                             </button>
                                         </div>
                                         <div class="col-md-10" style="padding-left: 0%;">
@@ -128,7 +129,7 @@
                                             </div>
                                             {% endfor %}
 
-                                            <button class="btn btn-primary btn-criar-tarefa pastel-button"
+                                            <button class="btn btn-criar-tarefa pastel-button"
                                                 data-atividade-id="{{ atividade.id }}" data-bs-toggle="modal"
                                                 data-bs-target="#criarTarefaModal">
                                                 Criar Tarefa
@@ -136,9 +137,8 @@
                                         </div>
                                     </div>
                                     {% endfor %}
-                                    <button class="btn btn-primary btn-criar-atividade pastel-button"
-                                        data-lista-id="{{ lista.id }}" data-bs-toggle="modal"
-                                        data-bs-target="#criarAtividadeModal">
+                                    <button class="btn btn-criar-atividade pastel-button" data-lista-id="{{ lista.id }}"
+                                        data-bs-toggle="modal" data-bs-target="#criarAtividadeModal">
                                         Criar Atividade
                                     </button>
                                 </div>
