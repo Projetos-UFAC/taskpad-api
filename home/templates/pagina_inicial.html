@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
     <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
@@ -12,9 +13,12 @@
     <!-- link para o CSS do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Fonte Awesome sla mano to com sono -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoBf8e23a0k5/dKeGzIbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    <!-- cabeçalho e metadados -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoBf8e23a0k5/dKeGzIbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    <!-- Scripts JS-->
+    <script src="{% static 'home/templates/pagina_inicial.js' %}"></script>
 </head>
+
 <body>
     <!-- Div com um Logout e logo -->
     <div class="bg-claro_style d-flex justify-content-between align-items-center p-3 rounded">
@@ -24,392 +28,126 @@
             <a href="{% url 'logout' %}" class="btn pastel-button2">Logout</a>
         </div>
     </div>
-    
-    
+
+
     <div>
         <div class="row">
-            <div class="col-md-3 bg-claro_style" style="margin: 2%; flex-direction: column; min-height: 85vh;"> <!--full-height-row-->
+            <div class="col-md-3 bg-claro_style" style="margin: 2%; flex-direction: column; min-height: 85vh;">
+                <!--full-height-row-->
                 <div class="bg-claro_style p-3 rounded " style="text-align: left;">
                     <h4 style="text-align: center;">Lista de Atividades</h4>
-    
+
                     <div class="row align-content">
                         <div class="col-md-12">
-                            <button type="button" class="pastel-button btn col-md-12" data-bs-toggle="modal" data-bs-target="#criarListaModal">
+                            <button type="button" class="pastel-button btn col-md-12" data-bs-toggle="modal"
+                                data-bs-target="#criarListaModal">
                                 Criar Lista
                             </button>
                         </div>
                     </div>
 
-                <!-- Modal POP UP para criar lista -->
-<div class="modal fade" id="criarListaModal" tabindex="-1" aria-labelledby="criarListaModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="criarListaModalLabel" style="color: black;">Criar Nova Lista</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulário para criar lista -->
-                <form method="POST" action="{% url 'criar_lista' %}">
-                    {% csrf_token %}
-                    <label for="nome" style="color: black;">Nome da Lista:</label>
-                    <input type="text" id="nome" name="nome" class="form-control" required>
-                    <label for="descricao" style="color: black;">Descrição:</label>
-                    <textarea id="descricao" name="descricao" class="form-control"></textarea>
-                    <label for="dataInicio" style="color: black;">Data de Início:</label>
-                    <input type="date" id="dataInicio" name="dataInicio" class="form-control">
-                    <label for="dataFim">Data de Término:</label>
-                    <input type="date" id="dataFim" name="dataFim" class="form-control">
-                    <label for="prioridade" style="color: black;">Prioridade:</label>
-                    <select id="prioridade" name="prioridade" class="form-control" required>
-                        <option value="1">Baixa</option>
-                        <option value="2">Média</option>
-                        <option value="3">Alta</option>
-                    </select>
-                    <button type="submit" class="btn pastel-button mt-3">Criar Lista</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- fim do criar lista -->
-                
+                    <!-- Incluindo Modais (Formularios pop up)-->
 
-<!-- Modal para criar atividade -->
-<div class="modal fade" id="criarAtividadeModal" tabindex="-1" aria-labelledby="criarAtividadeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="criarAtividadeModalLabel" style="color: black;">Criar Nova Atividade</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulário para criar atividade -->
-                <form method="POST" action="{% url 'criar_atividade' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="lista_id" id="lista_id" value="">
-                    <input type="hidden" name="user_id" value="{{ request.user.id }}">
-                    <div class="mb-3">
-                        <label for="nome_atividade" class="form-label" style="color: black;">Nome da Atividade:</label>
-                        <input type="text" class="form-control" id="nome_atividade" name="nome_atividade" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
-                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
-                        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
-                    </div>
-                    <div class="mb-3">
-                        <label for="dataFim" class="form-label" style="color: black;">Data de Término:</label>
-                        <input type="date" class="form-control" id="dataFim" name="dataFim">
-                    </div>
-                    <div class="mb-3">
-                        <label for="prioridade" class="form-label" style="color: black;">Prioridade:</label>
-                        <select class="form-select" id="prioridade" name="prioridade" required>
-                            <option value="1">Baixa</option>
-                            <option value="2">Média</option>
-                            <option value="3">Alta</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn pastel-button mt-3">Criar Atividade</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fim do modal para criar atividade -->
+                    {% include 'modals.html' %}
 
-
-<!-- Modal para criar tarefa -->
-<div class="modal fade" id="criarTarefaModal" tabindex="-1" aria-labelledby="criarTarefaModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="criarTarefaModalLabel" style="color: black;">Criar Nova Tarefa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulário para criar tarefa -->
-                <form method="POST" action="{% url 'criar_tarefa' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="atividade_id" id="atividade_id" value="">
-                    <input type="hidden" name="user_id" value="{{ request.user.id }}">
-                    <div class="mb-3">
-                        <label for="nome_tarefa" class="form-label" style="color: black;">Nome da Tarefa:</label>
-                        <input type="text" class="form-control" id="nome_tarefa" name="nome_tarefa" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
-                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
-                        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
-                    </div>
-                    <div class="mb-3">
-                        <label for="dataFim" class="form-label" style="color: black;">Data de Término:</label>
-                        <input type="date" class="form-control" id="dataFim" name="dataFim">
-                    </div>
-                    <div class="mb-3">
-                        <label for="prioridade" class="form-label" style="color: black;">Prioridade:</label>
-                        <select class="form-select" id="prioridade" name="prioridade" required>
-                            <option value="1">Baixa</option>
-                            <option value="2">Média</option>
-                            <option value="3">Alta</option>
-                        </select>
-                    </div>
-                    <!-- Adicione mais campos de acordo com o modelo de tarefa, se precisar :v -->
-                    <button type="submit" class="btn pastel-button mt-3">Criar Tarefa</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fim do modal para criar tarefa -->
-
-
-
-
-
-<!--   CONTINUAÇÃO   -->
-                <div class="align-content">
-                <div class="list-group col-md-12 ">
-                    {% for lista in listas %}
-                        <!-- Butoes de listas -->
-                        <div class="row">
-                            <div class="col-md-10" style="padding-right: 0%;">
-                                <button class="list-group-item list-group-item-action pastel-button2" 
-                                data-conteudo="{{ lista.texto }}"
-                                 data-item-id="{{ lista.id }}" 
-                                 data-object-type="lista"
-                                 onclick="marcarListaAberta(this)"
-                                    data-nome-tarefa="{{ lista.nome }}"
-                                    data-descricao="{{ lista.descricao }}"
-                                    data-data-inicio="{{ lista.dataInicio }}"
-                                    data-data-fim="{{ lista.dataFim }}"
-                                    data-prioridade="{{ lista.prioridade }}">
-                                    {{ lista.nome }}
-                                </button>
-                            </div>
-                            <div class="col-md-2" style="padding-left: 0%;">
-                                <button class="list-group-item list-group-item-action pastel-button2" data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}" >
-                                    <img src="{% static 'home/templates/ico-open.png' %}"  alt="Ícone de Abrir" style="width: 20px; height: 20px;flex-direction: column;justify-content:center;align-items:center;">
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="lista{{ lista.id }}" class="collapse">
-                            <div class="list-group">
-                                {% for atividade in lista.atividade_set.all %}
-
-                                <div class="row">
-                                    <div class="col-md-10" style="padding-right: 0%;">
-                                        <!-- BOTEI NOME TAREFA LA EMBAIXO AGORA VAI FICAR NOME TAREFA EM TODOS -->
-                                    <button class="list-group-item list-group-item-action pastel-button3"
-                                    data-conteudo="{{ atividade.texto }}"
-                                    data-item-id="{{ atividade.id }}"
-                                    data-object-type="atividade" 
-                                            data-nome-tarefa="{{ atividade.nome }}"
-                                            data-descricao="{{ atividade.descricao }}"
-                                            data-data-inicio="{{ atividade.dataInicio }}"
-                                            data-data-fim="{{ atividade.dataFim }}"
-                                            data-prioridade="{{ atividade.prioridade }}"
-                                    onclick="marcarListaAberta(this)">
-                                        {{ atividade.nome }}
+                    <!--   CONTINUAÇÃO   -->
+                    <div class="align-content">
+                        <div class="list-group col-md-12 ">
+                            {% for lista in listas %}
+                            <!-- Butoes de listas -->
+                            <div class="row">
+                                <div class="col-md-10" style="padding-right: 0%;">
+                                    <button class="list-group-item list-group-item-action pastel-button2"
+                                        data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}"
+                                        data-object-type="lista" onclick="marcarListaAberta(this)"
+                                        data-nome-tarefa="{{ lista.nome }}" data-descricao="{{ lista.descricao }}"
+                                        data-data-inicio="{{ lista.dataInicio }}" data-data-fim="{{ lista.dataFim }}"
+                                        data-prioridade="{{ lista.prioridade }}">
+                                        {{ lista.nome }}
                                     </button>
                                 </div>
                                 <div class="col-md-2" style="padding-left: 0%;">
-                                <button class="list-group-item list-group-item-action pastel-button3" data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
-                                    <img src="{% static 'home/templates/ico-open.png' %}"  alt="Ícone de Abrir" style="width: 20px; height: 20px;flex-direction: column;justify-content:center;align-items:center;">
-                                </button>
-                                    </div>
+                                    <button class="list-group-item list-group-item-action pastel-button2"
+                                        data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
+                                        <img src="{% static 'home/templates/ico-open.png' %}" alt="Ícone de Abrir"
+                                            style="width: 20px; height: 20px;flex-direction: column;justify-content:center;align-items:center;">
+                                    </button>
                                 </div>
+                            </div>
+
+                            <div id="lista{{ lista.id }}" class="collapse">
+                                <div class="list-group">
+                                    {% for atividade in lista.atividade_set.all %}
+
+                                    <div class="row">
+                                        <div class="col-md-10" style="padding-right: 0%;">
+                                            <!-- BOTEI NOME TAREFA LA EMBAIXO AGORA VAI FICAR NOME TAREFA EM TODOS -->
+                                            <button class="list-group-item list-group-item-action pastel-button3"
+                                                data-conteudo="{{ atividade.texto }}" data-item-id="{{ atividade.id }}"
+                                                data-object-type="atividade" data-nome-tarefa="{{ atividade.nome }}"
+                                                data-descricao="{{ atividade.descricao }}"
+                                                data-data-inicio="{{ atividade.dataInicio }}"
+                                                data-data-fim="{{ atividade.dataFim }}"
+                                                data-prioridade="{{ atividade.prioridade }}"
+                                                onclick="marcarListaAberta(this)">
+                                                {{ atividade.nome }}
+                                            </button>
+                                        </div>
+                                        <div class="col-md-2" style="padding-left: 0%;">
+                                            <button class="list-group-item list-group-item-action pastel-button3"
+                                                data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
+                                                <img src="{% static 'home/templates/ico-open.png' %}"
+                                                    alt="Ícone de Abrir"
+                                                    style="width: 20px; height: 20px;flex-direction: column;justify-content:center;align-items:center;">
+                                            </button>
+                                        </div>
+                                    </div>
 
                                     <div id="atividade{{ atividade.id }}" class="collapse">
                                         <div class="list-group">
                                             {% for tarefa in atividade.tarefa_set.all %}
-                                    <button class="list-group-item list-group-item-action pastel-button4"
-                                            data-conteudo="{{ tarefa.texto }}"
-                                            data-item-id="{{ tarefa.id }}"
-                                            data-object-type="tarefa"
-                                            data-nome-tarefa="{{ tarefa.nome }}"
-                                            data-descricao="{{ tarefa.descricao }}"
-                                            data-data-inicio="{{ tarefa.dataInicio }}"
-                                            data-data-fim="{{ tarefa.dataFim }}"
-                                            data-prioridade="{{ tarefa.prioridade }}"
-                                            onclick="marcarListaAberta(this)">
-                                        {{ tarefa.nome }}
-                                    </button>
-                                    
+                                            <button class="list-group-item list-group-item-action pastel-button4"
+                                                data-conteudo="{{ tarefa.texto }}" data-item-id="{{ tarefa.id }}"
+                                                data-object-type="tarefa" data-nome-tarefa="{{ tarefa.nome }}"
+                                                data-descricao="{{ tarefa.descricao }}"
+                                                data-data-inicio="{{ tarefa.dataInicio }}"
+                                                data-data-fim="{{ tarefa.dataFim }}"
+                                                data-prioridade="{{ tarefa.prioridade }}"
+                                                onclick="marcarListaAberta(this)">
+                                                {{ tarefa.nome }}
+                                            </button>
+
                                             {% endfor %}
-                                            <button class="btn btn-primary btn-criar-tarefa pastel-button" data-atividade-id="{{ atividade.id }}" data-bs-toggle="modal" data-bs-target="#criarTarefaModal">
+                                            <button class="btn btn-primary btn-criar-tarefa pastel-button"
+                                                data-atividade-id="{{ atividade.id }}" data-bs-toggle="modal"
+                                                data-bs-target="#criarTarefaModal">
                                                 Criar Tarefa
                                             </button>
                                         </div>
                                     </div>
-                                {% endfor %}
-                                <button class="btn btn-primary btn-criar-atividade pastel-button" data-lista-id="{{ lista.id }}" data-bs-toggle="modal" data-bs-target="#criarAtividadeModal">
-                                    Criar Atividade
-                                </button>
+                                    {% endfor %}
+                                    <button class="btn btn-primary btn-criar-atividade pastel-button"
+                                        data-lista-id="{{ lista.id }}" data-bs-toggle="modal"
+                                        data-bs-target="#criarAtividadeModal">
+                                        Criar Atividade
+                                    </button>
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
-                </div>
-
-                
-
-            </div>
-            </div>
-            
 
 
-            <!--- SCRIPT PARA O CLIQUE DIREITO-->
-            <script>
-                                // Seletor para os elementos que terão o menu de contexto (por exemplo, os botões de lista, atividade e tarefa)
-                const itemButton = document.querySelectorAll('.pastel-button2, .pastel-button3, .pastel-button4');
 
-                itemButton.forEach(button => {
-                    button.addEventListener('contextmenu', function(event) {
-                        event.preventDefault(); // Evitar o menu de contexto padrão do navegador
-                        
-                        // Mostrar o menu de contexto personalizado
-                        mostrarMenuContexto(event.clientX, event.clientY, button);
-                    });
-                });
-
-            </script>
-            <!-- FUNÇÃO QUE CRIA O BOTAO DE DELETAR -->
-            <script>
-                function mostrarMenuContexto(x, y, item) {
-                    const menu = document.createElement('div');
-                    menu.classList.add('context-menu');
-                    menu.style.position = 'absolute';
-                    menu.style.left = `${x}px`;
-                    menu.style.top = `${y}px`;
-
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = 'Delete';
-                    deleteButton.classList.add('context-menu-item');
-                    deleteButton.addEventListener('click', function() {
-                        // Chame a função de exclusão passando o item como parâmetro
-                        deletarItem(item);
-                        menu.remove(); // Remova o menu após o clique
-                    });
-
-                    const updateButton = document.createElement('button');
-                    updateButton.textContent = 'Atualizar';
-                    updateButton.classList.add('context-menu-item');
-                    updateButton.addEventListener('click', function() {
-                        // Chame a função de atualização passando o item como parâmetro
-                        atualizarItem(item);
-                        menu.remove(); // Remova o menu após o clique
-                    });
-
-                    menu.appendChild(updateButton);
-                    menu.appendChild(deleteButton);
-                    document.body.appendChild(menu);
-
-                    // Adicionar event listener de clique ao documento para fechar o menu quando o usuário clicar fora dele
-                    document.addEventListener('click', function(event) {
-                        const clickedElement = event.target;
-                        if (!menu.contains(clickedElement) && !item.contains(clickedElement)) {
-                            menu.remove(); // Remova o menu se o clique não estiver dentro dele nem no botão
-                        }
-                    });
-                }
-
-            </script>
-
-                <!--- PARA O UPDATE  -->
-
-
-                <div class="modal fade" id="atualizarModal" tabindex="-1" aria-labelledby="atualizarModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="form-label" style="color: black;" id="atualizarModalLabel">Atualizar Item</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Formulário de atualização aqui -->
-                                <form id="updateForm" method="post" action="{% url 'atualizar_item' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="objectType" id="updateObjectTypeInput">
-                                    <input type="hidden" name="itemId" id="updateItemIdInput">
-                                    <!-- Campos de atualização aqui -->
-                                    <div class="mb-3">
-                                        <label for="nome_tarefa" class="form-label" style="color: black;">Novo nome:</label>
-                                        <input type="text" class="form-control" id="nome_tarefaatt" name="nome_tarefaatt" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
-                                        <textarea class="form-control" id="descricaoatt" name="descricaoatt"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
-                                        <input type="date" class="form-control" id="dataInicioatt" name="dataInicioatt">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="dataFim" class="form-label" style="color: black;">Data de Término:</label>
-                                        <input type="date" class="form-control" id="dataFimatt" name="dataFimatt">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="prioridade" class="form-label" style="color: black;">Prioridade:</label>
-                                        <select class="form-select" id="prioridadeatt" name="prioridadeatt" required>
-                                            <option value="1">Baixa</option>
-                                            <option value="2">Média</option>
-                                            <option value="3">Alta</option>
-                                        </select>
-                                    </div>
-                                    <!-- Adicione mais campos de acordo com o modelo de tarefa, se precisar :v -->
-                                    <button type="submit" class="btn pastel-button mt-3">Atualizar</button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            
+
                 <!-- Formulário para enviar dados de atualização -->
-            <form id="updateForm" method="post" action="{% url 'atualizar_item' %}">
-                {% csrf_token %}
-                <input type="hidden" name="object_type" id="updateObjectTypeInput" value="">
-                <input type="hidden" name="item_id" id="updateItemIdInput" value="">
-                
-            </form>
+                <form id="updateForm" method="post" action="{% url 'atualizar_item' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="object_type" id="updateObjectTypeInput" value="">
+                    <input type="hidden" name="item_id" id="updateItemIdInput" value="">
 
-
-
-            
-                        <script>
-                function atualizarItem(item) {
-                    // Obtenha os dados do item a partir dos atributos data-
-                    const objectType = item.getAttribute('data-object-type');
-                    const itemId = item.getAttribute('data-item-id');
-                    const nomeTarefa = item.getAttribute('data-nome-tarefa');
-                    const descricao = item.getAttribute('data-descricao');
-                    const dataInicio = item.getAttribute('data-data-inicio');
-                    const dataFim = item.getAttribute('data-data-fim');
-                    const prioridade = item.getAttribute('data-prioridade');
-                    
-                    const atualizarModal = new bootstrap.Modal(document.getElementById('atualizarModal'));
-                    // Preencha os campos do formulário de atualização com os dados do item
-                    document.getElementById('updateObjectTypeInput').value = objectType;
-                    document.getElementById('updateItemIdInput').value = itemId;
-                    document.getElementById('nome_tarefaatt').value = nomeTarefa; // POHA VELHO, ERA SÓ MUDAR O NOME DO ELEMENTO P CODE NAO CONFUNDIR COM OUTRO MODAL
-                    document.getElementById('descricaoatt').value = descricao;
-                    document.getElementById('dataInicioatt').value = dataInicio;
-                    document.getElementById('dataFimatt').value = dataFim;
-                    document.getElementById('prioridadeatt').value = prioridade;
-            
-                    // Abra o modal de atualização
-                    
-                    atualizarModal.show();
-                }
-            </script>
-
-
+                </form>
 
                 <!-- para enviar os dados para excluir os itens -->
                 <form id="deleteForm" method="post" action="{% url 'deletar_item' %}">
@@ -417,169 +155,34 @@
                     <input type="hidden" name="objectType" id="objectTypeInput">
                     <input type="hidden" name="itemId" id="itemIdInput">
                 </form>
-                
-            <script>
-                function deletarItem(item) {
-                    const objectType = item.getAttribute('data-object-type');
-                    const itemId = item.getAttribute('data-item-id');
 
-                    const confirmation = confirm('Tem certeza que deseja realizar a exclusão?');
-                    
-                    if (confirmation) {
-                        const objectTypeInput = document.getElementById('objectTypeInput');
-                        const itemIdInput = document.getElementById('itemIdInput');
+            </div>
 
-                        objectTypeInput.value = objectType;
-                        itemIdInput.value = itemId;
+            <!-- Forms, ISSO AQUI É O FORMS DO EDITOR CKEDITOR "TEXTAREA" -->
 
-                        // Submit the form
-                        document.getElementById('deleteForm').submit();
-                    }
-                }
-            </script>
+            <div class="col-md-8" style="padding-top: 2%;">
 
-            <!-- script para capturar o ID da lista quando for criar atividade... foda -->
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const botoesCriarAtividade = document.querySelectorAll('.btn-criar-atividade');
-                    
-                    botoesCriarAtividade.forEach(function(botao) {
-                        botao.addEventListener('click', function() {
-                            const listaID = botao.getAttribute('data-lista-id');
-                            document.getElementById('lista_id').value = listaID;
-                        });
-                    });
-                });
-            </script>
-
-            <script>
-                // Captura o evento de clique no botão "Criar Tarefa"
-                document.querySelectorAll('.btn-criar-tarefa').forEach(function(button) {
-                    button.addEventListener('click', function(event) {
-                        // Obtém o ID da atividade associado ao botão clicado
-                        var atividadeId = button.getAttribute('data-atividade-id');
-                        
-                        // Preenche o campo oculto "atividade_id" no formulário do modal
-                        document.getElementById('atividade_id').value = atividadeId;
-                    });
-                });
-            </script>
-            <!--           FIM DOS SCRIPTS PARA PEGAR O ID NA HORA DE CRIAR LISTAS, ATIVIDADES OU TAREFAS                 -->
-        </div>
-
-        <!-- Para mudar a cor do botao em aberto -->
-        <script>
-            let listaAberta = null; // Armazena o botão da lista aberta anteriormente
-        
-            function marcarListaAberta(botao) {
-                if (listaAberta !== null) {
-                    listaAberta.classList.remove('lista-aberta'); // Remove a classe da lista aberta anterior
-                }
-        
-                listaAberta = botao; // Atualiza o botão da lista aberta
-                botao.classList.add('lista-aberta'); // Adiciona a classe à lista aberta atual
-            }
-        </script>
-
-        <!-- Forms -->
-        
-        <div class="col-md-8" style="padding-top: 2%;">
-          
-                <form method="post" class="bg-claro_style p-3 rounded" style="flex-direction: column; min-height: 85vh;">
+                <form method="post" class="bg-claro_style p-3 rounded"
+                    style="flex-direction: column; min-height: 85vh;">
                     {% csrf_token %}
-                    
+
                     <!-- Formulário para criar uma nova lista -->
                     <input type="hidden" id="item_id" name="object_id">
-                    <input type="hidden" id="object_type" name="object_type"> <!-- Campo oculto para o tipo de objeto -->
+                    <input type="hidden" id="object_type" name="object_type">
+                    <!-- Campo oculto para o tipo de objeto -->
                     <div style="margin-left: 2cm; margin-right: 2cm;">
-                    <textarea id="conteudo_atividade" name="conteudo_atividade" style="display: none;"></textarea>     
+                        <textarea id="conteudo_atividade" name="conteudo_atividade" style="display: none;"></textarea>
                     </div>
-        
+
                     <!-- Botão de envio do formulário -->
                     <button type="submit" class="btn pastel-button" style="margin: 1%;">Salvar</button>
                 </form>
-       
+
+            </div>
+
         </div>
-
-<!-- Script JS para manter o texto no editor...  -->
-<script>
-    const editorTextarea = document.getElementById('conteudo_atividade');
-    const itemButtons = document.querySelectorAll('[data-conteudo]');
-    
-    itemButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const conteudo = button.getAttribute('data-conteudo');
-            if (conteudo == 'None'){
-                editorTextarea.value = '';
-            }else{
-                editorTextarea.value = conteudo;
-            }
-            
-        });
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar o CKEditor no campo 'conteudo_atividade'
-    CKEDITOR.replace('conteudo_atividade', { height: '60vh'});
-
-    // Capturar o evento de clique nos botões de atividade
-    const botoesAtividade = document.querySelectorAll('.pastel-button3');
-    botoesAtividade.forEach(function(botao) {
-        botao.addEventListener('click', function() {
-            const conteudoAtividade = botao.getAttribute('data-conteudo'); // Conteúdo da atividade
-            if (conteudoAtividade == 'None'){ // FUNCIONANDO!!!!!!!! Deixando o CKeditor vazio caso não tenha nada de texto, antes ele colocava um "None"
-                CKEDITOR.instances.conteudo_atividade.setData(''); 
-            }else{
-                CKEDITOR.instances.conteudo_atividade.setData(conteudoAtividade); // Atualizar o CKEditor
-            }
-            
-            
-            const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
-            document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
-            document.getElementById('object_type').value = 'atividade'; 
-        });
-    });
-
-    // Capturar o evento de clique nos botões de lista
-    const botoesLista = document.querySelectorAll('.pastel-button2');
-    botoesLista.forEach(function(botao) {
-        botao.addEventListener('click', function() {
-            const conteudoLista = botao.getAttribute('data-conteudo'); // Conteúdo da lista
-            if (conteudoLista == 'None'){
-                CKEDITOR.instances.conteudo_atividade.setData(''); 
-            }else{
-                CKEDITOR.instances.conteudo_atividade.setData(conteudoLista); // Atualizar o CKEditor
-            }
-            
-        
-            const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
-            document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
-            document.getElementById('object_type').value = 'lista'; 
-        });
-    });
-
-    // Capturar o evento de clique nos botões de tarefa
-    const botoesTarefa = document.querySelectorAll('.pastel-button4');
-    botoesTarefa.forEach(function(botao) {
-        botao.addEventListener('click', function() {
-            const conteudoTarefa = botao.getAttribute('data-conteudo'); // Conteúdo da tarefa
-            if (conteudoTarefa == 'None'){ 
-                CKEDITOR.instances.conteudo_atividade.setData('');
-            }else{
-                CKEDITOR.instances.conteudo_atividade.setData(conteudoTarefa); // Atualizar o CKEditor
-            }
-        
-            const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
-            document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
-            document.getElementById('object_type').value = 'tarefa'; 
-        });
-    });
-});
-</script>
-    </div>
-    <!-- outros conteúdos da página -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- outros conteúdos da página -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
