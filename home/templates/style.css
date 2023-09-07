@@ -50,9 +50,17 @@ body {
     color: #ffffff !important; 
 }
 
+/*  CLASSE DEFASADA, NAO USAR
 .lista-aberta {
-    background-color: #b586fc !important; /* Defina a cor que deseja */
-    color: #ffff !important; /* Cor do texto */
+    background-color: #b586fc !important; 
+    color: #ffff !important; 
+}
+*/
+
+/* Estilo para os botões dentro da div com a classe custom-button-row */
+.lista-aberta-row button {
+    background-color: #b586fc !important;
+    color: #ffff !important;
 }
 
 

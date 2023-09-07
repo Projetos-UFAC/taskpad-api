@@ -85,18 +85,30 @@ itemButtons.forEach(button => {
 
 // Para mudar a cor do botao em aberto 
 
-let listaAberta = null; // Armazena o botão da lista aberta anteriormente
+// Desatualizada, agora eu mudo a propria row e seus botoes, nao os botoes separados
+// let listaAberta = null; // Armazena o botão da lista aberta anteriormente
 
-function marcarListaAberta(botao) {
-    if (listaAberta !== null) {
-        listaAberta.classList.remove('lista-aberta'); // Remove a classe da lista aberta anterior
+// function marcarListaAberta(botao) {
+//     if (listaAberta !== null) {
+//         listaAberta.classList.remove('lista-aberta'); // Remove a classe da lista aberta anterior
+//     }
+
+//     listaAberta = botao; // Atualiza o botão da lista aberta
+//     botao.classList.add('lista-aberta'); // Adiciona a classe à lista aberta atual
+// }
+
+//
+
+let listaAbertarow = null; // Armazena o botão da lista aberta anteriormente
+
+function marcarListaAbertarow(botao) {
+    if (listaAbertarow !== null) {
+        listaAbertarow.classList.remove('lista-aberta-row'); // Remove a classe da lista aberta anterior
     }
 
-    listaAberta = botao; // Atualiza o botão da lista aberta
-    botao.classList.add('lista-aberta'); // Adiciona a classe à lista aberta atual
+    listaAbertarow = botao; // Atualiza o botão da lista aberta
+    botao.classList.add('lista-aberta-row'); // Adiciona a classe à lista aberta atual
 }
-
-
 
 // -------------------------------------------------------------------------------------------
 
