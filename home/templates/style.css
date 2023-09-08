@@ -143,6 +143,25 @@ body {
 }
 
 
+.prioridade-indicador {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.prioridade-indicador.verde {
+    background-color: green;
+}
+
+.prioridade-indicador.amarelo {
+    background-color: yellow;
+}
+
+.prioridade-indicador.vermelho {
+    background-color: red;
+}
 
 
 

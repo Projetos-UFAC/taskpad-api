@@ -91,6 +91,7 @@
                                     data-nome-tarefa="{{ lista.nome }}" data-descricao="{{ lista.descricao }}"
                                     data-data-inicio="{{ lista.dataInicio }}" data-data-fim="{{ lista.dataFim }}"
                                     data-prioridade="{{ lista.prioridade }}">
+                                    <span class="prioridade-indicador {% if lista.prioridade == 1 %}verde{% elif lista.prioridade == 2 %}amarelo{% else %}vermelho{% endif %}"></span>
                                     {{ lista.nome }}
                                 </button>
                             </div>
@@ -120,6 +121,7 @@
                                             data-data-fim="{{ atividade.dataFim }}"
                                             data-prioridade="{{ atividade.prioridade }}"
                                             onclick="marcarListaAbertarow(this.parentElement.parentElement)">
+                                            <span class="prioridade-indicador {% if atividade.prioridade == 1 %}verde{% elif atividade.prioridade == 2 %}amarelo{% else %}vermelho{% endif %}"></span>
                                             {{ atividade.nome }}
                                         </button>
                                     </div>
@@ -139,6 +141,7 @@
                                                     data-data-fim="{{ tarefa.dataFim }}"
                                                     data-prioridade="{{ tarefa.prioridade }}"
                                                     onclick="marcarListaAbertarow(this.parentElement.parentElement)">
+                                                    <span class="prioridade-indicador {% if tarefa.prioridade == 1 %}verde{% elif tarefa.prioridade == 2 %}amarelo{% else %}vermelho{% endif %}"></span>
                                                     {{ tarefa.nome }}
                                                 </button>
                                             </div>

@@ -177,7 +177,7 @@ function atualizarItem(item) {
     const dataInicio = item.getAttribute('data-data-inicio');
     const dataFim = item.getAttribute('data-data-fim');
     const prioridade = item.getAttribute('data-prioridade');
-    
+
     //console.log('Data de Início:', dataInicio);    //       SHIT!!
 
     let dataInicioFormatada = '';
@@ -209,7 +209,7 @@ function atualizarItem(item) {
     atualizarModal.show();
 }
 
-// formatacao... ele pega a data como string, e nao no formato que deviar ser AAAA-MM-DD
+// formatacao... ele pega a data como string none, e nao no formato que deviar ser AAAA-MM-DD
 function formatarData(data) {
     const partesData = data.split(' '); // Divide a data em partes
     const mes = partesData[0]; // Obtém o mês
