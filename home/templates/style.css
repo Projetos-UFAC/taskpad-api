@@ -141,3 +141,64 @@ body {
     /* font-weight: bold;  */
     font-family:'Franklin Gothic Medium'!important;
 }
+
+
+
+
+
+/* Classes para o calendário p ver se desbuga sapoha */
+.calendario-personalizado {
+    background-color: white; 
+    border: 1px solid #ddd; /* borda cinza */
+    color: #333; 
+    font-family: Arial, sans-serif; 
+    width: 850px; 
+    height: 650px;
+    padding: 1%;
+}
+
+.bloco-calendario{
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+}
+/*cor do cabeçalho do calendário */
+.calendario-personalizado .fc-header-toolbar {
+    background-color: #f0f0f0;
+    border: none;
+}
+
+/*cor dos botões de navegação do calendário */
+.calendario-personalizado .fc-header-button {
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+}
+
+/*cor do hover dos botões de navegação do calendário */
+.calendario-personalizado .fc-header-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* cor dos eventos no calendário */
+.calendario-personalizado .fc-event {
+    background-color: #b586fc;
+    border: none;
+    color: white;
+}
+
+/*cor do hover dos eventos no calendário */
+.calendario-personalizado .fc-event:hover {
+    background-color: #b586fc;
+}
+
+/*cor do fundo da célula de data selecionada */
+.calendario-personalizado .fc-day.selected {
+    background-color: #b586fc;
+    color: white;
+}
+
+/*cor do hover da célula de data no calendário */
+.calendario-personalizado .fc-day:hover {
+    background-color: #f0f0f0;
+}

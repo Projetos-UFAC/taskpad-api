@@ -16,6 +16,8 @@
     <!-- Fonte Awesome sla mano to com sono -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoBf8e23a0k5/dKeGzIbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    <!-- FULL CALENDAR-->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 
 </head>
 
@@ -28,8 +30,9 @@
             </div>
             <div class="d-flex align-items-center">
 
-                <button type="button" id="mostrarCalendarioBtn" class="btn">
-                    <i class="bi bi-calendar"></i> <!-- Ícone de calendário do Bootstrap -->
+                <button type="button" onclick="mostrarDiv(this)" class="btn">
+                    <img src="{% static 'home/templates/calendarioroxo.png' %}" alt="Ícone de Calendário"
+                        class="icone-grande">
                 </button>
 
                 <div class="btn-group">
@@ -184,16 +187,10 @@
         <!-- CALENDARIO -->
         <div id="divCalendario" class="col-md-10 bg-claro_style"
             style="padding: 1%; margin-top: 1%; margin-bottom: 1%; display: none;">
-            <!-- Conteúdo da sua div -->
-            Essa é a div que você quer mostrar.
-            <div class="boasVindas">
-                <h1>Ola, {{ request.user.username }}!</h1>
-                <p style="margin-bottom: 5%;">Bem-vindo ao Taskpad! Selecione um item para começar a editar.</p>
-                <img src="{% static 'home/templates/escrevendo-branco.png' %}"
-                    style="max-width: 150px; max-height: 150px;" alt="Imagem de lista">
+            <div class="bloco-calendario">
+                <div id="calendario" class="calendario-personalizado"></div>
             </div>
         </div>
-
         <!-- MENSAGEM DE BOAS VINDAS +--->
 
         <div id="boasVindas" class="col-md-10 bg-claro_style" style="padding: 1%; margin-top: 1%; margin-bottom: 1%;">

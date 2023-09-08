@@ -266,27 +266,33 @@ function mostrarMenuContexto(x, y, item) {
 function mostrarMensagemBoasVindas() {
     document.getElementById('boasVindas').style.display = 'block';
     document.getElementById('ckeditor-id').style.display = 'none';
+    document.getElementById('divCalendario').style.display = 'none';
 }
 
 // Função para mostrar o CKEditor e ocultar a mensagem de boas-vindas
 function mostrarCKEditor() {
     document.getElementById('boasVindas').style.display = 'none';
     document.getElementById('ckeditor-id').style.display = 'block';
+    document.getElementById('divCalendario').style.display = 'none';
 }
 
 // func para mostrar o calendario
-function mostrarDiv() {
+function mostrarDiv(botao) {
     var div = document.getElementById('divCalendario');
     div.style.display = 'block';
     document.getElementById('boasVindas').style.display = 'none';
     document.getElementById('ckeditor-id').style.display = 'none';
+
+    inicializarCalendario();
 }
 
-// Obtém o botão por ID
-var botaocal = document.getElementById('mostrarCalendarioBtn');
+// // Obtém o botão por ID
+// var botaocal = document.getElementById('mostrarCalendarioBtn');
 
-// Adiciona um ouvinte de evento de clique ao botão
-botaocal.addEventListener('click', mostrarDiv);
+// // Adiciona um ouvinte de evento de clique ao botão
+// botaocal.addEventListener('click', function () {
+//     mostrarDiv(this); // Passa o próprio botão como parâmetro
+// });
 
 
 // -------------------------------------------------------------------------------
@@ -301,3 +307,32 @@ function exibirDataAtual() {
 
 // Chamando a função para exibir a data atual quando a página for carregada
 document.addEventListener('DOMContentLoaded', exibirDataAtual);
+
+
+// ----------------------------------------------------------------------------
+
+// Função para chamar o calendario
+
+function inicializarCalendario() {
+    var calendarEl = document.getElementById('calendario');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+
+        events: [
+            //adicionar seus eventos/calendário personalizado
+            {
+                title: 'Evento 1',
+                start: '2023-09-10',
+                end: '2023-09-12'
+            },
+            {
+                title: 'Evento 2',
+                start: '2023-09-15',
+                end: '2023-09-17'
+            },
+            
+        ],
+        locale: 'pt-br' // Configurar o idioma para português do Brasil
+    });
+    calendar.render();
+}
