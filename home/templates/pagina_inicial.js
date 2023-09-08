@@ -362,6 +362,10 @@ document.addEventListener('DOMContentLoaded', exibirDataAtual);
 
 // ----------------------------------------------------------------------------
 
+
+
+
+
 // Função para chamar o calendario
 
 function inicializarCalendario() {
@@ -369,21 +373,60 @@ function inicializarCalendario() {
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
 
-        events: [
-            //adicionar seus eventos/calendário personalizado
-            {
-                title: 'Evento 1',
-                start: '2023-09-10',
-                end: '2023-09-12'
-            },
-            {
-                title: 'Evento 2',
-                start: '2023-09-15',
-                end: '2023-09-17'
-            },
-            
-        ],
+        events: criarEventosAPartirDeAtividades(),
         locale: 'pt-br' // Configurar o idioma para português do Brasil
     });
     calendar.render();
+}
+
+
+function criarEventosAPartirDeAtividades() {
+    const eventos = [];
+
+    // Função para criar um evento a partir de um elemento com atributos de dados
+    function criarEvento(elemento) {
+        const nome = elemento.getAttribute('data-nome-tarefa');
+        const dataInicio = elemento.getAttribute('data-data-inicio');
+        const dataFim = elemento.getAttribute('data-data-fim');
+        let dataInicioFormatada = '';
+        let dataFimFormatada = '';
+
+        if (nome && dataInicio && dataFim) {
+            if (dataFim == 'None') {
+                dataFimFormatada = dataFim;
+            } else {
+                dataFimFormatada = formatarData(dataFim);
+            }
+            
+            if (dataInicio == 'None') {
+                dataInicioFormatada = dataInicio;
+            } else {
+                dataInicioFormatada = formatarData(dataInicio);
+            }
+
+            console.log(nome);
+            console.log(dataInicioFormatada);
+            console.log(dataFimFormatada);
+
+            eventos.push({
+                title: nome,
+                start: dataInicioFormatada,
+                end: dataFimFormatada
+            });
+        }
+    }
+
+    // Percorra as atividades e crie eventos
+    const atividades = document.querySelectorAll('[data-object-type="atividade"]');
+    atividades.forEach(criarEvento);
+
+    // Percorra as listas e crie eventos
+    const listas = document.querySelectorAll('[data-object-type="lista"]');
+    listas.forEach(criarEvento);
+
+    // Percorra as tarefas e crie eventos
+    const tarefas = document.querySelectorAll('[data-object-type="tarefa"]');
+    tarefas.forEach(criarEvento);
+
+    return eventos;
 }
