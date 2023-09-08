@@ -21,198 +21,223 @@
 
 <body>
     <!-- Div com um Logout e logo -->
-    <div class="bg-claro_style d-flex justify-content-between align-items-center p-3 rounded">
-        <h3 style="color: rgb(150, 90, 206);">Taskpad</h3>
-        <div class="d-flex align-items-center">
-            <span style="margin-right: 10px;">Bem-vindo, {{ request.user.username }}</span>
-            <a href="{% url 'logout' %}" class="btn pastel-button2">Logout</a>
+    <div class="row w-100" style="margin-left: 2%;">
+        <div class="bg-claro_style d-flex justify-content-between align-items-center rounded">
+            <div class="bg-cinza_style rounded">
+                <h3 style="color: rgb(150, 90, 206);" class="texto-contorno">Taskpad</h3>
+            </div>
+            <div class="d-flex align-items-center">
+
+                <button type="button" id="mostrarCalendarioBtn" class="btn">
+                    <i class="bi bi-calendar"></i> <!-- Ícone de calendário do Bootstrap -->
+                </button>
+
+                <div class="btn-group">
+                    <button type="button" class="btn " data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="user-avatar">{{ request.user.username|first|upper }}</div>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <!-- <li><span class="dropdown-item-text">Bem-vindo, {{ request.user.username }}</span></li> -->
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
 
-    <div>
-        <div class="row"> <!---      DIV DAS LISTAS         -->
-            <div class="col-md-2 bg-claro_style" style="margin: 1%; margin-left: 2%; flex-direction: column; min-height: 85vh;">
-                <!--full-height-row-->
-                <div class="bg-claro_style p-3 rounded " style="text-align: left;">
-                    <div class="lista-title">
-                        <h4 style="text-align: center; font-size:17px;">LISTAS DE ATIVIDADES</h4>
+    <div class="row w-100" style="margin-left: 0px !important; margin-right: 0px !important; flex-wrap: nowrap;">
+        <!---      DIV DAS LISTAS         -->
+        <div class="col-md-2 bg-claro_style" style="margin: 1%; flex-direction: column; min-height: 85vh;">
+            <!--full-height-row-->
+            <div class="bg-claro_style p-3 rounded " style="text-align: left;">
+                <div class="lista-title">
+                    <h4 style="text-align: center; font-size:17px;">LISTAS DE ATIVIDADES</h4>
+                </div>
+                <div class="row align-content">
+                    <div class="col-md-12">
+                        <button type="button" class="pastel-button btn col-md-12" data-bs-toggle="modal"
+                            data-bs-target="#criarListaModal">
+                            Criar Lista
+                        </button>
                     </div>
-                    <div class="row align-content">
-                        <div class="col-md-12">
-                            <button type="button" class="pastel-button btn col-md-12" data-bs-toggle="modal"
-                                data-bs-target="#criarListaModal">
-                                Criar Lista
-                            </button>
-                        </div>
-                    </div>
+                </div>
 
-                    <!-- Incluindo Modais (Formularios pop up)-->
+                <!-- Incluindo Modais (Formularios pop up)-->
 
-                    {% include 'modals.html' %}
+                {% include 'modals.html' %}
 
-                    <!--   CONTINUAÇÃO   -->
-                    <div class="align-content">
-                        <div class="list-group col-md-12 ">
-                            {% for lista in listas %}
-                            <!-- Butoes de listas -->
-                            <div class="row ">
-                                <div class="col-md-2" style="padding-right: 0%;">
-                                    <button class="list-group-item list-group-item-action pastel-button2 border-end-0"
-                                        data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
-                                        <img src="{% static 'home/templates/ico-open.png' %}" alt="Ícone de Abrir"
-                                            style="max-width: 20px; max-height: 40px; flex-direction: column; justify-content: center; align-items: center;">
-                                    </button>
-                                </div>
-                                <div class="col-md-10" style="padding-left: 0%;">
-                                    <button class="list-group-item list-group-item-action pastel-button2 border-start-0"
-                                        data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}"
-                                        data-object-type="lista"
-                                        onclick="marcarListaAbertarow(this.parentElement.parentElement)"
-                                        data-nome-tarefa="{{ lista.nome }}" data-descricao="{{ lista.descricao }}"
-                                        data-data-inicio="{{ lista.dataInicio }}" data-data-fim="{{ lista.dataFim }}"
-                                        data-prioridade="{{ lista.prioridade }}">
-                                        {{ lista.nome }}
-                                    </button>
-                                </div>
+                <!--   CONTINUAÇÃO   -->
+                <div class="align-content">
+                    <div class="list-group col-md-12 ">
+                        {% for lista in listas %}
+                        <!-- Butoes de listas -->
+                        <div class="row ">
+                            <div class="col-md-2" style="padding-right: 0%;">
+                                <button class="list-group-item list-group-item-action pastel-button2 border-end-0"
+                                    data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
+                                    <img src="{% static 'home/templates/ico-open.png' %}" alt="Ícone de Abrir"
+                                        style="max-width: 20px; max-height: 40px; flex-direction: column; justify-content: center; align-items: center;">
+                                </button>
                             </div>
+                            <div class="col-md-10" style="padding-left: 0%;">
+                                <button class="list-group-item list-group-item-action pastel-button2 border-start-0"
+                                    data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}"
+                                    data-object-type="lista"
+                                    onclick="marcarListaAbertarow(this.parentElement.parentElement)"
+                                    data-nome-tarefa="{{ lista.nome }}" data-descricao="{{ lista.descricao }}"
+                                    data-data-inicio="{{ lista.dataInicio }}" data-data-fim="{{ lista.dataFim }}"
+                                    data-prioridade="{{ lista.prioridade }}">
+                                    {{ lista.nome }}
+                                </button>
+                            </div>
+                        </div>
 
-                            <div id="lista{{ lista.id }}" class="collapse">
-                                <div class="list-group">
-                                    {% for atividade in lista.atividade_set.all %}
+                        <div id="lista{{ lista.id }}" class="collapse">
+                            <div class="list-group">
+                                {% for atividade in lista.atividade_set.all %}
 
-                                    <div class="row">
-                                        <div class="col-md-2" style="padding-right: 0%;">
-                                            <button
-                                                class="list-group-item list-group-item-action pastel-button3 border-end-0"
-                                                data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
-                                                <img src="{% static 'home/templates/ico-open.png' %}"
-                                                    alt="Ícone de Abrir"
-                                                    style="max-width: 20px; max-height: 20px;flex-direction: column;justify-content:center;align-items:center;">
-                                            </button>
-                                        </div>
-                                        <div class="col-md-10" style="padding-left: 0%;">
-                                            <!-- BOTEI NOME TAREFA LA EMBAIXO AGORA VAI FICAR NOME TAREFA EM TODOS -->
-                                            <button
-                                                class="list-group-item list-group-item-action pastel-button3 border-start-0"
-                                                data-conteudo="{{ atividade.texto }}" data-item-id="{{ atividade.id }}"
-                                                data-object-type="atividade" data-nome-tarefa="{{ atividade.nome }}"
-                                                data-descricao="{{ atividade.descricao }}"
-                                                data-data-inicio="{{ atividade.dataInicio }}"
-                                                data-data-fim="{{ atividade.dataFim }}"
-                                                data-prioridade="{{ atividade.prioridade }}"
-                                                onclick="marcarListaAbertarow(this.parentElement.parentElement)">
-                                                {{ atividade.nome }}
-                                            </button>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-2" style="padding-right: 0%;">
+                                        <button
+                                            class="list-group-item list-group-item-action pastel-button3 border-end-0"
+                                            data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
+                                            <img src="{% static 'home/templates/ico-open.png' %}" alt="Ícone de Abrir"
+                                                style="max-width: 20px; max-height: 20px;flex-direction: column;justify-content:center;align-items:center;">
+                                        </button>
                                     </div>
+                                    <div class="col-md-10" style="padding-left: 0%;">
+                                        <!-- BOTEI NOME TAREFA LA EMBAIXO AGORA VAI FICAR NOME TAREFA EM TODOS -->
+                                        <button
+                                            class="list-group-item list-group-item-action pastel-button3 border-start-0"
+                                            data-conteudo="{{ atividade.texto }}" data-item-id="{{ atividade.id }}"
+                                            data-object-type="atividade" data-nome-tarefa="{{ atividade.nome }}"
+                                            data-descricao="{{ atividade.descricao }}"
+                                            data-data-inicio="{{ atividade.dataInicio }}"
+                                            data-data-fim="{{ atividade.dataFim }}"
+                                            data-prioridade="{{ atividade.prioridade }}"
+                                            onclick="marcarListaAbertarow(this.parentElement.parentElement)">
+                                            {{ atividade.nome }}
+                                        </button>
+                                    </div>
+                                </div>
 
-                                    <div id="atividade{{ atividade.id }}" class="collapse">
-                                        <div class="list-group">
+                                <div id="atividade{{ atividade.id }}" class="collapse">
+                                    <div class="list-group">
 
-                                            {% for tarefa in atividade.tarefa_set.all %}
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <button
-                                                        class="list-group-item list-group-item-action pastel-button4"
-                                                        data-conteudo="{{ tarefa.texto }}"
-                                                        data-item-id="{{ tarefa.id }}" data-object-type="tarefa"
-                                                        data-nome-tarefa="{{ tarefa.nome }}"
-                                                        data-descricao="{{ tarefa.descricao }}"
-                                                        data-data-inicio="{{ tarefa.dataInicio }}"
-                                                        data-data-fim="{{ tarefa.dataFim }}"
-                                                        data-prioridade="{{ tarefa.prioridade }}"
-                                                        onclick="marcarListaAbertarow(this.parentElement.parentElement)">
-                                                        {{ tarefa.nome }}
-                                                    </button>
-                                                </div>
+                                        {% for tarefa in atividade.tarefa_set.all %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button class="list-group-item list-group-item-action pastel-button4"
+                                                    data-conteudo="{{ tarefa.texto }}" data-item-id="{{ tarefa.id }}"
+                                                    data-object-type="tarefa" data-nome-tarefa="{{ tarefa.nome }}"
+                                                    data-descricao="{{ tarefa.descricao }}"
+                                                    data-data-inicio="{{ tarefa.dataInicio }}"
+                                                    data-data-fim="{{ tarefa.dataFim }}"
+                                                    data-prioridade="{{ tarefa.prioridade }}"
+                                                    onclick="marcarListaAbertarow(this.parentElement.parentElement)">
+                                                    {{ tarefa.nome }}
+                                                </button>
                                             </div>
-                                            {% endfor %}
-
-                                            <button class="btn btn-criar-tarefa pastel-button"
-                                                data-atividade-id="{{ atividade.id }}" data-bs-toggle="modal"
-                                                data-bs-target="#criarTarefaModal">
-                                                Criar Tarefa
-                                            </button>
                                         </div>
+                                        {% endfor %}
+
+                                        <button class="btn btn-criar-tarefa pastel-button"
+                                            data-atividade-id="{{ atividade.id }}" data-bs-toggle="modal"
+                                            data-bs-target="#criarTarefaModal">
+                                            Criar Tarefa
+                                        </button>
                                     </div>
-                                    {% endfor %}
-                                    <button class="btn btn-criar-atividade pastel-button" data-lista-id="{{ lista.id }}"
-                                        data-bs-toggle="modal" data-bs-target="#criarAtividadeModal">
-                                        Criar Atividade
-                                    </button>
                                 </div>
+                                {% endfor %}
+                                <button class="btn btn-criar-atividade pastel-button" data-lista-id="{{ lista.id }}"
+                                    data-bs-toggle="modal" data-bs-target="#criarAtividadeModal">
+                                    Criar Atividade
+                                </button>
                             </div>
-                            {% endfor %}
                         </div>
-
-
-
+                        {% endfor %}
                     </div>
-                </div>
-
-                <!-- Formulário para enviar dados de atualização -->
-                <form id="updateForm" method="post" action="{% url 'atualizar_item' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="object_type" id="updateObjectTypeInput" value="">
-                    <input type="hidden" name="item_id" id="updateItemIdInput" value="">
-
-                </form>
-
-                <!-- para enviar os dados para excluir os itens -->
-                <form id="deleteForm" method="post" action="{% url 'deletar_item' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="objectType" id="objectTypeInput">
-                    <input type="hidden" name="itemId" id="itemIdInput">
-                </form>
-
-            </div>
 
 
 
-            <!-- MENSAGEM DE BOAS VINDAS +--->
-
-            <div id="boasVindas" class="col-md-9 bg-claro_style" style="padding: 1%; margin-top: 1%; margin-bottom: 1%;">
-                <div>
-                    <div class="resumoDia">
-                        Seu resumo do dia <span id="dataAtual"></span>
-                    </div>
-                    <div class="boasVindas">
-                        <h1>Ola, {{ request.user.username }}!</h1>
-                        <p style="margin-bottom: 5%;">Bem-vindo ao Taskpad! Selecione um item para começar a editar.</p>
-                        <img src="{% static 'home/templates/escrevendo-branco.png' %}" style="max-width: 150px; max-height: 150px;" alt="Imagem de lista">
-                    </div>
                 </div>
             </div>
 
+            <!-- Formulário para enviar dados de atualização -->
+            <form id="updateForm" method="post" action="{% url 'atualizar_item' %}">
+                {% csrf_token %}
+                <input type="hidden" name="object_type" id="updateObjectTypeInput" value="">
+                <input type="hidden" name="item_id" id="updateItemIdInput" value="">
 
-            <!-- Forms, ISSO AQUI É O FORMS DO EDITOR CKEDITOR "TEXTAREA" -->
+            </form>
 
-            <div class="col-md-9" style="padding-top: 1%; display: none;" id="ckeditor-id">
-
-                <form method="post" class="bg-claro_style p-3 rounded"
-                    style="flex-direction: column; min-height: 85vh;">
-                    {% csrf_token %}
-
-                    <!-- Formulário para criar uma nova lista -->
-                    <input type="hidden" id="item_id" name="object_id">
-                    <input type="hidden" id="object_type" name="object_type">
-                    <!-- Campo oculto para o tipo de objeto -->
-                    <div style="margin-left: 2cm; margin-right: 2cm;">
-                        <textarea id="conteudo_atividade" name="conteudo_atividade" style="display: none;"></textarea>
-                    </div>
-
-                    <!-- Botão de envio do formulário -->
-                    <button type="submit" class="btn pastel-button" style="margin: 1%;">Salvar</button>
-                </form>
-
-            </div>
+            <!-- para enviar os dados para excluir os itens -->
+            <form id="deleteForm" method="post" action="{% url 'deletar_item' %}">
+                {% csrf_token %}
+                <input type="hidden" name="objectType" id="objectTypeInput">
+                <input type="hidden" name="itemId" id="itemIdInput">
+            </form>
 
         </div>
-        <!-- outros conteúdos da página -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Scripts JS-->
-        <script src="{% static 'home/templates/pagina_inicial.js' %}"></script>
+
+        <!-- CALENDARIO -->
+        <div id="divCalendario" class="col-md-10 bg-claro_style"
+            style="padding: 1%; margin-top: 1%; margin-bottom: 1%; display: none;">
+            <!-- Conteúdo da sua div -->
+            Essa é a div que você quer mostrar.
+            <div class="boasVindas">
+                <h1>Ola, {{ request.user.username }}!</h1>
+                <p style="margin-bottom: 5%;">Bem-vindo ao Taskpad! Selecione um item para começar a editar.</p>
+                <img src="{% static 'home/templates/escrevendo-branco.png' %}"
+                    style="max-width: 150px; max-height: 150px;" alt="Imagem de lista">
+            </div>
+        </div>
+
+        <!-- MENSAGEM DE BOAS VINDAS +--->
+
+        <div id="boasVindas" class="col-md-10 bg-claro_style" style="padding: 1%; margin-top: 1%; margin-bottom: 1%;">
+            <div>
+                <div class="resumoDia">
+                    Seu resumo do dia <span id="dataAtual"></span>
+                </div>
+                <div class="boasVindas">
+                    <h1>Ola, {{ request.user.username }}!</h1>
+                    <p style="margin-bottom: 5%;">Bem-vindo ao Taskpad! Selecione um item para começar a editar.</p>
+                    <img src="{% static 'home/templates/escrevendo-branco.png' %}"
+                        style="max-width: 150px; max-height: 150px;" alt="Imagem de lista">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Forms, ISSO AQUI É O FORMS DO EDITOR CKEDITOR "TEXTAREA" -->
+
+        <div class="col-md-10 " style="padding-top: 1%; display: none;" id="ckeditor-id">
+
+            <form method="post" class="bg-claro_style p-3 rounded" style="flex-direction: column; min-height: 85vh;">
+                {% csrf_token %}
+
+                <!-- Formulário para criar uma nova lista -->
+                <input type="hidden" id="item_id" name="object_id">
+                <input type="hidden" id="object_type" name="object_type">
+                <!-- Campo oculto para o tipo de objeto -->
+                <div style="margin-left: 2cm; margin-right: 2cm;">
+                    <textarea id="conteudo_atividade" name="conteudo_atividade" style="display: none;"></textarea>
+                </div>
+
+                <!-- Botão de envio do formulário -->
+                <button type="submit" class="btn pastel-button" style="margin: 1%;">Salvar</button>
+            </form>
+
+        </div>
+
+    </div>
+    <!-- outros conteúdos da página -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts JS-->
+    <script src="{% static 'home/templates/pagina_inicial.js' %}"></script>
+
 </body>
 
 </html>

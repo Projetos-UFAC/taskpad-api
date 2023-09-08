@@ -274,6 +274,21 @@ function mostrarCKEditor() {
     document.getElementById('ckeditor-id').style.display = 'block';
 }
 
+// func para mostrar o calendario
+function mostrarDiv() {
+    var div = document.getElementById('divCalendario');
+    div.style.display = 'block';
+    document.getElementById('boasVindas').style.display = 'none';
+    document.getElementById('ckeditor-id').style.display = 'none';
+}
+
+// Obtém o botão por ID
+var botaocal = document.getElementById('mostrarCalendarioBtn');
+
+// Adiciona um ouvinte de evento de clique ao botão
+botaocal.addEventListener('click', mostrarDiv);
+
+
 // -------------------------------------------------------------------------------
 
 // Função para exibir a data atual no formato desejado

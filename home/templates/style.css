@@ -8,9 +8,23 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+
+    max-width: 97%;
 }
 
+
+.user-avatar {
+    width: 30px; /* Largura do círculo */
+    height: 30px; /* Altura do círculo */
+    background-color: #007BFF; /* Cor de fundo do círculo (azul, você pode mudar para a cor desejada) */
+    color: #fff; /* Cor do texto (branco) */
+    text-align: center; /* Alinhar o texto ao centro do círculo */
+    border-radius: 50%; /* Criar um círculo usando border-radius */
+    font-weight: bold; /* Texto em negrito */
+    font-size: 18px; /* Tamanho da fonte */
+    line-height: 30px; /* Centralizar verticalmente o texto */
+    margin-right: 10px; /* Espaçamento à direita para separar do texto "Bem-vindo" */
+}
 
 
 /* Classe para alinhar conteúdo NÃO TEXTO*/
@@ -23,9 +37,21 @@ body {
 }
 
 
+.texto-contorno {
+    text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;
+}
+
+
 /* para a caixinha onde fica as listas*/
 .bg-claro_style { 
     background-color: #222222 !important;
+}
+
+.bg-cinza_style { 
+    background-color: #ffffff !important;
+    margin: 0.5% !important;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 .lista-title{
@@ -112,6 +138,6 @@ body {
 }
 
 .resumoDia {
-    font-weight: bold; 
+    /* font-weight: bold;  */
     font-family:'Franklin Gothic Medium'!important;
 }
