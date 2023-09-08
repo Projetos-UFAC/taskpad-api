@@ -177,20 +177,71 @@ function atualizarItem(item) {
     const dataInicio = item.getAttribute('data-data-inicio');
     const dataFim = item.getAttribute('data-data-fim');
     const prioridade = item.getAttribute('data-prioridade');
+    
+    //console.log('Data de Início:', dataInicio);    //       SHIT!!
 
+    let dataInicioFormatada = '';
+    let dataFimFormatada = '';
+    
+    if (dataFim == 'None') {
+        dataFimFormatada = dataFim;
+    } else {
+        dataFimFormatada = formatarData(dataFim);
+    }
+    
+    if (dataInicio == 'None') {
+        dataInicioFormatada = dataInicio;
+    } else {
+        dataInicioFormatada = formatarData(dataInicio);
+    }
+    
     const atualizarModal = new bootstrap.Modal(document.getElementById('atualizarModal'));
     // Preencha os campos do formulário de atualização com os dados do item
     document.getElementById('updateObjectTypeInput').value = objectType;
     document.getElementById('updateItemIdInput').value = itemId;
-    document.getElementById('nome_tarefaatt').value = nomeTarefa; // POHA VELHO, ERA SÓ MUDAR O NOME DO ELEMENTO P CODE NAO CONFUNDIR COM OUTRO MODAL
+    document.getElementById('nome_tarefaatt').value = nomeTarefa; // POHA VELHO, ERA SÓ MUDAR O NOME DO ELEMENTO Pro CODE NAO CONFUNDIR COM OUTRO MODAL
     document.getElementById('descricaoatt').value = descricao;
-    document.getElementById('dataInicioatt').value = dataInicio;
-    document.getElementById('dataFimatt').value = dataFim;
+    document.getElementById('dataInicioatt').value = dataInicioFormatada;
+    document.getElementById('dataFimatt').value = dataFimFormatada;
     document.getElementById('prioridadeatt').value = prioridade;
 
     // Abre o modal de atualização
     atualizarModal.show();
 }
+
+// formatacao... ele pega a data como string, e nao no formato que deviar ser AAAA-MM-DD
+function formatarData(data) {
+    const partesData = data.split(' '); // Divide a data em partes
+    const mes = partesData[0]; // Obtém o mês
+    const dia = partesData[1].replace(',', ''); // Obtém o dia (removendo a vírgula)
+    const ano = partesData[2]; // Obtém o ano
+
+    // Mapeia os nomes dos meses em inglês para números de mês
+    const meses = {
+        'Jan.': '01',
+        'Feb.': '02',
+        'Mar.': '03',
+        'Apr.': '04',
+        'May': '05',
+        'Jun.': '06',
+        'Jul.': '07',
+        'Aug.': '08',
+        'Sept.': '09',
+        'Oct.': '10',
+        'Nov.': '11',
+        'Dec.': '12'
+    };
+
+    // Obtém o número do mês formatado
+    const numeroMes = meses[mes];
+
+    // Formata a data como "AAAA-MM-DD"
+    const dataFormatada = `${ano}-${numeroMes}-${dia}`;
+
+    return dataFormatada;
+}
+
+// ... foda
 
 
 // -----------------------------------------------------------------

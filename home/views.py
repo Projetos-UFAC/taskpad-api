@@ -241,14 +241,14 @@ def atualizar_item(request):
             elif object_type == 'tarefa':
                 obj = get_object_or_404(Tarefa, id=item_id)
 
-            dataInicio = request.POST.get('dataInicioatt')
+            dataInicio = request.POST.get('dataInicio')
 
             if dataInicio:
                 dataInicio = parse_date(dataInicio)
             else:
                 dataInicio = None
 
-            dataFim = request.POST.get('dataFimatt')
+            dataFim = request.POST.get('dataFim')
             if dataFim:
                 dataFim = parse_date(dataFim)
             else:
