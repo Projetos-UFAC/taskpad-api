@@ -32,7 +32,7 @@
 
     <div>
         <div class="row"> <!---      DIV DAS LISTAS         -->
-            <div class="col-md-2 bg-claro_style" style="margin: 2%; flex-direction: column; min-height: 85vh;">
+            <div class="col-md-2 bg-claro_style" style="margin: 1%; margin-left: 2%; flex-direction: column; min-height: 85vh;">
                 <!--full-height-row-->
                 <div class="bg-claro_style p-3 rounded " style="text-align: left;">
                     <div class="lista-title">
@@ -168,9 +168,27 @@
 
             </div>
 
+
+
+            <!-- MENSAGEM DE BOAS VINDAS +--->
+
+            <div id="boasVindas" class="col-md-9 bg-claro_style" style="padding: 1%; margin-top: 1%; margin-bottom: 1%;">
+                <div>
+                    <div class="resumoDia">
+                        Seu resumo do dia <span id="dataAtual"></span>
+                    </div>
+                    <div class="boasVindas">
+                        <h1>Ola, {{ request.user.username }}!</h1>
+                        <p style="margin-bottom: 5%;">Bem-vindo ao Taskpad! Selecione um item para começar a editar.</p>
+                        <img src="{% static 'home/templates/escrevendo-branco.png' %}" style="max-width: 150px; max-height: 150px;" alt="Imagem de lista">
+                    </div>
+                </div>
+            </div>
+
+
             <!-- Forms, ISSO AQUI É O FORMS DO EDITOR CKEDITOR "TEXTAREA" -->
 
-            <div class="col-md-9" style="padding-top: 2%;">
+            <div class="col-md-9" style="padding-top: 1%; display: none;" id="ckeditor-id">
 
                 <form method="post" class="bg-claro_style p-3 rounded"
                     style="flex-direction: column; min-height: 85vh;">

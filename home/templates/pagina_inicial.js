@@ -102,9 +102,12 @@ itemButtons.forEach(button => {
 let listaAbertarow = null; // Armazena o botão da lista aberta anteriormente
 
 function marcarListaAbertarow(botao) {
+    mostrarCKEditor(); // chamando a func para mostrar o editor
     if (listaAbertarow !== null) {
         listaAbertarow.classList.remove('lista-aberta-row'); // Remove a classe da lista aberta anterior
+        
     }
+
 
     listaAbertarow = botao; // Atualiza o botão da lista aberta
     botao.classList.add('lista-aberta-row'); // Adiciona a classe à lista aberta atual
@@ -258,11 +261,28 @@ function mostrarMenuContexto(x, y, item) {
 
 // Func pra checar se tem algum item aberto
 
-function Itemaberto() {
-    if (listaAbertarow !== null) {
-        listaAbertarow.classList.remove('lista-aberta-row'); // Remove a classe da lista aberta anterior
-    }
 
-    listaAbertarow = botao; // Atualiza o botão da lista aberta
-    botao.classList.add('lista-aberta-row'); // Adiciona a classe à lista aberta atual
+// Função para mostrar a mensagem de boas-vindas e ocultar o CKEditor
+function mostrarMensagemBoasVindas() {
+    document.getElementById('boasVindas').style.display = 'block';
+    document.getElementById('ckeditor-id').style.display = 'none';
 }
+
+// Função para mostrar o CKEditor e ocultar a mensagem de boas-vindas
+function mostrarCKEditor() {
+    document.getElementById('boasVindas').style.display = 'none';
+    document.getElementById('ckeditor-id').style.display = 'block';
+}
+
+// -------------------------------------------------------------------------------
+
+// Função para exibir a data atual no formato desejado
+function exibirDataAtual() {
+    const dataAtual = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const dataFormatada = dataAtual.toLocaleDateString('pt-BR', options);
+    document.getElementById('dataAtual').textContent = dataFormatada;
+}
+
+// Chamando a função para exibir a data atual quando a página for carregada
+document.addEventListener('DOMContentLoaded', exibirDataAtual);

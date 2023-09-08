@@ -34,6 +34,7 @@ body {
     padding-top: 5%;
     margin: 0.3em;
     border-radius:2px;
+    margin-bottom:0.5em;
 }
 
 /* para os botões de criar */
@@ -100,4 +101,17 @@ body {
 
 .context-menu-item:hover {
     background-color: #f2f2f2;
+}
+
+/* CSS para a div de boas-vindas e resumo do dia */
+.boasVindas {
+    padding: 20px;
+    text-align: center; 
+    font-size: 28px;
+    font-family:'Franklin Gothic Medium'!important;
+}
+
+.resumoDia {
+    font-weight: bold; 
+    font-family:'Franklin Gothic Medium'!important;
 }
