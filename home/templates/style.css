@@ -171,8 +171,8 @@ body {
     border: 1px solid #ddd; /* borda cinza */
     color: #333; 
     font-family: Arial, sans-serif; 
-    width: 850px; 
-    height: 650px;
+    width: 70em; 
+    height: 50em;
     padding: 1%;
 }
 

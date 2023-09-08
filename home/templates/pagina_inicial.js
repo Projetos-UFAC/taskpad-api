@@ -363,9 +363,6 @@ document.addEventListener('DOMContentLoaded', exibirDataAtual);
 // ----------------------------------------------------------------------------
 
 
-
-
-
 // Função para chamar o calendario
 
 function inicializarCalendario() {
@@ -390,6 +387,16 @@ function criarEventosAPartirDeAtividades() {
         const dataFim = elemento.getAttribute('data-data-fim');
         let dataInicioFormatada = '';
         let dataFimFormatada = '';
+        let cor = '';
+
+        const tipoItem = elemento.getAttribute('data-object-type');
+        if (tipoItem === 'atividade') {
+            cor = '#444444'; 
+        } else if (tipoItem === 'lista') {
+            cor = '#646464'; 
+        } else if (tipoItem === 'tarefa') {
+            cor = '#262626'; 
+        }
 
         if (nome && dataInicio && dataFim) {
             if (dataFim == 'None') {
@@ -411,7 +418,8 @@ function criarEventosAPartirDeAtividades() {
             eventos.push({
                 title: nome,
                 start: dataInicioFormatada,
-                end: dataFimFormatada
+                end: dataFimFormatada,
+                color: cor // Defina a cor do evento
             });
         }
     }
