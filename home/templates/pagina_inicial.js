@@ -69,11 +69,15 @@ const itemButtons = document.querySelectorAll('[data-conteudo]');
 
 itemButtons.forEach(button => {
     button.addEventListener('click', () => {
+        const itemIdfunc = button.getAttribute('data-item-id');
+        const itemTipofunc = button.getAttribute('data-object-type');
         const conteudo = button.getAttribute('data-conteudo');
         if (conteudo == 'None') {
             editorTextarea.value = '';
+            console.log("Não tem nada");
         } else {
             editorTextarea.value = conteudo;
+            console.log("Conteudo:", conteudo);
         }
 
     });
@@ -411,9 +415,9 @@ function criarEventosAPartirDeAtividades() {
                 dataInicioFormatada = formatarData(dataInicio);
             }
 
-            console.log(nome);
-            console.log(dataInicioFormatada);
-            console.log(dataFimFormatada);
+            // console.log(nome);
+            // console.log(dataInicioFormatada);
+            // console.log(dataFimFormatada);
 
             eventos.push({
                 title: nome,
@@ -438,3 +442,72 @@ function criarEventosAPartirDeAtividades() {
 
     return eventos;
 }
+
+
+// ---------------------------------------------------------------------------------
+
+// testando fazer ele nao atualizar ao enviar os dados texto de um item
+
+// Função para obter o token CSRF dos cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// token CSRF
+var csrftoken = getCookie('csrftoken');
+
+// Função para verificar se o método HTTP é seguro (não requer proteção CSRF)
+function csrfSafeMethod(method) {
+    // Estes métodos HTTP não requerem proteção CSRF
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+// Configuração global do jQuery para incluir o token CSRF nas solicitações AJAX
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+//
+const atualizarConteudoUrl = "atualizar_conteudo/";
+$(document).ready(function () {
+    $("#atualizarConteudo").click(function () {
+        const conteudoAtividade = CKEDITOR.instances.conteudo_atividade.getData();
+        const item_id = $("#item_id").val();
+        const object_type = $("#object_type").val();
+
+        $.ajax({
+            type: "POST",
+            url: atualizarConteudoUrl, // Use a variável aqui
+            data: {
+                conteudo_atividade: conteudoAtividade,
+                object_id: item_id,
+                object_type: object_type,
+                csrfmiddlewaretoken: csrftoken  // Passa o valor do token CSRF aqui
+            },
+            
+            success: function (response) {
+                // Atualize o CKEditor 
+                CKEDITOR.instances.conteudo_atividade.setData(response.conteudo_atividade);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+});

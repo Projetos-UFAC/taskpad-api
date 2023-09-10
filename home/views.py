@@ -12,6 +12,7 @@ from lista.models import Lista
 from atividade.models import Atividade
 from tarefa.models import Tarefa
 from .forms import ListaForm, AtividadeForm, TarefaForm
+from django.views.decorators.csrf import csrf_protect
 
 @login_required(login_url="/auth/login/")
 def pagina_inicial(request):
@@ -21,32 +22,9 @@ def pagina_inicial(request):
         tarefas = Tarefa.objects.filter(user=request.user)
         texto_form = RichTextFormField()
 
-        if request.method == "POST":
-            lista_form = ListaForm(request.POST)
-            atividade_form = AtividadeForm(request.POST)
-            tarefa_form = TarefaForm(request.POST)
-            
-            object_type = request.POST.get('object_type')
-            item_id = request.POST.get('object_id')
-            
-            if object_type and item_id:
-                if object_type == 'lista':
-                    obj = get_object_or_404(Lista, id=item_id)
-                    obj.texto = request.POST.get('conteudo_atividade')
-                    obj.save()
-                elif object_type == 'atividade':
-                    obj = get_object_or_404(Atividade, id=item_id)
-                    obj.texto = request.POST.get('conteudo_atividade')
-                    obj.save()
-                elif object_type == 'tarefa':
-                    obj = get_object_or_404(Tarefa, id=item_id)
-                    obj.texto = request.POST.get('conteudo_atividade')
-                    obj.save()
-
-        else:
-            lista_form = ListaForm()
-            atividade_form = AtividadeForm()
-            tarefa_form = TarefaForm()
+        lista_form = ListaForm()
+        atividade_form = AtividadeForm()
+        tarefa_form = TarefaForm()
 
         return render(request, 'pagina_inicial.html', {
             'listas': listas,
@@ -59,6 +37,34 @@ def pagina_inicial(request):
         })
     else:
         return HttpResponse('Você precisa estar logado')
+
+@csrf_protect
+def atualizar_conteudo(request):
+    if request.method == "POST":
+        object_type = request.POST.get('object_type')
+        item_id = request.POST.get('object_id')
+        conteudo_atividade = request.POST.get('conteudo_atividade')
+        
+        if object_type and item_id:
+            if object_type == 'lista':
+                obj = get_object_or_404(Lista, id=item_id)
+                obj.texto = conteudo_atividade
+                obj.save()
+            elif object_type == 'atividade':
+                obj = get_object_or_404(Atividade, id=item_id)
+                obj.texto = conteudo_atividade
+                obj.save()
+            elif object_type == 'tarefa':
+                obj = get_object_or_404(Tarefa, id=item_id)
+                obj.texto = conteudo_atividade
+                obj.save()
+
+            return JsonResponse({'conteudo_atividade': obj.texto})
+
+    return JsonResponse({'erro': 'Requisição inválida'})
+
+
+
 
 class CriarListaView(APIView):
     @extend_schema(
