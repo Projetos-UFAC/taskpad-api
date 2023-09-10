@@ -3,7 +3,7 @@ from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import pagina_inicial, deletar_item, CriarListaView, CriarAtividadeView, CriarTarefaView, atualizar_item, atualizar_conteudo
-
+from .views import atualizar_dados
 urlpatterns = [
     path('', pagina_inicial, name='pagina_inicial'),
     path('criar_lista/', CriarListaView.as_view(), name='criar_lista'),
@@ -13,6 +13,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('atualizar_item/', atualizar_item, name='atualizar_item'),
     path('atualizar_conteudo/', atualizar_conteudo, name='atualizar_conteudo'),
+    path('atualizar_dados/<str:object_type>/<int:item_id>/', atualizar_dados, name='atualizar_dados'),
 ]
 
 if settings.DEBUG:

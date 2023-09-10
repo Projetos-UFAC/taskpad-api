@@ -269,3 +269,25 @@ def atualizar_item(request):
             obj.save()
         
     return redirect('pagina_inicial')
+
+
+
+def atualizar_dados(request, object_type, item_id):
+    data = {}  # Crie um dicionário vazio para armazenar os dados a serem retornados
+
+    if object_type == 'lista':
+        # Se o tipo de objeto for uma lista, busque os dados da Lista
+        lista = get_object_or_404(Lista, id=item_id)
+        data['conteudo'] = lista.texto  # Supondo que o campo 'texto' contenha os dados que você deseja
+
+    elif object_type == 'atividade':
+        # Se o tipo de objeto for uma atividade, busque os dados da Atividade
+        atividade = get_object_or_404(Atividade, id=item_id)
+        data['conteudo'] = atividade.texto  # Supondo que o campo 'texto' contenha os dados que você deseja
+
+    elif object_type == 'tarefa':
+        # Se o tipo de objeto for uma tarefa, busque os dados da Tarefa
+        tarefa = get_object_or_404(Tarefa, id=item_id)
+        data['conteudo'] = tarefa.texto  # Supondo que o campo 'texto' contenha os dados que você deseja
+
+    return JsonResponse(data)

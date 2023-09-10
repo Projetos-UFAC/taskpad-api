@@ -84,6 +84,33 @@ itemButtons.forEach(button => {
 });
 
 
+// SCRIPT usando ajax para atualizar os botoes
+
+const itemButtonsid = document.querySelectorAll('[data-item-id]');
+itemButtonsid.forEach(button => {
+    button.addEventListener('click', () => {
+        const itemId = button.getAttribute('data-item-id');
+        const objectType = button.getAttribute('data-object-type');
+
+        // Faça uma solicitação AJAX para buscar os dados do servidor
+        $.ajax({
+            type: "GET",
+            url: `/atualizar_dados/${objectType}/${itemId}/`, // Substitua pelo URL correto
+            success: function (data) {
+                // Atualize o conteúdo do botão com os dados mais recentes
+                button.setAttribute('data-conteudo', data.conteudo);
+                // também pode atualizar outros dados do botão, se necessário
+                
+                // Atualize o CKEditor com os novos dados
+                CKEDITOR.instances.conteudo_atividade.setData(data.conteudo);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+});
+
 
 // ------------------------------------------------------------------------------------------
 
