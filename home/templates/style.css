@@ -78,8 +78,21 @@ body {
     margin-bottom: 0.125em !important;
 }
 
+.pastel-button2a { /* setinha da Lista, sim, estava usando a classe acima como id, entao preciso de uma so p estilização pois estava ocasionando bugs. nao retire */
+    background-color:#646464 !important; 
+    color: #fff !important; 
+    margin-top: 0.125em !important;
+    margin-bottom: 0.125em !important;
+}
 
 .pastel-button3 { /* PRA Atividade */
+    background-color: #444444 !important; 
+    color: #fff !important; 
+    margin-top: 0.125em !important;
+    margin-bottom: 0.125em !important;
+}
+
+.pastel-button3a { /* PRA setinha da Atividade */
     background-color: #444444 !important; 
     color: #fff !important; 
     margin-top: 0.125em !important;
@@ -92,6 +105,7 @@ body {
     margin-top: 0.125em !important;
     margin-bottom: 0.125em !important;
 }
+
 
 /*  CLASSE DEFASADA, NAO USAR
 .lista-aberta {

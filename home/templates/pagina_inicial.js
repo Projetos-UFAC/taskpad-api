@@ -102,10 +102,11 @@ itemButtonsid.forEach(button => {
                 // também pode atualizar outros dados do botão, se necessário, mas deve deixar a pag pesada
 
                 // Atualize o CKEditor com os novos dados
-                if (conteudo == 'None') {
-                    editorTextarea.value = '';
+                //console.log(data.conteudo);
+                if (data.conteudo == null) {
+                    CKEDITOR.instances.conteudo_atividade.setData('');
                 } else {
-                    editorTextarea.value = data.conteudo;
+                    CKEDITOR.instances.conteudo_atividade.setData(data.conteudo);
                 }
 
             },
