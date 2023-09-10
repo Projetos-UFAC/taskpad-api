@@ -92,23 +92,36 @@ itemButtonsid.forEach(button => {
         const itemId = button.getAttribute('data-item-id');
         const objectType = button.getAttribute('data-object-type');
 
-        // Faça uma solicitação AJAX para buscar os dados do servidor
+        // Solicitação AJAX para buscar os dados do servidor
         $.ajax({
             type: "GET",
-            url: `/atualizar_dados/${objectType}/${itemId}/`, // Substitua pelo URL correto
+            url: `/atualizar_dados/${objectType}/${itemId}/`,
             success: function (data) {
                 // Atualize o conteúdo do botão com os dados mais recentes
                 button.setAttribute('data-conteudo', data.conteudo);
-                // também pode atualizar outros dados do botão, se necessário
-                
+                // também pode atualizar outros dados do botão, se necessário, mas deve deixar a pag pesada
+
                 // Atualize o CKEditor com os novos dados
                 CKEDITOR.instances.conteudo_atividade.setData(data.conteudo);
+
             },
             error: function (error) {
                 console.log(error);
             }
         });
     });
+});
+
+// 
+
+document.getElementById('atualizarConteudo').addEventListener('click', function () {
+
+    $('#myModalSucess').modal('show');
+
+    // Ocultar o modal automaticamente após 2 segundos
+    setTimeout(function () {
+        $('#myModalSucess').modal('hide');
+    }, 2000);
 });
 
 
@@ -136,7 +149,7 @@ function marcarListaAbertarow(botao) {
     mostrarCKEditor(); // chamando a func para mostrar o editor
     if (listaAbertarow !== null) {
         listaAbertarow.classList.remove('lista-aberta-row'); // Remove a classe da lista aberta anterior
-        
+
     }
 
 
@@ -213,19 +226,19 @@ function atualizarItem(item) {
 
     let dataInicioFormatada = '';
     let dataFimFormatada = '';
-    
+
     if (dataFim == 'None') {
         dataFimFormatada = dataFim;
     } else {
         dataFimFormatada = formatarData(dataFim);
     }
-    
+
     if (dataInicio == 'None') {
         dataInicioFormatada = dataInicio;
     } else {
         dataInicioFormatada = formatarData(dataInicio);
     }
-    
+
     const atualizarModal = new bootstrap.Modal(document.getElementById('atualizarModal'));
     // Preencha os campos do formulário de atualização com os dados do item
     document.getElementById('updateObjectTypeInput').value = objectType;
@@ -422,11 +435,11 @@ function criarEventosAPartirDeAtividades() {
 
         const tipoItem = elemento.getAttribute('data-object-type');
         if (tipoItem === 'atividade') {
-            cor = '#444444'; 
+            cor = '#444444';
         } else if (tipoItem === 'lista') {
-            cor = '#646464'; 
+            cor = '#646464';
         } else if (tipoItem === 'tarefa') {
-            cor = '#262626'; 
+            cor = '#262626';
         }
 
         if (nome && dataInicio && dataFim) {
@@ -435,7 +448,7 @@ function criarEventosAPartirDeAtividades() {
             } else {
                 dataFimFormatada = formatarData(dataFim);
             }
-            
+
             if (dataInicio == 'None') {
                 dataInicioFormatada = dataInicio;
             } else {
@@ -503,7 +516,7 @@ function csrfSafeMethod(method) {
 
 // Configuração global do jQuery para incluir o token CSRF nas solicitações AJAX
 $.ajaxSetup({
-    beforeSend: function(xhr, settings) {
+    beforeSend: function (xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         }
@@ -527,7 +540,7 @@ $(document).ready(function () {
                 object_type: object_type,
                 csrfmiddlewaretoken: csrftoken  // Passa o valor do token CSRF aqui
             },
-            
+
             success: function (response) {
                 // Atualize o CKEditor 
                 CKEDITOR.instances.conteudo_atividade.setData(response.conteudo_atividade);
