@@ -74,10 +74,10 @@ itemButtons.forEach(button => {
         const conteudo = button.getAttribute('data-conteudo');
         if (conteudo == 'None') {
             editorTextarea.value = '';
-            console.log("Não tem nada");
+            //console.log("Não tem nada");
         } else {
             editorTextarea.value = conteudo;
-            console.log("Conteudo:", conteudo);
+            //console.log("Conteudo:", conteudo);
         }
 
     });
@@ -102,7 +102,11 @@ itemButtonsid.forEach(button => {
                 // também pode atualizar outros dados do botão, se necessário, mas deve deixar a pag pesada
 
                 // Atualize o CKEditor com os novos dados
-                CKEDITOR.instances.conteudo_atividade.setData(data.conteudo);
+                if (conteudo == 'None') {
+                    editorTextarea.value = '';
+                } else {
+                    editorTextarea.value = data.conteudo;
+                }
 
             },
             error: function (error) {
