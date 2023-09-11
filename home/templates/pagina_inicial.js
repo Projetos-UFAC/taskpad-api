@@ -572,14 +572,27 @@ function filtrarItens() {
 
         // Verifique se o texto do item corresponde à pesquisa
         if (listItemText.indexOf(searchTerm) !== -1) {
-            // Se corresponder, mostre o item e todos os elementos dentro da div pai
+            // Se corresponder, mostre o item e adicione uma classe CSS
             divParent.show();
+            $(this).addClass('item-filtrado');
+            $(this).removeClass('border-start-0'); // Colocar a borda de volta
         } else {
-            // Se não corresponder, oculte o item e todos os elementos dentro da div pai
+            // Se não corresponder, oculte o item e remova a classe CSS
             divParent.hide();
+            $(this).removeClass('item-filtrado');
         }
     });
+
+    if (searchTerm === '') {
+        $('.list-group-item').removeClass('item-filtrado');
+        $('.list-group-item').addClass('border-start-0'); // Tirar a borda de volta
+        $('.com-borda').removeClass('border-start-0'); // bota a borda na setinha ''-.-
+    }
 }
 
 // Evento que aciona a função de filtragem quando algo é digitado na caixa de pesquisa
-$('#searchInput').on('keyup', filtrarItens);
+$(document).ready(function() {
+    $('#searchInput').on('keyup', filtrarItens);
+});
+
+

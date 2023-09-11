@@ -236,3 +236,13 @@ body {
     background-color: #f0f0f0;
 }
 
+
+/* classe pro item filtrado nao ficar bugado */
+.item-filtrado {
+    border: 1px solid rgb(255, 255, 255) !important;
+    border-radius: 2px !important; /* Arredonda as bordas do botão */
+    margin-left: 5% !important;
+    flex-basis: calc((100% / 10 * 10) + 15%);
+    min-width: calc((100% / 10 * 10) + 15%); 
+
+}
