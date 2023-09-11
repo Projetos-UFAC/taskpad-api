@@ -528,7 +528,7 @@ $.ajaxSetup({
     }
 });
 
-//
+// finalmente aqui sim ele atualiza certinho.... pohhhh
 const atualizarConteudoUrl = "atualizar_conteudo/";
 $(document).ready(function () {
     $("#atualizarConteudo").click(function () {
@@ -556,3 +556,30 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+// ---------------------------------------------------------------------
+
+// Função para filtrar itens com base no nome dos itens, listas atividades e tarefas pela tag list-group-item
+// 
+function filtrarItens() {
+    var searchTerm = $('#searchInput').val().toLowerCase();
+
+    $('.list-group-item').each(function() {
+        var listItemText = $(this).text().toLowerCase();
+        var divParent = $(this).closest('div'); // Encontre a div pai mais próxima
+
+        // Verifique se o texto do item corresponde à pesquisa
+        if (listItemText.indexOf(searchTerm) !== -1) {
+            // Se corresponder, mostre o item e todos os elementos dentro da div pai
+            divParent.show();
+        } else {
+            // Se não corresponder, oculte o item e todos os elementos dentro da div pai
+            divParent.hide();
+        }
+    });
+}
+
+// Evento que aciona a função de filtragem quando algo é digitado na caixa de pesquisa
+$('#searchInput').on('keyup', filtrarItens);
