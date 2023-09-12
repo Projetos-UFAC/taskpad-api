@@ -587,6 +587,18 @@ function filtrarItens() {
         $('.list-group-item').removeClass('item-filtrado');
         $('.list-group-item').addClass('border-start-0'); // Tirar a borda de volta
         $('.com-borda').removeClass('border-start-0'); // bota a borda na setinha ''-.-
+    
+        $('.list-group-item[data-bs-toggle="collapse"]').attr('aria-expanded', 'false').addClass('collapsed');
+        $('.collapse').removeClass('show'); // fechar todos os itens
+
+        $('.btn-criar').show();
+    }
+    else{
+        // Abrir todas as listas para garantir que todas as atividades e tarefas estejam disponíveis para filtragem
+        $('.list-group-item[data-bs-toggle="collapse"]').attr('aria-expanded', 'true').removeClass('collapsed');
+        $('.collapse').addClass('show');
+
+        $('.btn-criar').hide(); // esconder botoes de criar
     }
 }
 
@@ -594,5 +606,6 @@ function filtrarItens() {
 $(document).ready(function() {
     $('#searchInput').on('keyup', filtrarItens);
 });
+
 
 
