@@ -15,7 +15,7 @@ class Lista(models.Model):
     descricao = models.TextField(null=True, blank=True)
     dataInicio = models.DateField(null=True, blank=True)
     dataFim = models.DateField(null=True, blank=True)
-    status = models.BooleanField()
+    status = models.BooleanField(default=True)
     prioridade = models.IntegerField(choices=CHOICES) 
     texto = RichTextField(null=True, blank=True)
     
