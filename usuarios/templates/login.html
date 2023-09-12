@@ -33,6 +33,7 @@
     
 
         <div class="div-login box">
+            <h2>Login</h2>
             <form class="text-center" action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
                 {% if messages %}
