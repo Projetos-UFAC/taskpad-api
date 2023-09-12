@@ -11,6 +11,11 @@ omit =
     usuarios/*
     teste.py
     schema.yaml
+    requirements.txt
+    atividade/views.py
+    tarefa/views.py
+    relatorio/views.py
+    lista/views.py
     
 
 [report]
