@@ -15,12 +15,15 @@
                 <form method="POST" action="{% url 'criar_lista' %}">
                     {% csrf_token %}
                     <label for="nome" style="color: black;">Nome da Lista:</label>
-                    <input type="text" id="nome" name="nome" class="form-control" required>
+                    <input type="text" placeholder="Nome da sua Lista" id="nome" name="nome" class="form-control"
+                        required>
                     <label for="descricao" style="color: black;">Descrição:</label>
-                    <textarea id="descricao" name="descricao" class="form-control"></textarea>
+                    <textarea id="descricao"
+                        placeholder="Uma breve descrição sobre do que se trata sua Lista, pode deixar vazio se preferir."
+                        name="descricao" class="form-control"></textarea>
                     <label for="dataInicio" style="color: black;">Data de Início:</label>
                     <input type="date" id="dataInicio" name="dataInicio" class="form-control">
-                    <label for="dataFim">Data de Término:</label>
+                    <label for="dataFim" style="color: black;">Data de Término:</label>
                     <input type="date" id="dataFim" name="dataFim" class="form-control">
                     <label for="prioridade" style="color: black;">Prioridade:</label>
                     <select id="prioridade" name="prioridade" class="form-control" required>
@@ -54,11 +57,13 @@
                     <input type="hidden" name="user_id" value="{{ request.user.id }}">
                     <div class="mb-3">
                         <label for="nome_atividade" class="form-label" style="color: black;">Nome da Atividade:</label>
-                        <input type="text" class="form-control" id="nome_atividade" name="nome_atividade" required>
+                        <input type="text" placeholder="Nome da sua Atividade" class="form-control" id="nome_atividade" name="nome_atividade" required>
                     </div>
                     <div class="mb-3">
                         <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
-                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                        <textarea class="form-control" 
+                        placeholder="Uma breve descrição sobre do que se trata sua Atividade, pode deixar vazio se preferir."
+                        id="descricao" name="descricao"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
@@ -101,11 +106,12 @@
                     <input type="hidden" name="user_id" value="{{ request.user.id }}">
                     <div class="mb-3">
                         <label for="nome_tarefa" class="form-label" style="color: black;">Nome da Tarefa:</label>
-                        <input type="text" class="form-control" id="nome_tarefa" name="nome_tarefa" required>
+                        <input type="text" placeholder="Nome da sua Tarefa" class="form-control" id="nome_tarefa" name="nome_tarefa" required>
                     </div>
                     <div class="mb-3">
                         <label for="descricao" class="form-label" style="color: black;">Descrição:</label>
-                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                        <textarea class="form-control" id="descricao" name="descricao"
+                        placeholder="Uma breve descrição sobre do que se trata sua Tarefa, pode deixar vazio se preferir."></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="dataInicio" class="form-label" style="color: black;">Data de Início:</label>
