@@ -18,7 +18,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'usuarios/templates/style.css' %}">
-    
+
 </head>
 
 <body>
@@ -30,19 +30,21 @@
     </div>
     <div class="container">
 
-    
+
 
         <div class="div-login box">
             <h2>Login</h2>
             <form class="text-center" action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
                 {% if messages %}
-                {% for m in messages %}
-                <div class="alert-custom alert-warning" role="alert">
-                    {{ m }}
-                </div>
-                {% endfor %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
                 {% endif %}
+
+
                 <input class="form-login" type="text" name="username" placeholder="Usuário">
                 <input class="form-login" type="password" name="senha" placeholder="Senha">
                 <input class="botao-login" type="submit" value="ENTRAR">
@@ -51,7 +53,18 @@
             </form>
         </div>
     </div>
-    
+
+
+    <script>
+        // Função para remover automaticamente as mensagens após 5 segundos
+        setTimeout(function () {
+            var messages = document.querySelectorAll('.messages li');
+            for (var i = 0; i < messages.length; i++) {
+                messages[i].style.display = 'none';
+            }
+        }, 5000); // 5000 milissegundos = 5 segundos
+    </script>
+
 </body>
 
 </html>

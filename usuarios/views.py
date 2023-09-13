@@ -24,25 +24,28 @@ def cadastro(request):
 
         if len(senha) < 8 or len(senha) > 16:
             messages.info(request, 'A senha deve conter de 8 a 16 caracteres')
-            return redirect('cadastro')
+            return render(request, 'cadastro.html', {'username': username, 'email': email})
         
         if checkEmail(email) == False:
             messages.info(request, 'E-mail inválido')
-            return redirect('cadastro')
+            return render(request, 'cadastro.html', {'username': username, 'email': email})
         
         # checando caso nome seja repetido
         user = User.objects.filter(username = username).first()
 
         if user:
-            messages.info(request, 'Usuario ja cadastrado')
-            return redirect('cadastro')
+            messages.info(request, 'Usuario já cadastrado')
+            return render(request, 'cadastro.html', {'username': username, 'email': email})
         
-        # criando usuario do database
+        # Adicione a mensagem de sucesso
+        messages.success(request, 'Cadastrado com sucesso!')
+        
+        # criando usuário do database
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
 
         return redirect('login')
-    
+
     
 
 def login(request):
