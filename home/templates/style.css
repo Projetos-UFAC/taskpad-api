@@ -90,6 +90,7 @@ body {
     color: #fff !important; 
     margin-top: 0.125em !important;
     margin-bottom: 0.125em !important;
+    
 }
 
 .pastel-button3a { /* PRA setinha da Atividade */
@@ -104,6 +105,7 @@ body {
     color: #ffffff !important; 
     margin-top: 0.125em !important;
     margin-bottom: 0.125em !important;
+    
 }
 
 
@@ -241,7 +243,7 @@ body {
 .tarefa-filtrado {
     border: 1px solid rgb(255, 255, 255) !important;
     border-radius: 2px !important; /* Arredonda as bordas do botão */
-    margin-left: 3% !important;
+    margin-left: 4% !important;
     /* flex-basis: calc((100% / 10 * 10) - 5%);
     min-width: calc((100% / 10 * 10) - 5%); */
 
@@ -252,8 +254,8 @@ body {
     border: 1px solid rgb(255, 255, 255) !important;
     border-radius: 2px !important; /* Arredonda as bordas do botão */
     margin-left: 10% !important;
-    flex-basis: calc((100% / 10 * 10) + 14%);
-    min-width: calc((100% / 10 * 10) + 14%);
+    flex-basis: calc((100% / 10 * 10) + 15%);
+    min-width: calc((100% / 10 * 10) + 15%);
 
 }
 
@@ -262,7 +264,12 @@ body {
     border: 1px solid rgb(255, 255, 255) !important;
     border-radius: 2px !important; /* Arredonda as bordas do botão */
     margin-left: 10% !important;
-    flex-basis: calc((100% / 10 * 10) + 14%);
-    min-width: calc((100% / 10 * 10) + 14%);
+    flex-basis: calc((100% / 10 * 10) + 15%);
+    min-width: calc((100% / 10 * 10) + 15%);
 
+}
+
+.max-height-list {
+    max-height: 600px; /* Defina a altura máxima desejada */
+    overflow-y: auto; /* Torna a lista rolável quando necessário */
 }
