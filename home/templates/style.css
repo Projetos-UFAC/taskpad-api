@@ -238,11 +238,31 @@ body {
 
 
 /* classe pro item filtrado nao ficar bugado */
-.item-filtrado {
+.tarefa-filtrado {
     border: 1px solid rgb(255, 255, 255) !important;
     border-radius: 2px !important; /* Arredonda as bordas do botão */
-    margin-left: 5% !important;
-    /*flex-basis: calc((100% / 10 * 10) + 15%);
-    min-width: calc((100% / 10 * 10) + 15%); */
+    margin-left: 3% !important;
+    /* flex-basis: calc((100% / 10 * 10) - 5%);
+    min-width: calc((100% / 10 * 10) - 5%); */
+
+}
+
+/* classe pro item filtrado nao ficar bugado */
+.lista-filtrado {
+    border: 1px solid rgb(255, 255, 255) !important;
+    border-radius: 2px !important; /* Arredonda as bordas do botão */
+    margin-left: 10% !important;
+    flex-basis: calc((100% / 10 * 10) + 14%);
+    min-width: calc((100% / 10 * 10) + 14%);
+
+}
+
+/* classe pro item filtrado nao ficar bugado */
+.atividade-filtrado {
+    border: 1px solid rgb(255, 255, 255) !important;
+    border-radius: 2px !important; /* Arredonda as bordas do botão */
+    margin-left: 10% !important;
+    flex-basis: calc((100% / 10 * 10) + 14%);
+    min-width: calc((100% / 10 * 10) + 14%);
 
 }
