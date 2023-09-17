@@ -252,10 +252,13 @@
                 </div>
 
                 <!-- Botão de envio do formulário -->
-                <button type="button" class="btn pastel-button" id="atualizarConteudo">Salvar</button>
+                <button type="button" class="btn salvar-button" id="atualizarConteudo">Salvar</button>
 
                 <input type="hidden" name="exportar" id="exportar" value="false">
-                <button type="button" class="btn pastel-button" id="exportar-botao">Exportar</button>
+                <button type="button" class="btn exportar-botao" id="exportar-botao">
+                    Exportar
+                    <img src="{% static 'home/templates/arquivo-docx.png' %}" alt="Ícone de Calendário" style="width: 25px;">
+                </button>
             </form>
 
         </div>
