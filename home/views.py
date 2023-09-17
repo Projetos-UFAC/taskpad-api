@@ -60,26 +60,29 @@ def atualizar_conteudo(request):
                 obj = get_object_or_404(Tarefa, id=item_id)
                 obj.texto = conteudo_atividade
                 obj.save()
-                    # Se a exportação deve ser realizada
 
+            # Se a exportação deve ser realizada
             exportar = request.POST.get('exportar')
             print(exportar)
             if exportar == 'true':
                 
                 # Realize a exportação do conteúdo para um arquivo .docx
-                conteudo = obj.texto  # Suponha que o campo 'texto' contenha os dados a serem exportados
+                conteudo = obj.texto
+
+                conteudo = processar_imagens_base64(conteudo)
+
                 print(obj.nome)
                 print(conteudo)
                 nome_do_arquivo = f"{obj.nome}_exported.docx"
 
-                # Crie um novo documento DOCX
+                #novo documento DOCX
                 doc = Document()
                 new_parser = HtmlToDocx()
 
-                # Adicione o conteúdo HTML ao documento DOCX
+                # conteúdo HTML p documento DOCX
                 new_parser.add_html_to_document(conteudo, doc)
 
-                # Salve o documento DOCX em uma resposta HTTP para download
+                # Salvar o documento DOCX em uma resposta HTTP para download
                 response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
                 response['Content-Disposition'] = f'attachment; filename="{nome_do_arquivo}"'
                 doc.save(response)
@@ -90,9 +93,29 @@ def atualizar_conteudo(request):
 
     return JsonResponse({'erro': 'Requisição inválida'})
 
+# ----------------------------------------------------------------------
 
+import re
+import base64
+import tempfile
 
+def processar_imagens_base64(conteudo_html):
+    padrao_img = r'<img .*?src="data:image\/\w+;base64,([^"]+)"'
+    matches = re.findall(padrao_img, conteudo_html)
 
+    for match in matches:
+        # Decodifique a sequência Base64
+        imagem_binaria = base64.b64decode(match)
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.jpg') as tmpfile:
+            tmpfile.write(imagem_binaria)
+            caminho_imagem_temporaria = tmpfile.name
+
+        conteudo_html = conteudo_html.replace(f'data:image/jpeg;base64,{match}', caminho_imagem_temporaria)
+
+    return conteudo_html
+
+# ----------------------------------------------------------------------
 class CriarListaView(APIView):
     @extend_schema(
         description="Cria uma nova lista.",
