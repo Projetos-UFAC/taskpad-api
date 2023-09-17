@@ -605,15 +605,18 @@ function filtrarItens() {
 
         } else {
             // Se não corresponder, oculte o item e remova a classe CSS
-            divParent.hide();
             $(this).removeClass('lista-filtrado');
             $(this).removeClass('atividade-filtrado');
             $(this).removeClass('tarefa-filtrado');
+            divParent.hide();
         }
     });
 
     if (searchTerm === '') {
         $('.list-group-item').removeClass('lista-filtrado');
+        $('.list-group-item').removeClass('atividade-filtrado');
+        $('.list-group-item').removeClass('tarefa-filtrado');
+        
         $('.list-group-item').addClass('border-start-0'); // Tirar a borda de volta
         $('.com-borda').removeClass('border-start-0'); // bota a borda na setinha ''-.-
 
@@ -636,25 +639,5 @@ $(document).ready(function () {
     $('#searchInput').on('keyup', filtrarItens);
 });
 
+// ------------------------------------------------------------------------------------------------
 
-
-$(document).ready(function () {
-    $('#filtroPor').change(function () {
-        var criterio = $(this).val();
-
-        // Implemente a lógica de filtro com base no critério selecionado
-        if (criterio === 'data') {
-            // Aplicar filtro por data
-            // ...
-        } else if (criterio === 'prioridade') {
-            // Aplicar filtro por prioridade
-            // ...
-        } else if (criterio === 'nome') {
-            // Aplicar filtro por nome
-            // ...
-        } else {
-            // Sem filtro, redefina a lista de itens
-            // ...
-        }
-    });
-});
