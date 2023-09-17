@@ -13,6 +13,8 @@ from atividade.models import Atividade
 from tarefa.models import Tarefa
 from .forms import ListaForm, AtividadeForm, TarefaForm
 from django.views.decorators.csrf import csrf_protect
+from docx import Document
+from htmldocx import HtmlToDocx
 
 @login_required(login_url="/auth/login/")
 def pagina_inicial(request):
@@ -44,6 +46,7 @@ def atualizar_conteudo(request):
         object_type = request.POST.get('object_type')
         item_id = request.POST.get('object_id')
         conteudo_atividade = request.POST.get('conteudo_atividade')
+        nome = request.POST.get('nome')
         
         if object_type and item_id:
             if object_type == 'lista':
@@ -58,7 +61,33 @@ def atualizar_conteudo(request):
                 obj = get_object_or_404(Tarefa, id=item_id)
                 obj.texto = conteudo_atividade
                 obj.save()
+                    # Se a exportação deve ser realizada
 
+            exportar = request.POST.get('exportar')
+            print(exportar)
+            if exportar == 'true':
+                
+                # Realize a exportação do conteúdo para um arquivo .docx
+                conteudo = obj.texto  # Suponha que o campo 'texto' contenha os dados a serem exportados
+                obj.nome = nome
+                print(nome)
+                print(conteudo)
+                nome_do_arquivo = f"{obj.nome}_exported.docx"
+
+                # Crie um novo documento DOCX
+                doc = Document()
+                new_parser = HtmlToDocx()
+
+                # Adicione o conteúdo HTML ao documento DOCX
+                new_parser.add_html_to_document(conteudo, doc)
+
+                # Salve o documento DOCX em uma resposta HTTP para download
+                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                response['Content-Disposition'] = f'attachment; filename="{nome_do_arquivo}"'
+                doc.save(response)
+
+                return response
+            
             return JsonResponse({'conteudo_atividade': obj.texto})
 
     return JsonResponse({'erro': 'Requisição inválida'})

@@ -1,6 +1,22 @@
 // by Clécio, duvidas é só chamar e perguntar
 
 
+// func pra exportar ao invez de salvar, ele muda o valor do meu tag exportar pra true
+
+// ouvinte de evento ao botão "Exportar"
+let exportButton = document.getElementById('exportar-botao')
+if (exportButton) {
+    document.getElementById('exportar-botao').addEventListener('click', function () {
+        console.log('teste');
+        // Defina o valor do campo oculto "exportar" como "true"
+        document.getElementById('exportar').value = 'true';
+
+        // Envie o formulário
+        document.getElementById('meuFormulario').submit();
+    });
+}
+
+// -------------------------------------------------------------------------
 // capturar os eventos de click nos itens e deixar o ckeditor vazio
 document.addEventListener('DOMContentLoaded', function () {
     // Inicializar o CKEditor no campo 'conteudo_atividade'
