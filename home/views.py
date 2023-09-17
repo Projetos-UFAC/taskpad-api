@@ -63,16 +63,14 @@ def atualizar_conteudo(request):
 
             # Se a exportação deve ser realizada
             exportar = request.POST.get('exportar')
-            print(exportar)
+            #print(exportar)
             if exportar == 'true':
-                
-                # Realize a exportação do conteúdo para um arquivo .docx
+
                 conteudo = obj.texto
+                conteudo = processar_imagens_base64(conteudo) # chamando a função que fiz abaixo
 
-                conteudo = processar_imagens_base64(conteudo)
-
-                print(obj.nome)
-                print(conteudo)
+                #print(obj.nome)
+                #print(conteudo)
                 nome_do_arquivo = f"{obj.nome}_exported.docx"
 
                 #novo documento DOCX
@@ -94,26 +92,41 @@ def atualizar_conteudo(request):
     return JsonResponse({'erro': 'Requisição inválida'})
 
 # ----------------------------------------------------------------------
+# Func para processar imagens em base64 que fiz nos documentos
 
 import re
 import base64
 import tempfile
 
 def processar_imagens_base64(conteudo_html):
-    padrao_img = r'<img .*?src="data:image\/\w+;base64,([^"]+)"'
+    # Expressão regular para encontrar imagens em Base64 no conteúdo HTML
+    padrao_img = r'<img .*?src="data:image\/(\w+);base64,([^"]+)"'
     matches = re.findall(padrao_img, conteudo_html)
 
-    for match in matches:
-        # Decodifique a sequência Base64
+    for formato, match in matches:
         imagem_binaria = base64.b64decode(match)
 
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.jpg') as tmpfile:
+        # Determinar a extensão do arquivo com base no formato
+        if formato == 'jpeg':
+            extensao = 'jpg'
+        elif formato == 'png':
+            extensao = 'png'
+        elif formato == 'gif':
+            extensao = 'gif'
+        else:
+            # tratar outros formatos aqui
+            extensao = 'jpg'
+
+        # Salvando a imagem como um arquivo temporário
+        with tempfile.NamedTemporaryFile(delete=False, suffix=f'.{extensao}') as tmpfile:
             tmpfile.write(imagem_binaria)
             caminho_imagem_temporaria = tmpfile.name
 
-        conteudo_html = conteudo_html.replace(f'data:image/jpeg;base64,{match}', caminho_imagem_temporaria)
+        # Substitui a imagem pelo caminho do arquivo temporário no conteúdo HTML
+        conteudo_html = conteudo_html.replace(f'data:image/{formato};base64,{match}', caminho_imagem_temporaria)
 
     return conteudo_html
+
 
 # ----------------------------------------------------------------------
 class CriarListaView(APIView):
