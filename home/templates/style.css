@@ -308,3 +308,7 @@ body {
     overflow-y: auto;
     /* Torna a lista rolável quando necessário */
 }
+
+.select.form-select {
+    color: black;
+}

@@ -638,3 +638,23 @@ $(document).ready(function () {
 
 
 
+$(document).ready(function () {
+    $('#filtroPor').change(function () {
+        var criterio = $(this).val();
+
+        // Implemente a lógica de filtro com base no critério selecionado
+        if (criterio === 'data') {
+            // Aplicar filtro por data
+            // ...
+        } else if (criterio === 'prioridade') {
+            // Aplicar filtro por prioridade
+            // ...
+        } else if (criterio === 'nome') {
+            // Aplicar filtro por nome
+            // ...
+        } else {
+            // Sem filtro, redefina a lista de itens
+            // ...
+        }
+    });
+});
