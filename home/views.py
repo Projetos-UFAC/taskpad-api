@@ -15,6 +15,11 @@ from .forms import ListaForm, AtividadeForm, TarefaForm
 from django.views.decorators.csrf import csrf_protect
 from docx import Document
 from htmldocx import HtmlToDocx
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.http import JsonResponse
+from django.core import serializers
+from django.db.models import F, Case, When, Value, CharField, IntegerField
 
 @login_required(login_url="/auth/login/")
 def pagina_inicial(request):
@@ -23,7 +28,6 @@ def pagina_inicial(request):
         atividades = Atividade.objects.filter(user=request.user)
         tarefas = Tarefa.objects.filter(user=request.user)
         texto_form = RichTextFormField()
-
         lista_form = ListaForm()
         atividade_form = AtividadeForm()
         tarefa_form = TarefaForm()
@@ -39,6 +43,48 @@ def pagina_inicial(request):
         })
     else:
         return HttpResponse('Você precisa estar logado')
+
+
+def ordenar_itens(request):
+    if request.method == 'POST':
+        ordem = request.POST.get('ordenarPor')  # Obtém a opção selecionada no formulário
+        print(ordem)
+
+        listas = Lista.objects.filter(user=request.user)
+        atividades = Atividade.objects.filter(user=request.user)
+        tarefas = Tarefa.objects.filter(user=request.user)
+        texto_form = RichTextFormField()
+        lista_form = ListaForm()
+        atividade_form = AtividadeForm()
+        tarefa_form = TarefaForm()
+        print(listas)
+        # Adicione um campo virtual para ordenação
+        if ordem == 'dataAsc':
+            listas = sorted(listas, key=lambda x: x.dataInicio)
+        elif ordem == 'dataDesc':
+            listas = sorted(listas, key=lambda x: x.dataInicio, reverse=True)
+        elif ordem == 'prioridadeAsc':
+            listas = sorted(listas, key=lambda x: x.prioridade)
+        elif ordem == 'prioridadeDesc':
+            listas = sorted(listas, key=lambda x: x.prioridade, reverse=True)
+        elif ordem == 'nomeAsc':
+            listas = sorted(listas, key=lambda x: x.nome)
+        elif ordem == 'nomeDesc':
+            listas = sorted(listas, key=lambda x: x.nome, reverse=True)
+        print('-------------------------------------------------------------------')
+        print(listas)
+
+        # Retorne apenas o conteúdo da div como resposta
+        return render(request, 'listas.html', 
+                    {'listas': listas, 
+                    'atividades': atividades, 
+                    'tarefas': tarefas,
+                    'lista_form': lista_form,
+                    'atividade_form': atividade_form,
+                    'tarefa_form': tarefa_form,
+                    'texto_form': texto_form, })
+    return redirect('pagina_inicial')
+
 
 @csrf_protect
 def atualizar_conteudo(request):
@@ -354,3 +400,8 @@ def atualizar_dados(request, object_type, item_id):
         data['conteudo'] = tarefa.texto  # Supondo que o campo 'texto' contenha os dados que você deseja
 
     return JsonResponse(data)
+
+'''
+return render(request, 'pagina_inicial.html', {} Se for render, tu passa um template
+return redirect('pagina_inicial') Se for redirect, tu passa uma função
+'''

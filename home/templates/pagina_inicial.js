@@ -638,50 +638,46 @@ $(document).ready(function () {
 });
 
 
-// ------------------------------------------------------------------------------------------------
-
-// Função para ordenar os itens, listamos todos e então ordenamos
-
-function aplicarOrdenacao() {
-    var ordem = $('#ordenarPor').val(); // Obtém a opção selecionada na caixa de seleção de ordenação
-    var itensObjeto = $('.itemobjeto'); 
-    if (ordem !== 'semOrdem') {
-        // FILTRA
-        // Adicione as classes de filtragem a todos os itens
-        $('.itemobjeto').each(function () {
-            var divParent = $(this).closest('div'); // Encontre a div pai mais próxima
-            divParent.show();
-            $(this).removeClass('border-start-0'); // Colocar a borda de volta
-            if ($(this).hasClass("pastel-button2")) { // uma lista, cada item precisa da sua estilização
-                $(this).addClass('lista-filtrado');
-            }
-            if ($(this).hasClass("pastel-button3")) { // uma atividade
-                $(this).addClass('atividade-filtrado');
-            }
-            // Abrir todas as listas para garantir que todas as atividades e tarefas estejam disponíveis para filtragem
-            $('.itemobjeto[data-bs-toggle="collapse"]').attr('aria-expanded', 'true').removeClass('collapsed');
-            $('.collapse').addClass('show');
-            $('.btn-criar').hide(); // esconder botoes de criar
-            $('.setinha').hide(); // esconder botoes de setinha
-        });
-    } else {
-        // VOLTA AO NORMAL
-        // Remova as classes de filtragem de todos os itens
-        $('.itemobjeto').removeClass('lista-filtrado');
-        $('.itemobjeto').removeClass('atividade-filtrado');
-        $('.itemobjeto').addClass('border-start-0'); // Tirar a borda de volta
-        $('.com-borda').removeClass('border-start-0'); // bota a borda na setinha ''-.-
-        $('.itemobjeto[data-bs-toggle="collapse"]').attr('aria-expanded', 'false').addClass('collapsed');
-        $('.collapse').removeClass('show'); // fechar todos os itens
-        $('.btn-criar').show();
-        $('.setinha').show();
-    }
-}
-
-// Evento que aciona a função de aplicar ordenação quando a opção de ordenação for alterada
+// ---------------------------------------------------------------------------------------------------------------
+// VOU TENTAR DE OUTRO MODO
+// Vamos ter de fazer como uma ordenação definitiva no render da pagina
 $(document).ready(function () {
-    $('#ordenarPor').change(function () {
-        aplicarOrdenacao();
+    $('#ordenarPor').on('change', function () {
+        var selectedOption = $(this).val();
+        $.ajax({
+            url: '/ordenar_itens/',
+            method: 'POST',
+            data: {
+                'ordenarPor': selectedOption
+            },
+            dataType: 'html',
+            success: function (data) {
+                $('#lista-itens').html(data);
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    });
+
+    // Delegação de eventos para lidar com cliques nos botões
+    $('#lista-itens').on('click', '.itemobjeto', function () {
+
+        const botoesLista = document.querySelectorAll('.pastel-button2');
+        botoesLista.forEach(function (botao) {
+            botao.addEventListener('click', function () {
+                const conteudoLista = botao.getAttribute('data-conteudo'); // Conteúdo da lista
+                if (conteudoLista == 'None') {
+                    CKEDITOR.instances.conteudo_atividade.setData('');
+                } else {
+                    CKEDITOR.instances.conteudo_atividade.setData(conteudoLista); // Atualizar o CKEditor
+                }
+
+
+                const listaId = botao.getAttribute('data-item-id'); // Obtém o ID da lista
+                document.getElementById('item_id').value = listaId; // Define o valor do campo oculto
+                document.getElementById('object_type').value = 'lista';
+            });
+        });
     });
 });
-
