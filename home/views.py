@@ -46,7 +46,6 @@ def atualizar_conteudo(request):
         object_type = request.POST.get('object_type')
         item_id = request.POST.get('object_id')
         conteudo_atividade = request.POST.get('conteudo_atividade')
-        nome = request.POST.get('nome')
         
         if object_type and item_id:
             if object_type == 'lista':
@@ -69,8 +68,7 @@ def atualizar_conteudo(request):
                 
                 # Realize a exportação do conteúdo para um arquivo .docx
                 conteudo = obj.texto  # Suponha que o campo 'texto' contenha os dados a serem exportados
-                obj.nome = nome
-                print(nome)
+                print(obj.nome)
                 print(conteudo)
                 nome_do_arquivo = f"{obj.nome}_exported.docx"
 
