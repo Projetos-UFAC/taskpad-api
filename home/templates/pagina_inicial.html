@@ -110,7 +110,7 @@
                         {% for lista in listas %}
                         <!-- Butoes de listas -->
                         <div class="row">
-                            <div class="col-md-2" style="padding-right: 0%;">
+                            <div class="col-md-2 setinha" style="padding-right: 0%;">
                                 <button
                                     class="com-borda list-group-item list-group-item-action pastel-button2a border-end-0"
                                     data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
@@ -119,7 +119,7 @@
                                 </button>
                             </div>
                             <div class="col-md-10" style="padding-left: 0%;">
-                                <button class="list-group-item list-group-item-action pastel-button2 border-start-0"
+                                <button class="itemobjeto list-group-item list-group-item-action pastel-button2 border-start-0"
                                     data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}"
                                     data-object-type="lista"
                                     onclick="marcarListaAbertarow(this.parentElement.parentElement)"
@@ -138,7 +138,7 @@
                                 {% for atividade in lista.atividade_set.all %}
 
                                 <div class="row">
-                                    <div class="col-md-2" style="padding-right: 0%;">
+                                    <div class="col-md-2 setinha" style="padding-right: 0%;">
                                         <button
                                             class="com-borda list-group-item list-group-item-action pastel-button3a border-end-0"
                                             data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
@@ -149,7 +149,7 @@
                                     <div class="col-md-10" style="padding-left: 0%;">
                                         <!-- BOTEI NOME TAREFA LA EMBAIXO AGORA VAI FICAR NOME TAREFA EM TODOS -->
                                         <button
-                                            class="list-group-item list-group-item-action pastel-button3 border-start-0"
+                                            class="itemobjeto list-group-item list-group-item-action pastel-button3 border-start-0"
                                             data-conteudo="{{ atividade.texto }}" data-item-id="{{ atividade.id }}"
                                             data-object-type="atividade" data-nome-tarefa="{{ atividade.nome }}"
                                             data-descricao="{{ atividade.descricao }}"
@@ -171,7 +171,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <button
-                                                    class="com-borda list-group-item list-group-item-action pastel-button4"
+                                                    class="itemobjeto com-borda list-group-item list-group-item-action pastel-button4"
                                                     data-conteudo="{{ tarefa.texto }}" data-item-id="{{ tarefa.id }}"
                                                     data-object-type="tarefa" data-nome-tarefa="{{ tarefa.nome }}"
                                                     data-descricao="{{ tarefa.descricao }}"

@@ -582,7 +582,7 @@ $(document).ready(function () {
 function filtrarItens() {
     var searchTerm = $('#searchInput').val().toLowerCase();
 
-    $('.list-group-item').each(function () {
+    $('.itemobjeto').each(function () {
         var listItemText = $(this).text().toLowerCase();
         var divParent = $(this).closest('div'); // Encontre a div pai mais próxima
 
@@ -599,9 +599,6 @@ function filtrarItens() {
             if ($(this).hasClass("pastel-button3")) { // uma atividade
                 $(this).addClass('atividade-filtrado');
             }
-            if ($(this).hasClass("pastel-button4")) { // uma tarefa
-                $(this).addClass('tarefa-filtrado');
-            }
 
         } else {
             // Se não corresponder, oculte o item e remova a classe CSS
@@ -613,24 +610,25 @@ function filtrarItens() {
     });
 
     if (searchTerm === '') {
-        $('.list-group-item').removeClass('lista-filtrado');
-        $('.list-group-item').removeClass('atividade-filtrado');
-        $('.list-group-item').removeClass('tarefa-filtrado');
-        
-        $('.list-group-item').addClass('border-start-0'); // Tirar a borda de volta
+        $('.itemobjeto').removeClass('lista-filtrado');
+        $('.itemobjeto').removeClass('atividade-filtrado');
+
+        $('.itemobjeto').addClass('border-start-0'); // Tirar a borda de volta
         $('.com-borda').removeClass('border-start-0'); // bota a borda na setinha ''-.-
 
-        $('.list-group-item[data-bs-toggle="collapse"]').attr('aria-expanded', 'false').addClass('collapsed');
+        $('.itemobjeto[data-bs-toggle="collapse"]').attr('aria-expanded', 'false').addClass('collapsed');
         $('.collapse').removeClass('show'); // fechar todos os itens
 
         $('.btn-criar').show();
+        $('.setinha').show();
     }
     else {
         // Abrir todas as listas para garantir que todas as atividades e tarefas estejam disponíveis para filtragem
-        $('.list-group-item[data-bs-toggle="collapse"]').attr('aria-expanded', 'true').removeClass('collapsed');
+        $('.itemobjeto[data-bs-toggle="collapse"]').attr('aria-expanded', 'true').removeClass('collapsed');
         $('.collapse').addClass('show');
 
         $('.btn-criar').hide(); // esconder botoes de criar
+        $('.setinha').hide(); // esconder botoes de setinha
     }
 }
 
@@ -639,5 +637,63 @@ $(document).ready(function () {
     $('#searchInput').on('keyup', filtrarItens);
 });
 
+
 // ------------------------------------------------------------------------------------------------
+
+
+function aplicarOrdenacao() {
+    var ordem = $('#ordenarPor').val(); // Obtém a opção selecionada na caixa de seleção de ordenação
+
+    if (ordem !== 'semOrdem') {
+        // FILTRA
+        // Adicione as classes de filtragem a todos os itens
+
+        $('.itemobjeto').each(function () {
+            var listItemText = $(this).text().toLowerCase();
+            var divParent = $(this).closest('div'); // Encontre a div pai mais próxima
+
+            divParent.show();
+
+            $(this).removeClass('border-start-0'); // Colocar a borda de volta
+
+            if ($(this).hasClass("pastel-button2")) { // uma lista, cada item precisa da sua estilização
+                $(this).addClass('lista-filtrado');
+            }
+            if ($(this).hasClass("pastel-button3")) { // uma atividade
+                $(this).addClass('atividade-filtrado');
+            }
+
+            // Abrir todas as listas para garantir que todas as atividades e tarefas estejam disponíveis para filtragem
+            $('.itemobjeto[data-bs-toggle="collapse"]').attr('aria-expanded', 'true').removeClass('collapsed');
+            $('.collapse').addClass('show');
+            $('.btn-criar').hide(); // esconder botoes de criar
+            $('.setinha').hide(); // esconder botoes de setinha
+
+        });
+    } else {
+        // VOLTA AO NORMAL
+        // Remova as classes de filtragem de todos os itens
+        $('.itemobjeto').removeClass('lista-filtrado');
+        $('.itemobjeto').removeClass('atividade-filtrado');
+
+        $('.itemobjeto').addClass('border-start-0'); // Tirar a borda de volta
+        $('.com-borda').removeClass('border-start-0'); // bota a borda na setinha ''-.-
+
+        $('.itemobjeto[data-bs-toggle="collapse"]').attr('aria-expanded', 'false').addClass('collapsed');
+        $('.collapse').removeClass('show'); // fechar todos os itens
+
+        $('.btn-criar').show();
+        $('.setinha').show();
+
+    }
+
+
+}
+
+// Evento que aciona a função de aplicar ordenação quando a opção de ordenação for alterada
+$(document).ready(function () {
+    $('#ordenarPor').change(function () {
+        aplicarOrdenacao();
+    });
+});
 
