@@ -299,3 +299,11 @@ body {
 .select.form-select {
     color: black;
 }
+
+.overflow {
+    width: 95px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    text-overflow: ellipsis;
+}
