@@ -307,3 +307,10 @@ body {
     display: inline-block;
     text-overflow: ellipsis;
 }
+
+.btn-criar {
+    background-color: #4f7cc1 !important;
+    color: #ffffff !important;
+    margin-bottom: 0.1em !important;
+    margin-top: 0.1em !important;
+}
